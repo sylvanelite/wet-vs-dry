@@ -3,6 +3,8 @@ import { MouseAim } from "../controllers/mouseaim.mjs";
 import { Collision } from "../controllers/collision.mjs";
 import { Pathfind } from "../controllers/pathfind.mjs";
 import { Orchestrator } from "../controllers/orchestrator.mjs";
+import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
+import { Knockback } from "../controllers/knockback.mjs";
 import { Bullet } from "../interactable/bullets/bullet.mjs";
 import { Enemy } from "../interactable/enemy/enemy.mjs";
 import { Mineral } from "../interactable/mineral/mineral.mjs";
@@ -25,6 +27,8 @@ class Systems  {
         Collision.defineSystems(ecs,systems);
         Pathfind.defineSystems(ecs,systems);
         Orchestrator.defineSystems(ecs,systems);
+        CBTStateMachine.defineSystems(ecs,systems);
+        Knockback.defineSystems(ecs,systems);
         Bullet.defineSystems(ecs,systems);
         Enemy.defineSystems(ecs,systems);
         Mineral.defineSystems(ecs,systems);

@@ -4,6 +4,8 @@ import { Collision } from "../controllers/collision.mjs";
 import { Pathfind } from "../controllers/pathfind.mjs";
 import { MouseAim } from "../controllers/mouseaim.mjs";
 import { Orchestrator } from "../controllers/orchestrator.mjs";
+import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
+import { Knockback } from "../controllers/knockback.mjs";
 import { Bullet } from "../interactable/bullets/bullet.mjs";
 import { Enemy } from "../interactable/enemy/enemy.mjs";
 import { Mineral } from "../interactable/mineral/mineral.mjs";
@@ -46,6 +48,8 @@ class Components  {
         Pathfind.defineComponents();
         MouseAim.defineComponents();
         Orchestrator.defineComponents();
+        CBTStateMachine.defineComponents();
+        Knockback.defineComponents();
         Bullet.defineComponents();
         Enemy.defineComponents();
         Mineral.defineComponents();
