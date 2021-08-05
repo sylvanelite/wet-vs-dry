@@ -2,9 +2,13 @@
 import { defineSystem,types } from "../ecs.js";
 import { Knockback } from "./knockback.mjs";
 import DataRedhood  from "../assets/characters/data-redhood.mjs";
-import  DataWarrior from "../assets/characters/data-warrior.mjs";
+import DataWarrior from "../assets/characters/data-warrior.mjs";
 
 class CBTStateMachine{
+    static ANIMATION_DATA = {
+        REDHOOD:0,
+        WARRIOR:1
+    };
     static STATES ={
         IDLE:0,
         ATTACK:1,
@@ -41,9 +45,9 @@ class CBTStateMachine{
             currentState:types.int8,
             animationProgress:types.float32,
             animation:types.int32,
+            animationData:types.int8,
             facing:types.int8,
             percent:types.float32,
-            
             UP:types.int8,
             LEFT:types.int8,
             RIGHT:types.int8,
@@ -71,6 +75,7 @@ class CBTStateMachine{
         ecs.components.cbtState.currentState[entity] = CBTStateMachine.STATES.IDLE;
         ecs.components.cbtState.animationProgress[entity] = 0;
         ecs.components.cbtState.animation[entity] = CBTStateMachine.ANIMATIONS.IDLE;
+        ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.REDHOOD;
         ecs.components.cbtState.facing[entity] = CBTStateMachine.FACING.LEFT;
         ecs.components.cbtState.percent[entity] = 0;
         ecs.components.cbtState.UP[entity] = false;
@@ -263,9 +268,12 @@ class CBTStateMachine{
         }
         //freeze the hit animation at the last frame 
         let frame = CBTStateMachine.getCurrentAnimationFrame(entity);
-        if(!frame&&
-            ecs.components.cbtState.animationProgress[entity]>10){//TODO: this.owner.character.animations.hit.length)
-            ecs.components.cbtState.animationProgress[entity] = 10;//TODO: this.owner.character.animations.hit.length-1;
+        let animation = CBTStateMachine.getAnimation(entity);
+        if(animation){
+            if(!frame&&
+                ecs.components.cbtState.animationProgress[entity] > animation.hit.length){
+                ecs.components.cbtState.animationProgress[entity] = animation.hit.length-1;
+            }
         }
     }
 
@@ -296,7 +304,13 @@ class CBTStateMachine{
     }
     static getAnimation(entity){
         const ecs = Fes.data.ecs;
-        return 0;//TODO: this.owner.character.animations[this.animation];
+        switch(ecs.components.cbtState.animationData[entity]){
+            case CBTStateMachine.ANIMATION_DATA.REDHOOD:
+                return DataRedhood;
+            case CBTStateMachine.ANIMATION_DATA.WARRIOR:
+                return DataWarrior;
+        } 
+        return DataRedhood;
     }
     static getCurrentAnimationFrame(entity){
         const ecs = Fes.data.ecs;
