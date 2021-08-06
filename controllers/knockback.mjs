@@ -1,4 +1,5 @@
 import { defineSystem,types } from "../ecs.js";
+import { Map } from "../map.mjs";
 
 class Knockback {
     static friction = 0.95;
@@ -56,8 +57,12 @@ class Knockback {
         }
         return false;
     }
-    static updateKnockbackMovement(entity){
+    static update(entity){
         const ecs = Fes.data.ecs;
+        //update hitstun frames 
+        if(ecs.components.knockback.kbStunFrames[entity]>0){
+            ecs.components.knockback.kbStunFrames[entity]-=1;
+        }
         //no damage done, do nothing
         if(ecs.components.knockback.kbMagnitude[entity]<Knockback.minMagnitude){
             ecs.components.knockback.kbStunFrames[entity] = 0;
@@ -91,11 +96,6 @@ class Knockback {
         Map.move_contact_solid(entity, 
             ecs.components.position.x[entity]+hOff,
             ecs.components.position.y[entity]+vOff);
-
-        //update hitstun frames 
-        if(ecs.components.knockback.kbStunFrames[entity]>0){
-            ecs.components.knockback.kbStunFrames[entity]-=1;
-        }
 
     }
     static checkBounce(entity, x, y, hOff, vOff) {

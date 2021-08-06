@@ -434,7 +434,6 @@ class CBTStateMachine{
                         const r = CBTStateMachine.getBounds(playerEntity);
                         const collision = Collision.rectCircleCollision(c,r);
                         if(collision){
-                            console.log(playerEntity,hitbox,ecs.components.cbtState.facing[entity]);
                             CBTStateMachine.takeHit(playerEntity,hitbox,ecs.components.cbtState.facing[entity]);
                         }
                     }
