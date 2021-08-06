@@ -1,6 +1,7 @@
 
 import { defineSystem,types } from "../ecs.js";
 import { Knockback } from "./knockback.mjs";
+import { Collision } from "./collision.mjs";
 import DataRedhood  from "../assets/characters/data-redhood.mjs";
 import DataWarrior from "../assets/characters/data-warrior.mjs";
 
@@ -40,7 +41,6 @@ class CBTStateMachine{
     }
     static FRAME_RATE=0.3;
     static defineComponents(){
-        //console.log(DataRedhood);//TODO: use this to get animation/frame data
         Fes.data.ecs.defineComponent("cbtState",{
             currentState:types.int8,
             animationProgress:types.float32,
@@ -325,7 +325,7 @@ class CBTStateMachine{
         const ecs = Fes.data.ecs;
         CBTStateMachine.changeState(entity,CBTStateMachine.STATES.HIT);
         let angle = hitbox.angle;
-        if(facing == this.FACING.RIGHT){//note: "facing" is the attacker, "takeHit" is the attackee
+        if(facing == CBTStateMachine.FACING.RIGHT){//note: "facing" is the attacker, "takeHit" is the attackee
             //https://stackoverflow.com/questions/3203952/mirroring-an-angle
             //https://stackoverflow.com/questions/3044441/how-to-reflect-an-angle-across-the-y-axis
             //flip angle based on facing
@@ -334,6 +334,16 @@ class CBTStateMachine{
         Knockback.setKnockback(entity,ecs.components.cbtState.percent[entity],
             hitbox.damage,angle,hitbox.baseKnockback,hitbox.scaling);
         ecs.components.cbtState.percent[entity]+=hitbox.damage;
+    }
+    static getBounds(entity){
+        const ecs = Fes.data.ecs;
+        const bounds = {
+            x:ecs.components.position.x[entity],
+            y:ecs.components.position.y[entity],
+            width:ecs.components.size.width[entity],
+            height:ecs.components.size.height[entity]
+        };
+        return bounds;
     }
     static checkHitboxes(entity){
         const ecs = Fes.data.ecs;
@@ -345,40 +355,31 @@ class CBTStateMachine{
         if(ecs.components.cbtState.facing[entity] == CBTStateMachine.FACING.RIGHT){
             facing=-1;
         }
-        //https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
         //TODO: here
-        /*
+        const bounds = CBTStateMachine.getBounds(entity);
+        const query = ecs.createQuery("player");
         for(const [idx,hitbox] of frame.hitboxes.entries()){
-            let bounds = this.owner.getBounds();
             let hbx = bounds.x+(facing*(hitbox.x-frame.anchorX));
             let hby = bounds.y+hitbox.y-frame.anchorY;
-            let rectCircleCollision=function (circle,rect){
-                let distX = Math.abs(circle.x - rect.x-rect.w/2);
-                let distY = Math.abs(circle.y - rect.y-rect.h/2);
-                if (distX > (rect.w/2 + circle.r)) { return false; }
-                if (distY > (rect.h/2 + circle.r)) { return false; }
-                if (distX <= (rect.w/2)) { return true; } 
-                if (distY <= (rect.h/2)) { return true; }
-                let dx=distX-rect.w/2;
-                let dy=distY-rect.h/2;
-                return (dx*dx+dy*dy<=(circle.r*circle.r));
-            }
-            for(let i=0;i<Fes.engine.objects.length;i+=1){
-                let obj = Fes.engine.objects[i];
-                if(obj.name=="player" && obj.id != this.owner.id){
-                    let c = {
-                        x:hbx,
-                        y:hby,
-                        r:hitbox.size
-                    };
-                    let r = obj.getBounds();
-                    if(rectCircleCollision(c,r)){
-                        obj.stateMachine.takeHit(hitbox,this.facing);
+            for(let archetype of query.archetypes) {
+                for(let playerEntity of archetype.entities) {
+                    if(playerEntity != entity){
+                        const collision = Collision.collisionCheck(entity,playerEntity);
+                        if(collision){
+                            const c = {
+                                x:hbx,
+                                y:hby,
+                                r:hitbox.size
+                            };
+                            let r = CBTStateMachine.getBounds(playerEntity);
+                            if(Collision.rectCircleCollision(c,r)){
+                                CBTStateMachine.takeHit(playerEntity,hitbox,ecs.components.cbtState.facing[entity]);
+                            }
+                        }
                     }
                 }
             }
         }
-        */
     }
 
     static transitionAttack(entity){
