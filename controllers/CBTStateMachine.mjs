@@ -372,7 +372,7 @@ class CBTStateMachine{
             default:
                 console.log("unknown animation: ",ecs.components.cbtState.animation[entity])
         }
-        return animationData[curAnimationName];
+        return animationData.animations[curAnimationName];
     }
     static getCurrentAnimationFrame(entity){
         const ecs = Fes.data.ecs;
@@ -473,25 +473,26 @@ class CBTStateMachine{
     //rendering methods
     static getImgData(entity){
         const ecs = Fes.data.ecs;
-        const animation = CBTStateMachine.getAnimation(entity);//the animation object
-        const animationData = ecs.components.cbtState.animationData[entity];//index indicating which data should be retreived
+        const animation = CBTStateMachine.getAnimationData(entity);//the animation object
+        //use the id of the animation data to store the img in the cache
+        const animationDataIdx = ecs.components.cbtState.animationData[entity];
         if(!animation.sprite_sheet){
             return null;
         }
-        if(CBTStateMachine.imgCache[animationData] == null){
+        if(CBTStateMachine.imageCache[animationDataIdx] == null){
             //start loading
             let img = new Image();
-            CBTStateMachine.imgCache[animationData] = {
+            CBTStateMachine.imageCache[animationDataIdx] = {
                 image:img,
                 isLoaded:false
             };
             img.onload = function(){
-                CBTStateMachine.imgCache[animationData].isLoaded = true;
+                CBTStateMachine.imageCache[animationDataIdx].isLoaded = true;
             };
             img.src = animation.sprite_sheet;
         }
-        if(CBTStateMachine.imgCache[animationData].isLoaded){
-            return CBTStateMachine.imgCache[animationData].image;
+        if(CBTStateMachine.imageCache[animationDataIdx].isLoaded){
+            return CBTStateMachine.imageCache[animationDataIdx].image;
         }
     }
     static drawHitboxes(ctx,frame,startX,startY){
@@ -525,7 +526,7 @@ class CBTStateMachine{
                 const py = floorY- Fes.R.screenY-0.5;
                 ctx.save();
                 ctx.translate(px, py);
-                if(this.stateMachine.facing == this.stateMachine.FACING.RIGHT){
+                if(ecs.components.cbtState.facing[entity] == CBTStateMachine.FACING.RIGHT){
                     ctx.scale(-1, 1);
                 }
                 ctx.drawImage(img,
@@ -534,7 +535,7 @@ class CBTStateMachine{
                     -frame.anchorX,-frame.anchorY,
                     frame.width,frame.height);
                 //only render this while debugging:
-                this.drawHitboxes(ctx,frame,-frame.anchorX,-frame.anchorY);
+                CBTStateMachine.drawHitboxes(ctx,frame,-frame.anchorX,-frame.anchorY);
                 ctx.restore();
             }
         }
