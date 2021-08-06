@@ -138,6 +138,7 @@ class CBTStateMachine{
                 console.log("unknown state:"+ecs.components.cbtState.currentState[entity]);
                 break;
         }
+        CBTStateMachine.checkHitboxes(entity);
     }
     static changeState(entity,newState){
         const ecs = Fes.data.ecs;
@@ -400,8 +401,8 @@ class CBTStateMachine{
     static getBounds(entity){
         const ecs = Fes.data.ecs;
         const bounds = {
-            x:ecs.components.position.x[entity],
-            y:ecs.components.position.y[entity],
+            x:ecs.components.position.x[entity]-ecs.components.size.width[entity]/2,
+            y:ecs.components.position.y[entity]-ecs.components.size.height[entity],
             width:ecs.components.size.width[entity],
             height:ecs.components.size.height[entity]
         };
@@ -417,7 +418,6 @@ class CBTStateMachine{
         if(ecs.components.cbtState.facing[entity] == CBTStateMachine.FACING.RIGHT){
             facing=-1;
         }
-        //TODO: here
         const bounds = CBTStateMachine.getBounds(entity);
         const query = ecs.createQuery("player");
         for(const [idx,hitbox] of frame.hitboxes.entries()){
@@ -426,17 +426,16 @@ class CBTStateMachine{
             for(let archetype of query.archetypes) {
                 for(let playerEntity of archetype.entities) {
                     if(playerEntity != entity){
-                        const collision = Collision.collisionCheck(entity,playerEntity);
+                        const c = {
+                            x:hbx,
+                            y:hby,
+                            r:hitbox.size
+                        };
+                        const r = CBTStateMachine.getBounds(playerEntity);
+                        const collision = Collision.rectCircleCollision(c,r);
                         if(collision){
-                            const c = {
-                                x:hbx,
-                                y:hby,
-                                r:hitbox.size
-                            };
-                            let r = CBTStateMachine.getBounds(playerEntity);
-                            if(Collision.rectCircleCollision(c,r)){
-                                CBTStateMachine.takeHit(playerEntity,hitbox,ecs.components.cbtState.facing[entity]);
-                            }
+                            console.log(playerEntity,hitbox,ecs.components.cbtState.facing[entity]);
+                            CBTStateMachine.takeHit(playerEntity,hitbox,ecs.components.cbtState.facing[entity]);
                         }
                     }
                 }
@@ -497,7 +496,7 @@ class CBTStateMachine{
     }
     static drawHitboxes(ctx,frame,startX,startY){
         for (const [idx, hitbox] of frame.hitboxes.entries()) {
-            ctx.strokeStyle = "1px solid black";
+            ctx.strokeStyle = "1px solid white";
             ctx.beginPath();
             ctx.arc(startX+hitbox.x+0.5, 
                     startY+hitbox.y+0.5, 
