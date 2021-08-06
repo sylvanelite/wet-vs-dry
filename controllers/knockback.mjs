@@ -23,10 +23,10 @@ class Knockback {
     static addToEntity(entity){
         const ecs = Fes.data.ecs;
         ecs.addComponent(entity,"knockback");
-        ecs.components.cbtState.kbMagnitude[entity] = 0;
-        ecs.components.cbtState.kbAngle[entity] = 0;
-        ecs.components.cbtState.kbStunFrames[entity] = 0;
-        ecs.components.cbtState.bonusGravity[entity] = 0;
+        ecs.components.knockback.kbMagnitude[entity] = 0;
+        ecs.components.knockback.kbAngle[entity] = 0;
+        ecs.components.knockback.kbStunFrames[entity] = 0;
+        ecs.components.knockback.bonusGravity[entity] = 0;
     }
 
     static setKnockback(entity,percent,damage,angle,baseKnockback,scaling){
@@ -44,14 +44,14 @@ class Knockback {
         }
         let stun = Math.floor(knockback*0.5);
         let angleRad = angle*0.0174533;
-        ecs.components.cbtState.kbMagnitude[entity] = knockback*0.5;
-        ecs.components.cbtState.kbAngle[entity] = angleRad;
-        ecs.components.cbtState.kbStunFrames[entity] = stun;
-        ecs.components.cbtState.bonusGravity[entity] = 0;
+        ecs.components.knockback.kbMagnitude[entity] = knockback*0.5;
+        ecs.components.knockback.kbAngle[entity] = angleRad;
+        ecs.components.knockback.kbStunFrames[entity] = stun;
+        ecs.components.knockback.bonusGravity[entity] = 0;
     }
     static isInHitstun(entity){
         const ecs = Fes.data.ecs;
-        if(ecs.components.cbtState.kbStunFrames[entity]>0){
+        if(ecs.components.knockback.kbStunFrames[entity]>0){
             return true;
         }
         return false;
@@ -59,24 +59,24 @@ class Knockback {
     static updateKnockbackMovement(entity){
         const ecs = Fes.data.ecs;
         //no damage done, do nothing
-        if(ecs.components.cbtState.kbMagnitude[entity]<Knockback.minMagnitude){
-            ecs.components.cbtState.kbStunFrames[entity] = 0;
+        if(ecs.components.knockback.kbMagnitude[entity]<Knockback.minMagnitude){
+            ecs.components.knockback.kbStunFrames[entity] = 0;
             return;
         }
         //apply friction
-        ecs.components.cbtState.kbMagnitude[entity] *= Knockback.friction;
+        ecs.components.knockback.kbMagnitude[entity] *= Knockback.friction;
 
         //compute H and V components of magnitude
-        let hOff = Math.cos(ecs.components.cbtState.kbAngle[entity])*ecs.components.cbtState.kbMagnitude[entity];
-        let vOff = Math.sin(ecs.components.cbtState.kbAngle[entity])*ecs.components.cbtState.kbMagnitude[entity];
+        let hOff = Math.cos(ecs.components.knockback.kbAngle[entity])*ecs.components.knockback.kbMagnitude[entity];
+        let vOff = Math.sin(ecs.components.knockback.kbAngle[entity])*ecs.components.knockback.kbMagnitude[entity];
 
         //apply bonus gravity for this trajectory
         //Note: this is a straight-line trajectory. platform movement will apply gravity.
-        ecs.components.cbtState.bonusGravity[entity] += Knockback.bonusGravityGrowth;
-        if(ecs.components.cbtState.bonusGravity[entity]>Knockback.maxBonusGravity){
-            ecs.components.cbtState.bonusGravity[entity] = Knockback.maxBonusGravity;
+        ecs.components.knockback.bonusGravity[entity] += Knockback.bonusGravityGrowth;
+        if(ecs.components.knockback.bonusGravity[entity]>Knockback.maxBonusGravity){
+            ecs.components.knockback.bonusGravity[entity] = Knockback.maxBonusGravity;
         }
-        vOff += ecs.components.cbtState.bonusGravity[entity];
+        vOff += ecs.components.knockback.bonusGravity[entity];
 
         //check for wall bounces
         Knockback.checkBounce(entity,
@@ -84,8 +84,8 @@ class Knockback {
                 ecs.components.position.y[entity],
                 hOff,vOff);
         //update offsets based on bounce result
-        hOff = Math.cos(ecs.components.cbtState.kbAngle[entity])*ecs.components.cbtState.kbMagnitude[entity];
-        vOff = Math.sin(ecs.components.cbtState.kbAngle[entity])*ecs.components.cbtState.kbMagnitude[entity];
+        hOff = Math.cos(ecs.components.knockback.kbAngle[entity])*ecs.components.knockback.kbMagnitude[entity];
+        vOff = Math.sin(ecs.components.knockback.kbAngle[entity])*ecs.components.knockback.kbMagnitude[entity];
 
         //move the player
         Map.move_contact_solid(entity, 
@@ -93,8 +93,8 @@ class Knockback {
             ecs.components.position.y[entity]+vOff);
 
         //update hitstun frames 
-        if(ecs.components.cbtState.kbStunFrames[entity]>0){
-            ecs.components.cbtState.kbStunFrames[entity]-=1;
+        if(ecs.components.knockback.kbStunFrames[entity]>0){
+            ecs.components.knockback.kbStunFrames[entity]-=1;
         }
 
     }
@@ -105,16 +105,16 @@ class Knockback {
             //horizontal bounce
             if(collisionCheck == Map.COLLISION_KIND.LEFT||
                collisionCheck == Map.COLLISION_KIND.RIGHT){
-                ecs.components.cbtState.kbAngle[entity] = Math.PI - ecs.components.cbtState.kbAngle[entity]; //math.pi = 180 radians
+                ecs.components.knockback.kbAngle[entity] = Math.PI - ecs.components.knockback.kbAngle[entity]; //math.pi = 180 radians
             }
             //vertical bounce
             if(collisionCheck == Map.COLLISION_KIND.TOP||
                collisionCheck == Map.COLLISION_KIND.BOTTOM){
-                ecs.components.cbtState.kbAngle[entity] = 2*Math.PI - ecs.components.cbtState.kbAngle[entity]; //math.pi = 180 radians                
+                ecs.components.knockback.kbAngle[entity] = 2*Math.PI - ecs.components.knockback.kbAngle[entity]; //math.pi = 180 radians                
             }
             if(collisionCheck == Map.COLLISION_KIND.INSIDE){
                 //should not get here, but stop moving
-                ecs.components.cbtState.kbMagnitude[entity] = 0;
+                ecs.components.knockback.kbMagnitude[entity] = 0;
             }
         }
     }

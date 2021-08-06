@@ -278,8 +278,8 @@ class CBTStateMachine{
         let animation = CBTStateMachine.getAnimation(entity);
         if(animation){
             if(!frame&&
-                ecs.components.cbtState.animationProgress[entity] > animation.hit.length){
-                ecs.components.cbtState.animationProgress[entity] = animation.hit.length-1;
+                ecs.components.cbtState.animationProgress[entity] > animation.length){
+                ecs.components.cbtState.animationProgress[entity] = animation.length-1;
             }
         }
     }
