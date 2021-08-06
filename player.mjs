@@ -1,5 +1,6 @@
 import { Platformer } from "./controllers/platformer.mjs";
 import { MouseAim } from "./controllers/mouseaim.mjs";
+import { CBTStateMachine } from "./controllers/CBTStateMachine.mjs";
 import { defineSystem } from "../ecs.js";
 
 
@@ -15,6 +16,7 @@ class Player  {
         ecs.components.size.height[self] = 8;
         Platformer.addToEntity(self);
         MouseAim.addToEntity(self);
+        CBTStateMachine.addToEntity(self);
         ecs.addComponent(self,"player");
         return self;
     }

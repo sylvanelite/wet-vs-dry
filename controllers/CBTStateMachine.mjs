@@ -10,6 +10,7 @@ class CBTStateMachine{
         REDHOOD:0,
         WARRIOR:1
     };
+    static imageCache = {};
     static STATES ={
         IDLE:0,
         ATTACK:1,
@@ -43,9 +44,9 @@ class CBTStateMachine{
     static defineComponents(){
         Fes.data.ecs.defineComponent("cbtState",{
             currentState:types.int8,
-            animationProgress:types.float32,
-            animation:types.int32,
-            animationData:types.int8,
+            animationProgress:types.float32,//which frame the current animation is on
+            animation:types.int32,          //which animation is currently running
+            animationData:types.int8,       //id of the object that holds all of animations
             facing:types.int8,
             percent:types.float32,
             UP:types.int8,
@@ -68,6 +69,11 @@ class CBTStateMachine{
         s.push(system);
         s.push(systemLc);
         s.push(systemNetwork);
+    }
+    static defineRenderSystems(ecs,s){
+        const query = ecs.createQuery("cbtState");
+        const system = defineSystem(query, CBTStateMachine.render);
+        s.push(system);
     }
     static addToEntity(entity){
         const ecs = Fes.data.ecs;
@@ -96,7 +102,7 @@ class CBTStateMachine{
         ecs.components.cbtState.SPECIAL[entity] = controls.Mouse_Right;
     }
 
-    static updateCBT(controls){
+    static updateCBT(entity){
         const ecs = Fes.data.ecs;
         if(ecs.components.cbtState.currentState[entity]!=CBTStateMachine.STATES.IDLE){
             //TODO: null out movement (needs to happen on platformer object? that call engine's controls directly?)
@@ -109,7 +115,7 @@ class CBTStateMachine{
         //update the current state//TODO: confirm no overflow
         ecs.components.cbtState.animationProgress[entity]+=CBTStateMachine.FRAME_RATE;
         //check for state change
-        switch(ecs.components.cbtState.currentState){
+        switch(ecs.components.cbtState.currentState[entity]){
             case CBTStateMachine.STATES.IDLE:
                 CBTStateMachine.updateIdle(entity);
                 break;
@@ -129,7 +135,7 @@ class CBTStateMachine{
                 CBTStateMachine.updateHit(entity);
                 break;
             default:
-                console.log("unknown state:"+CBTStateMachine.currentState);
+                console.log("unknown state:"+ecs.components.cbtState.currentState[entity]);
                 break;
         }
     }
@@ -160,7 +166,7 @@ class CBTStateMachine{
         ecs.components.cbtState.currentState[entity] = newState;
         //TODO: any state transition logic
         //TODO: ALL STATES: if collision hit->hit (except dodge)
-        console.log("changing state to: ",newState);
+        //console.log("changing state to: ",newState);
     }
     static updateIdle(entity){
         const ecs = Fes.data.ecs;
@@ -189,7 +195,7 @@ class CBTStateMachine{
             }
         }else{
             //just did a jump
-            if(ecs.components.platformer.grounded.did_jump[entity]){
+            if(ecs.components.platformer.did_jump[entity]){
                 ecs.components.cbtState.animation[entity] = CBTStateMachine.ANIMATIONS.JUMP;
                 ecs.components.cbtState.animationProgress[entity] = 0;
             }
@@ -199,13 +205,13 @@ class CBTStateMachine{
                     CBTStateMachine.animationIsOver(entity))){
                     //going up in air
                     if(ecs.components.cbtState.animation[entity] != CBTStateMachine.ANIMATIONS.IN_AIR_UP && 
-                        ecs.components.platformer.grounded.current_v_speed[entity]<0){
+                        ecs.components.platformer.current_v_speed[entity]<0){
                         ecs.components.cbtState.animation[entity] = CBTStateMachine.ANIMATIONS.IN_AIR_UP;
                         ecs.components.cbtState.animationProgress[entity] = 0;
                     }
                     //going down in air
                     if(ecs.components.cbtState.animation[entity] != CBTStateMachine.ANIMATIONS.IN_AIR_DOWN && 
-                        ecs.components.platformer.grounded.current_v_speed[entity]>0){
+                        ecs.components.platformer.current_v_speed[entity]>0){
                         ecs.components.cbtState.animation[entity] = CBTStateMachine.ANIMATIONS.IN_AIR_DOWN;
                         ecs.components.cbtState.animationProgress[entity] = 0;
                     }
@@ -302,7 +308,7 @@ class CBTStateMachine{
         }
         return atk;
     }
-    static getAnimation(entity){
+    static getAnimationData(entity){
         const ecs = Fes.data.ecs;
         switch(ecs.components.cbtState.animationData[entity]){
             case CBTStateMachine.ANIMATION_DATA.REDHOOD:
@@ -311,6 +317,62 @@ class CBTStateMachine{
                 return DataWarrior;
         } 
         return DataRedhood;
+    }
+    static getAnimation(entity){
+        const ecs = Fes.data.ecs;
+        const animationData = CBTStateMachine.getAnimationData(entity);
+        let curAnimationName = "idle";
+        //map the entity value from an int to a key in the json data
+        switch(ecs.components.cbtState.animation[entity]){
+            case CBTStateMachine.ANIMATIONS.IDLE:
+                curAnimationName = "idle";
+                break;
+            case CBTStateMachine.ANIMATIONS.ATTACK_NEUTRAL:
+                curAnimationName = "attack_neutral";
+                break;
+            case CBTStateMachine.ANIMATIONS.ATTACK_SIDE:
+                curAnimationName = "attack_side";
+                break;
+            case CBTStateMachine.ANIMATIONS.ATTACK_UP:
+                curAnimationName = "attack_up";
+                break;
+            case CBTStateMachine.ANIMATIONS.ATTACK_DOWN:
+                curAnimationName = "attack_down";
+                break;
+            case CBTStateMachine.ANIMATIONS.SPECIAL_NEUTRAL:
+                curAnimationName = "special_neutral";
+                break;
+            case CBTStateMachine.ANIMATIONS.SPECIAL_SIDE:
+                curAnimationName = "special_side";
+                break;
+            case CBTStateMachine.ANIMATIONS.SPECIAL_UP:
+                curAnimationName = "special_up";
+                break;
+            case CBTStateMachine.ANIMATIONS.SPECIAL_DOWN:
+                curAnimationName = "special_down";
+                break;
+            case CBTStateMachine.ANIMATIONS.DODGE:
+                curAnimationName = "dodge";
+                break;
+            case CBTStateMachine.ANIMATIONS.HIT:
+                curAnimationName = "hit";
+                break;
+            case CBTStateMachine.ANIMATIONS.RUN:
+                curAnimationName = "run";
+                break;
+            case CBTStateMachine.ANIMATIONS.JUMP:
+                curAnimationName = "jump";
+                break;
+            case CBTStateMachine.ANIMATIONS.IN_AIR_UP:
+                curAnimationName = "in_air_up";
+                break;
+            case CBTStateMachine.ANIMATIONS.IN_AIR_DOWN:
+                curAnimationName = "in_air_down";
+                break;
+            default:
+                console.log("unknown animation: ",ecs.components.cbtState.animation[entity])
+        }
+        return animationData[curAnimationName];
     }
     static getCurrentAnimationFrame(entity){
         const ecs = Fes.data.ecs;
@@ -406,6 +468,76 @@ class CBTStateMachine{
         //TODO: hit calculation
         ecs.components.cbtState.animationProgress[entity] = 0;
         ecs.components.cbtState.animation[entity] = CBTStateMachine.ANIMATIONS.HIT;
+    }
+
+    //rendering methods
+    static getImgData(entity){
+        const ecs = Fes.data.ecs;
+        const animation = CBTStateMachine.getAnimation(entity);//the animation object
+        const animationData = ecs.components.cbtState.animationData[entity];//index indicating which data should be retreived
+        if(!animation.sprite_sheet){
+            return null;
+        }
+        if(CBTStateMachine.imgCache[animationData] == null){
+            //start loading
+            let img = new Image();
+            CBTStateMachine.imgCache[animationData] = {
+                image:img,
+                isLoaded:false
+            };
+            img.onload = function(){
+                CBTStateMachine.imgCache[animationData].isLoaded = true;
+            };
+            img.src = animation.sprite_sheet;
+        }
+        if(CBTStateMachine.imgCache[animationData].isLoaded){
+            return CBTStateMachine.imgCache[animationData].image;
+        }
+    }
+    static drawHitboxes(ctx,frame,startX,startY){
+        for (const [idx, hitbox] of frame.hitboxes.entries()) {
+            ctx.strokeStyle = "1px solid black";
+            ctx.beginPath();
+            ctx.arc(startX+hitbox.x+0.5, 
+                    startY+hitbox.y+0.5, 
+                    hitbox.size,0, 2 * Math.PI);
+            ctx.stroke();
+            let angleRad = hitbox.angle *0.0174533;
+            ctx.beginPath();
+            ctx.moveTo(startX+hitbox.x+0.5, 
+                       startY+hitbox.y+0.5);
+            ctx.lineTo(startX+hitbox.x+0.5 + hitbox.size*Math.cos(angleRad), 
+                       startY+hitbox.y+0.5 + hitbox.size*Math.sin(angleRad));   
+            ctx.stroke();
+        }
+    }
+    static render(entity) {
+        const ecs = Fes.data.ecs;
+        const bounds = CBTStateMachine.getBounds(entity);
+        const floorX = Math.floor(bounds.x);
+        const floorY = Math.floor(bounds.y);
+        const ctx = Fes.R.varCtx;
+        const frame = CBTStateMachine.getCurrentAnimationFrame(entity);
+        if(frame){
+            const img = CBTStateMachine.getImgData(entity);
+            if(img){
+                const px = floorX- Fes.R.screenX;
+                const py = floorY- Fes.R.screenY-0.5;
+                ctx.save();
+                ctx.translate(px, py);
+                if(this.stateMachine.facing == this.stateMachine.FACING.RIGHT){
+                    ctx.scale(-1, 1);
+                }
+                ctx.drawImage(img,
+                    frame.x,frame.y,
+                    frame.width,frame.height,
+                    -frame.anchorX,-frame.anchorY,
+                    frame.width,frame.height);
+                //only render this while debugging:
+                this.drawHitboxes(ctx,frame,-frame.anchorX,-frame.anchorY);
+                ctx.restore();
+            }
+        }
     }
 }
 
