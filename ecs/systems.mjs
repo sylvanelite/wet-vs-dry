@@ -8,6 +8,7 @@ import { Knockback } from "../controllers/knockback.mjs";
 import { Bullet } from "../interactable/bullets/bullet.mjs";
 import { Enemy } from "../interactable/enemy/enemy.mjs";
 import { Mineral } from "../interactable/mineral/mineral.mjs";
+import { Judge } from "../interactable/judge/judge.mjs";
 import { Player } from "../player.mjs";
 import { MapRenderer } from "../terrain/map_renderer.mjs";
 
@@ -32,6 +33,7 @@ class Systems  {
         Bullet.defineSystems(ecs,systems);
         Enemy.defineSystems(ecs,systems);
         Mineral.defineSystems(ecs,systems);
+        Judge.defineSystems(ecs,systems);
     }
     static initRender(ecs,renderSystems){
         if(renderSystems.length){
@@ -45,6 +47,7 @@ class Systems  {
         Bullet.defineRenderSystems(ecs,renderSystems);
         Enemy.defineRenderSystems(ecs,renderSystems);
         Mineral.defineRenderSystems(ecs,renderSystems);
+        Judge.defineRenderSystems(ecs,renderSystems);
     }
     static update(systems){
         for(let i=0;i<systems.length;i+=1){

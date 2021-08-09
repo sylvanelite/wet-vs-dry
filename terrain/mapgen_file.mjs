@@ -2,6 +2,7 @@ import {MapRenderer} from "./map_renderer.mjs";
 import {Player} from "../player.mjs";
 import {Map} from "../map.mjs";
 import {Mineral} from "../interactable/mineral/mineral.mjs";
+import {Judge} from "../interactable/judge/judge.mjs";
 import {Enemy} from "../interactable/enemy/enemy.mjs";
 import {NetworkEntity} from "../controllers/nwEntity.mjs";
 import {Orchestrator} from "../controllers/orchestrator.mjs";
@@ -37,6 +38,10 @@ class FileMapGen {
 			Orchestrator.init(object);
 			return;
 		}
+		if(object.name == "judge"){
+			Judge.init(object);
+			return;
+		}
 		console.log("unkown object "+object.name);
 	}
 	static fileData = null;
@@ -54,6 +59,7 @@ class FileMapGen {
 			if(layer.hasOwnProperty("objects")){
 				for(let j=0;j<layer.objects.length;j+=1){
 					let object = layer.objects[j];
+					object.y+=object.width;
 					FileMapGen.createObejct(object);
 				}
 			}
@@ -71,6 +77,9 @@ class FileMapGen {
 		  callback();
 		});
     }
+	static takeDamage(entity){
+		
+	}
 }
 
 export { FileMapGen };

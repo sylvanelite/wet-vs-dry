@@ -9,6 +9,7 @@ import { Knockback } from "../controllers/knockback.mjs";
 import { Bullet } from "../interactable/bullets/bullet.mjs";
 import { Enemy } from "../interactable/enemy/enemy.mjs";
 import { Mineral } from "../interactable/mineral/mineral.mjs";
+import { Judge } from "../interactable/judge/judge.mjs";
 
 
 
@@ -53,6 +54,7 @@ class Components  {
         Bullet.defineComponents();
         Enemy.defineComponents();
         Mineral.defineComponents();
+        Judge.defineComponents();
         
     }
 }

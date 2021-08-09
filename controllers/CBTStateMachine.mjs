@@ -2,6 +2,7 @@
 import { defineSystem,types } from "../ecs.js";
 import { Knockback } from "./knockback.mjs";
 import { Collision } from "./collision.mjs";
+import { Judge } from "../interactable/judge/judge.mjs";
 import DataRedhood  from "../assets/characters/data-redhood.mjs";
 import DataWarrior from "../assets/characters/data-warrior.mjs";
 
@@ -420,6 +421,7 @@ class CBTStateMachine{
         }
         const bounds = CBTStateMachine.getBounds(entity);
         const query = ecs.createQuery("player");
+        const queryJudge = ecs.createQuery("judge");
         for(const [idx,hitbox] of frame.hitboxes.entries()){
             let hbx = bounds.x+(facing*(hitbox.x-frame.anchorX));
             let hby = bounds.y+hitbox.y-frame.anchorY;
@@ -439,6 +441,22 @@ class CBTStateMachine{
                     }
                 }
             }
+            //TODO: is there a more modular way to interact with hitboxes?
+            for(let archetype of queryJudge.archetypes) {
+                for(let judgeEntity of archetype.entities) {
+                    const c = {
+                        x:hbx,
+                        y:hby,
+                        r:hitbox.size
+                    };
+                    const r = CBTStateMachine.getBounds(judgeEntity);
+                    const collision = Collision.rectCircleCollision(c,r);
+                    if(collision){
+                        Judge.takeHit(judgeEntity,entity,hitbox);
+                    }
+                }
+            }
+
         }
     }
 
