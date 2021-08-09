@@ -1,5 +1,6 @@
 import {MapRenderer} from "./map_renderer.mjs";
 import {Player} from "../player.mjs";
+import {Map} from "../map.mjs";
 import {Mineral} from "../interactable/mineral/mineral.mjs";
 import {Enemy} from "../interactable/enemy/enemy.mjs";
 import {NetworkEntity} from "../controllers/nwEntity.mjs";
@@ -42,7 +43,8 @@ class FileMapGen {
 	
 	static generateTerrain(){
 		let data = FileMapGen.fileData;
-        Map.setData(data);
+		console.log(data.layers[1]);
+        Map.setData(data.layers[1]);
 	}
 	static generateObjects(){
 		let data = FileMapGen.fileData;
@@ -58,7 +60,8 @@ class FileMapGen {
 		}
 	}
     static load(callback){
-        fetch('./terrain/data/tile.json')
+		fetch('./terrain/data/tiled/map.json')
+        //fetch('./terrain/data/tile.json')
 		.then(response => response.json())
 		.then(function(data){
 			FileMapGen.fileData = data;

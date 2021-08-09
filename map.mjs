@@ -1,11 +1,11 @@
-import { ProcMapGen } from "./terrain/mapgen_procedural.mjs";
-//import { FileMapGen } from "./terrain/mapgen_file.mjs";
+//import { ProcMapGen } from "./terrain/mapgen_procedural.mjs";
+import { FileMapGen } from "./terrain/mapgen_file.mjs";
 
 class Map {
     //stores the actual map data. Do not access this from other classes
     //instead use a getter/setter function
     static init(callback) {
-        ProcMapGen.load(callback);
+        FileMapGen.load(callback);
     }
     //--getters & setters
     static setData(loadData) {

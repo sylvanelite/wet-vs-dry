@@ -41,8 +41,8 @@ let Fes = {
 		screenX:0,
 		screenY:0,
 		TILE_SIZE:32,
-		SCREEN_WIDTH:480,//NOTE: if changing, also update the HTML canvas size
-		SCREEN_HEIGHT:256,
+		SCREEN_WIDTH:640,//NOTE: if changing, also update the HTML canvas size
+		SCREEN_HEIGHT:480,
 		SCALE_X:1,
 		SCALE_Y:1
 	}

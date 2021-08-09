@@ -1,0 +1,113 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map.json",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Users/sylva/Desktop/New folder/tiled/map1.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 259.66666666666663,
+                "y": 318.6666666666667
+            }
+        },
+        "C:/Users/sylva/Desktop/New folder/untitled.tmx": {
+            "scale": 0.7377266839378238,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 765.1885343049032,
+                "y": 256.19244106931217
+            }
+        },
+        "C:/Users/sylva/Desktop/arduboy/project/tiled.json": {
+            "scale": 5.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 53.63636363636365,
+                "y": 207.45454545454544
+            }
+        },
+        "C:/Users/sylva/Desktop/arduboy/project/tiled.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 57.27272727272727,
+                "y": 43.36363636363637
+            }
+        },
+        "C:/Users/sylva/Desktop/tinyfes/js/data/level/level.json": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 858.6666666666666,
+                "y": 426
+            }
+        },
+        "C:/Users/sylva/Desktop/untitled.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -4,
+                "y": -1052
+            }
+        },
+        "C:\\Users\\sylva\\Desktop\\arduboy\\project\\tiled.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 83.45454545454545,
+                "y": 73.36363636363637
+            }
+        },
+        "caveA.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "map.json": {
+            "scale": 0.25,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 4656,
+                "y": 4488
+            }
+        },
+        "tile.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "D:/Dropbox/zkss/platformer/broyale-ecs/terrain/data/tiled",
+    "map.fixedSize": true,
+    "map.height": 1125,
+    "map.lastUsedFormat": "json",
+    "map.orientation": 1,
+    "map.tileHeight": 32,
+    "map.tileWidth": 32,
+    "map.width": 1500,
+    "openFiles": [
+        "map.json",
+        "tile.json"
+    ],
+    "project": "broyale.tiled-project",
+    "recentFiles": [
+        "tile.json",
+        "map.json",
+        "caveA.json"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "json",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    },
+    "tileset.transparentColor": "#ff00ff",
+    "tileset.type": 0,
+    "tileset.useTransparentColor": false
+}
