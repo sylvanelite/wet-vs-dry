@@ -128,6 +128,9 @@ class Collision{
             height:ecs.components.size.height[entityB]
         };
         //rect collision (x is centered, y is the objects floor)
+        Collision.rectRectCollision(objA,objB);
+    }
+    static rectRectCollision = function(objA,objB){
         if (objA.x-objA.width/2 < objB.x+objB.width/2 && objA.x+objA.width/2 > objB.x-objB.width/2 &&
           objA.y-objA.height < objB.y && objA.y > objB.y-objB.height){
               return true;

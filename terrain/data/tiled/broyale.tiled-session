@@ -34,10 +34,10 @@
         },
         "C:/Users/sylva/Desktop/arduboy/project/tiled.tmx": {
             "scale": 5.5,
-            "selectedLayer": 5,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 57.27272727272727,
-                "y": 43.36363636363637
+                "x": 83.45454545454545,
+                "y": 73.36363636363637
             }
         },
         "C:/Users/sylva/Desktop/tinyfes/js/data/level/level.json": {
@@ -56,24 +56,16 @@
                 "y": -1052
             }
         },
-        "C:\\Users\\sylva\\Desktop\\arduboy\\project\\tiled.tmx": {
-            "scale": 5.5,
-            "selectedLayer": 2,
-            "viewCenter": {
-                "x": 83.45454545454545,
-                "y": 73.36363636363637
-            }
-        },
         "caveA.json": {
             "scaleInDock": 1,
             "scaleInEditor": 1.5
         },
         "map.json": {
-            "scale": 0.25,
-            "selectedLayer": 1,
+            "scale": 0.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 4656,
-                "y": 4488
+                "x": 11382,
+                "y": 248
             }
         },
         "tile.json": {
