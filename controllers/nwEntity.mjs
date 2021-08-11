@@ -248,10 +248,11 @@ class NetworkEntity extends Networking {
         };
         let playerObj = {
             x :Fes.data.ecs.components.position.x[Fes.data.player],
-            y :Fes.data.ecs.components.position.y[Fes.data.player]
+            y :Fes.data.ecs.components.position.y[Fes.data.player]-64
         };
         for(const c of this.connections){
-            playerObj.x+=32;
+            playerObj.x += 600;
+            playerObj.x = playerObj.x%8000;
             //NOTE: c.peer == Fes.data.networking.peer.id
             //client can use this to tell which obj they have been assigned
             let instance = Player.init(playerObj);
@@ -271,7 +272,7 @@ class NetworkEntity extends Networking {
     }
     msgInit(msgObj){
         const hostId = Fes.data.networking.hostInstanceId;
-        ProcMapGen.generateTerrain(MapGen.getSeedForString(hostId));
+        //ProcMapGen.generateTerrain(MapGen.getSeedForString(hostId));
         if(!this.isHost){
             for(const client of msgObj.clients){
                 let instance = Player.init(client);

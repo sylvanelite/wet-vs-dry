@@ -266,13 +266,13 @@ class Judge {
         //if mode == green or yellow, hitting reduces hp
 
         //TODO: actual damage calcs
-        if(ecs.components.judge.mode[entity] == Judge.MODE.GREEN||
-            ecs.components.judge.mode[entity] == Judge.MODE.YELLOW){
-            ecs.components.judge.hp[entity]-=5;
-            if(ecs.components.judge.hp[entity]<=0){
-                ecs.components.judge.hp[entity] = 0;
+        if(ecs.components.judge.mode[judgeEntity] == Judge.MODE.GREEN||
+            ecs.components.judge.mode[judgeEntity] == Judge.MODE.YELLOW){
+            ecs.components.judge.hp[judgeEntity]-=5;
+            if(ecs.components.judge.hp[judgeEntity]<=0){
+                ecs.components.judge.hp[judgeEntity] = 0;
                 //TODO: since the player is destorying the judge with this hit, give rewards to that player
-                ecs.components.judge.mode[entity] = Judge.MODE.BLACK;
+                ecs.components.judge.mode[judgeEntity] = Judge.MODE.BLACK;
             }
         }
         
@@ -281,6 +281,20 @@ class Judge {
 	static render(entity){
         const ecs = Fes.data.ecs;
 		let ctx = Fes.R.varCtx;
+        
+        switch(ecs.components.judge.mode[entity]){
+            case Judge.MODE.GREEN:
+                ctx.fillStyle = "#00FF00";
+                break;
+            case Judge.MODE.YELLOW:
+                ctx.fillStyle = "#FFFF00";
+                break;
+            case Judge.MODE.RED:
+                ctx.fillStyle = "#FF0000";
+                break;
+            case Judge.MODE.BLACK:
+                ctx.fillStyle = "#000000";
+            }
 		ctx.strokeStyle = "#000000";
 		ctx.beginPath();
         let w = ecs.components.size.width[entity];
@@ -288,6 +302,9 @@ class Judge {
 		ctx.rect(ecs.components.position.x[entity]-Fes.R.screenX-w/2-0.5, 
                  ecs.components.position.y[entity]-h-Fes.R.screenY-0.5, 
 			   w,h);
+        ctx.fillRect(ecs.components.position.x[entity]-Fes.R.screenX-w/2-0.5, 
+                ecs.components.position.y[entity]-h-Fes.R.screenY-0.5, 
+                w,h);
 		ctx.stroke();
 	}
 }
