@@ -108,8 +108,8 @@ class Judge {
                 //NOTE: for this to work properly, judges must not be destroyed. (e.g. if ring collapses)
                 ecs.addComponent(playerEntity,"judgeArena");
                 ecs.components.judgeArena.judgeId[playerEntity] = entity;
-                ecs.components.position.x[playerEntity] = ecs.components.judge.targetX[judgeEntity]+offset;
-                ecs.components.position.y[playerEntity] = ecs.components.judge.targetY[judgeEntity];
+                ecs.components.position.x[playerEntity] = ecs.components.judge.targetX[entity]+offset;
+                ecs.components.position.y[playerEntity] = ecs.components.judge.targetY[entity];
                 offset+=128;//TODO: if there's more than 2 players in range? modulo map width? divide width to sections?
             }
             return;
@@ -146,16 +146,29 @@ class Judge {
         }
     }
 
+    static longRangeRect(entity){
+        const ecs = Fes.data.ecs;
+        return {
+            x:ecs.components.position.x[entity],//midpoint
+            y:ecs.components.position.y[entity],//bottom
+            width:300,
+            height:160
+        };
+    }
+    static closeRangeRect(entity){
+        const ecs = Fes.data.ecs;
+        return {
+            x:ecs.components.position.x[entity],
+            y:ecs.components.position.y[entity],
+            width:150,
+            height:72
+        };
+    }
     static playersInRange(entity){
         const ecs = Fes.data.ecs;
         let result = [];
         //TODO: define better bounds
-        const rangeRect = {
-            x:ecs.components.position.x[entity]-150,
-            y:ecs.components.position.y[entity]-100,
-            width:300,
-            height:100
-        };
+        const rangeRect = Judge.longRangeRect(entity);
         const query = ecs.createQuery("player");
         for(let archetype of query.archetypes) {
             for(let playerEntity of archetype.entities) {
@@ -176,12 +189,7 @@ class Judge {
         const ecs = Fes.data.ecs;
         let result = [];
         //TODO: define better bounds
-        const rangeRect = {
-            x:ecs.components.position.x[entity]-50,
-            y:ecs.components.position.y[entity]-50,
-            width:100,
-            height:50
-        };
+        const rangeRect = Judge.closeRangeRect(entity);
         const query = ecs.createQuery("player");
         for(let archetype of query.archetypes) {
             for(let playerEntity of archetype.entities) {
@@ -282,6 +290,15 @@ class Judge {
         const ecs = Fes.data.ecs;
 		let ctx = Fes.R.varCtx;
         
+        ctx.fillStyle = "#00880088";
+        const longRangeRect = Judge.longRangeRect(entity);
+        const closeRangeRect = Judge.closeRangeRect(entity);
+        ctx.fillRect(longRangeRect.x-Fes.R.screenX-longRangeRect.width/2-0.5, 
+            longRangeRect.y-longRangeRect.height-Fes.R.screenY-0.5, 
+            longRangeRect.width,longRangeRect.height);
+        ctx.fillRect(closeRangeRect.x-Fes.R.screenX-closeRangeRect.width/2-0.5, 
+            closeRangeRect.y-closeRangeRect.height-Fes.R.screenY-0.5, 
+            closeRangeRect.width,closeRangeRect.height);
         switch(ecs.components.judge.mode[entity]){
             case Judge.MODE.GREEN:
                 ctx.fillStyle = "#00FF00";
@@ -306,6 +323,10 @@ class Judge {
                 ecs.components.position.y[entity]-h-Fes.R.screenY-0.5, 
                 w,h);
 		ctx.stroke();
+
+
+
+
 	}
 }
 export { Judge };
