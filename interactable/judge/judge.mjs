@@ -102,7 +102,7 @@ class Judge {
             ecs.components.judge.mode[entity] = Judge.MODE.RED;
             //TODO: different kinds of judge battles (bot, pvp, etc)
             //this is PvP
-            let offset=0;
+            let offset=-128;
             for(const playerEntity of closePlayers){
                 //track players that have gone into an arena, by giving them a component that stores the judge's arena
                 //NOTE: for this to work properly, judges must not be destroyed. (e.g. if ring collapses)
