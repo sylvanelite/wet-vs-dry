@@ -109,7 +109,7 @@ class Judge {
                 ecs.addComponent(playerEntity,"judgeArena");
                 ecs.components.judgeArena.judgeId[playerEntity] = entity;
                 ecs.components.position.x[playerEntity] = ecs.components.judge.targetX[entity]+offset;
-                ecs.components.position.y[playerEntity] = ecs.components.judge.targetY[entity];
+                ecs.components.position.y[playerEntity] = ecs.components.judge.targetY[entity]-100;
                 offset+=128;//TODO: if there's more than 2 players in range? modulo map width? divide width to sections?
             }
             return;
@@ -212,8 +212,8 @@ class Judge {
         let result = [];
         //TODO: define better bounds, and make sure they sync with the tiled map
         const rangeRect = {
-            x:ecs.components.judge.targetX-200,//note: this should not 
-            y:ecs.components.position.y[entity]-400,
+            x:ecs.components.judge.targetX[entity],
+            y:ecs.components.judge.targetY[entity],
             width:600,//note: spawn poitns are not centered, so width should be larget than x offset
             height:500
         };
@@ -244,7 +244,7 @@ class Judge {
         if(!arenaPlayers.includes(entity ) || ecs.components.judge.mode[judgeEntity] != Judge.MODE.RED){
             //TODO: better respawn logic
             //for now, just move them back to the judge's location
-            ecs.components.position.x[entity] = ecs.components.position.x[judgeEntity];
+            ecs.components.position.x[entity] = ecs.components.position.x[judgeEntity]+128;
             ecs.components.position.y[entity] = ecs.components.position.y[judgeEntity]-32;
             //TODO: KO and respawn. (move them back into map)
             ecs.removeComponent(entity,"judgeArena");
