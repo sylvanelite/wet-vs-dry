@@ -26,12 +26,12 @@
                         {
                          "name":"targetX",
                          "type":"string",
-                         "value":"11504"
+                         "value":"11804"
                         }, 
                         {
                          "name":"targetY",
                          "type":"string",
-                         "value":"440"
+                         "value":"864"
                         }],
                  "rotation":0,
                  "type":"",
@@ -41,15 +41,15 @@
                  "y":225.333333333333
                 }, 
                 {
-                 "height":700,
+                 "height":800,
                  "id":5,
                  "name":"arena",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":1484,
+                 "width":1600,
                  "x":11000,
-                 "y":30
+                 "y":66
                 }, 
                 {
                  "height":32,
@@ -84,7 +84,7 @@
  "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.7.1",
+ "tiledversion":"2021.03.23",
  "tileheight":32,
  "tilesets":[
         {
@@ -93,6 +93,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":1.5,
  "width":512
 }

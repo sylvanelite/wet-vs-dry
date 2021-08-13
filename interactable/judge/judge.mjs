@@ -67,7 +67,7 @@ class Judge {
                 Judge.updateGreen(entity);
                 break;
             case Judge.MODE.YELLOW:
-                Judge.updatYellow(entity);
+                Judge.updateYellow(entity);
                 break;
             case Judge.MODE.RED:
                 Judge.updateRed(entity);
@@ -87,7 +87,7 @@ class Judge {
             return;
         } 
     }
-    static updatYellow(entity){
+    static updateYellow(entity){
         const ecs = Fes.data.ecs;
         //if mode == green or yellow, regen
         Judge.hpRegen(entity);
@@ -109,7 +109,7 @@ class Judge {
                 ecs.addComponent(playerEntity,"judgeArena");
                 ecs.components.judgeArena.judgeId[playerEntity] = entity;
                 ecs.components.position.x[playerEntity] = ecs.components.judge.targetX[entity]+offset;
-                ecs.components.position.y[playerEntity] = ecs.components.judge.targetY[entity]-100;
+                ecs.components.position.y[playerEntity] = ecs.components.judge.targetY[entity]-400;
                 offset+=128;//TODO: if there's more than 2 players in range? modulo map width? divide width to sections?
             }
             return;
@@ -128,7 +128,8 @@ class Judge {
         */
         let arenaPlayers = Judge.playersInArena(entity);
         if(arenaPlayers.length==1){//TODO: && mode is not vs bots/boss (1 player vs enemies)
-            //TODO: give rewards to the person in arenaPlayers
+            //TODO: give rewards to the person in arenaPlayers & teleport back
+            ecs.components.judge.mode[entity] = Judge.MODE.BLACK;
         }
         if(arenaPlayers.length<1){
             //game was draw, or player lost set mode = green
@@ -212,10 +213,10 @@ class Judge {
         let result = [];
         //TODO: define better bounds, and make sure they sync with the tiled map
         const rangeRect = {
-            x:ecs.components.judge.targetX[entity],
-            y:ecs.components.judge.targetY[entity],
-            width:600,//note: spawn poitns are not centered, so width should be larget than x offset
-            height:500
+            x:ecs.components.judge.targetX[entity],//middle 
+            y:ecs.components.judge.targetY[entity],//bottom
+            width:1600,//note: should be used in tiled to draw bounds
+            height:800
         };
         const query = ecs.createQuery("player");
         for(let archetype of query.archetypes) {
