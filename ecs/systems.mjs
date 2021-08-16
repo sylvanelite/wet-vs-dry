@@ -4,6 +4,7 @@ import { Collision } from "../controllers/collision.mjs";
 import { Pathfind } from "../controllers/pathfind.mjs";
 import { Orchestrator } from "../controllers/orchestrator.mjs";
 import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
+import { AI } from "../controllers/ai.mjs";
 import { Knockback } from "../controllers/knockback.mjs";
 import { Bullet } from "../interactable/bullets/bullet.mjs";
 import { Enemy } from "../interactable/enemy/enemy.mjs";
@@ -34,6 +35,7 @@ class Systems  {
         Enemy.defineSystems(ecs,systems);
         Mineral.defineSystems(ecs,systems);
         Judge.defineSystems(ecs,systems);
+        AI.defineSystems(ecs,systems);
     }
     static initRender(ecs,renderSystems){
         if(renderSystems.length){

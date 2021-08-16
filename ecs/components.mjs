@@ -5,6 +5,7 @@ import { Pathfind } from "../controllers/pathfind.mjs";
 import { MouseAim } from "../controllers/mouseaim.mjs";
 import { Orchestrator } from "../controllers/orchestrator.mjs";
 import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
+import { AI } from "../controllers/ai.mjs";
 import { Knockback } from "../controllers/knockback.mjs";
 import { Bullet } from "../interactable/bullets/bullet.mjs";
 import { Enemy } from "../interactable/enemy/enemy.mjs";
@@ -55,6 +56,7 @@ class Components  {
         Enemy.defineComponents();
         Mineral.defineComponents();
         Judge.defineComponents();
+        AI.defineComponents();
         
     }
 }

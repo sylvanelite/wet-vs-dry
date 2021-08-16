@@ -96,10 +96,16 @@ class MainMenuEntity {
           }
         return false;
     }
-    menuStartClick(){
-        console.log("start click!");
+    startLocalGame(){
+        const ecs = Fes.data.ecs;
         this.mode = MainMenuEntity.MENU_MODE.RUNNING;
         Fes.data.ecs.addComponent(Fes.data.player,"controlSourceLocal");
+        let aiInstance = Player.init({
+            x:ecs.components.position.x[Fes.data.player]+128,
+            y:ecs.components.position.y[Fes.data.player]-10
+        });
+        console.log(aiInstance);
+        Fes.data.ecs.addComponent(aiInstance,"controlSourceAI");
     }
     selectCharacter(idx){
         //TODO: any animation logic, etc?
@@ -111,13 +117,14 @@ class MainMenuEntity {
             return;
         }
         if(this.mode === MainMenuEntity.MENU_MODE.MAIN_MENU){
-            //TODO: start, ch select
+            //Start
+            //TODO: create AI opponent
             if(Fes.engine.controls.Mouse_Left_Pressed){
                 if(this.isMouseOverRect(this.startButton)){
-                    this.menuStartClick();
+                    this.startLocalGame();
                 }
             }
-            
+            //Ch select
             for(let i=0;i<this.petals.length;i+=1){
                 let petal = this.petals[i];
                 if(Fes.engine.controls.Mouse_Left_Pressed){

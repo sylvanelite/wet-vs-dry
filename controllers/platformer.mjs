@@ -36,6 +36,7 @@ class Platformer {
         const query = ecs.createQuery("platformer");
         const queryLc = ecs.createQuery("controlSourceLocal");
         const queryNetwork = ecs.createQuery("controlSourceNetwork");
+        //controlSourceAI is also defined in the AI object
         const system = defineSystem(query, Platformer.updatePlatformMovement);
         const systemLc = defineSystem(queryLc, Platformer.updateLocalControls);
         const systemNetwork = defineSystem(queryNetwork, Platformer.updateLocalControls);
