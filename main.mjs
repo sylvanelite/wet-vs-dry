@@ -81,6 +81,9 @@ Fes.update =function (){
 	if(Fes.data.networking){
 		Fes.data.networking.update();
 	}
+	if(Fes.data.mainMenu){
+		Fes.data.mainMenu.update();
+	}
     Fes.engine.lastTick = Date.now();
 	Fes.engine.timer=setTimeout(Fes.update,Fes.engine.FRAME_DURATION - remainder);
 	//clear press/release triggers
@@ -224,6 +227,9 @@ Fes.R.render = function (){
 	Systems.render();
 	if(Fes.data.networking){
 		Fes.data.networking.render();
+	}
+	if(Fes.data.mainMenu){
+		Fes.data.mainMenu.render();
 	}
     Fes.engine.renderTimer = requestAnimationFrame(Fes.R.render);
 };

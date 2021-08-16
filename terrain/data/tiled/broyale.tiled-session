@@ -61,11 +61,11 @@
             "scaleInEditor": 1.5
         },
         "map.json": {
-            "scale": 0.33,
-            "selectedLayer": 1,
+            "scale": 1.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1366.6666666666665,
-                "y": 1321.212121212121
+                "x": 331.33333333333326,
+                "y": 136
             }
         },
         "tile.json": {

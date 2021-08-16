@@ -54,7 +54,7 @@
                 {
                  "height":32,
                  "id":6,
-                 "name":"networking",
+                 "name":"menu",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -81,10 +81,10 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":8,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"2021.03.23",
+ "tiledversion":"1.7.1",
  "tileheight":32,
  "tilesets":[
         {
@@ -93,6 +93,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":1.5,
+ "version":"1.6",
  "width":512
 }

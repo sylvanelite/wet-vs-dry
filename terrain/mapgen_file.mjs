@@ -5,6 +5,7 @@ import {Mineral} from "../interactable/mineral/mineral.mjs";
 import {Judge} from "../interactable/judge/judge.mjs";
 import {Enemy} from "../interactable/enemy/enemy.mjs";
 import {NetworkEntity} from "../controllers/nwEntity.mjs";
+import {MainMenuEntity} from "../controllers/menu.mjs";
 import {Orchestrator} from "../controllers/orchestrator.mjs";
 
 class FileMapGen {
@@ -40,6 +41,14 @@ class FileMapGen {
 		}
 		if(object.name == "judge"){
 			Judge.init(object);
+			return;
+		}
+		if(object.name == "menu"){
+			if(!Fes.data.mainMenu){
+				Fes.data.mainMenu = new MainMenuEntity();
+				return;
+			}
+			console.log("main menu controller already added");
 			return;
 		}
 		console.log("unkown object "+object.name);
