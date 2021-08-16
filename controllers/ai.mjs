@@ -32,10 +32,6 @@ class AI{
         if(Fes.engine.frameCount%40==0){
             ecs.components.cbtState.ATTACK[entity] = true;
         }
-        /*
-        //control options
-        */
-
     }
     
 }
