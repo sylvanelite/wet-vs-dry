@@ -17,13 +17,24 @@ class AI{
     
     static updateAIControls(entity){
         const ecs = Fes.data.ecs;
-        const controls = Fes.engine.getControls(entity);
-        ecs.components.platformer.LEFT[entity] = controls.Left;
-        ecs.components.platformer.RIGHT[entity] = controls.Right;
-        ecs.components.platformer.UP[entity] = controls.Up_Pressed;
-        if(Fes.engine.frameCount%10==0){
+        ecs.components.platformer.LEFT[entity] = false;
+        ecs.components.platformer.RIGHT[entity] = false;
+        ecs.components.platformer.UP[entity] = false;
+        ecs.components.cbtState.UP[entity] = false;
+        ecs.components.cbtState.DOWN[entity] = false;
+        ecs.components.cbtState.LEFT[entity] = false;
+        ecs.components.cbtState.RIGHT[entity] = false;
+        ecs.components.cbtState.ATTACK[entity] = false;
+        ecs.components.cbtState.SPECIAL[entity] = false;
+        if(Fes.engine.frameCount%20==0){
             ecs.components.platformer.UP[entity] = true;
         }
+        if(Fes.engine.frameCount%40==0){
+            ecs.components.cbtState.ATTACK[entity] = true;
+        }
+        /*
+        //control options
+        */
 
     }
     
