@@ -34,7 +34,7 @@ class MainMenuEntity {
         this.mode = MainMenuEntity.MENU_MODE.MAIN_MENU;
         this.startButton = {
             x:333,
-            y:409,
+            y:409+64,
             width:180,
             height:64,
             text:"START"
@@ -67,6 +67,8 @@ class MainMenuEntity {
             img:"ch3a",
             x:332,y:303
         };
+        this.petals = [this.petal_random,this.petal_1,this.petal_2,this.petal_3,
+            this.petal_1a,this.petal_2a,this.petal_3a];
         this.player1Selected = 0;
         this.player2Selected = 0;
         Fes.data.ecs.removeComponent(Fes.data.player, "controlSourceLocal");
@@ -99,6 +101,10 @@ class MainMenuEntity {
         this.mode = MainMenuEntity.MENU_MODE.RUNNING;
         Fes.data.ecs.addComponent(Fes.data.player,"controlSourceLocal");
     }
+    selectCharacter(idx){
+        //TODO: any animation logic, etc?
+        this.player1Selected = idx;
+    }
     //--game logic 
     update(){
         if(this.mode === MainMenuEntity.MENU_MODE.RUNNING){
@@ -112,29 +118,45 @@ class MainMenuEntity {
                 }
             }
             
-        const petals = [this.petal_random,this.petal_1,this.petal_2,this.petal_3,
-            this.petal_1a,this.petal_2a,this.petal_3a];
-            for(let petal of petals){
-                if(this.isMouseOverCircle(petal)){
-                    console.log(petal.img);
+            for(let i=0;i<this.petals.length;i+=1){
+                let petal = this.petals[i];
+                if(Fes.engine.controls.Mouse_Left_Pressed){
+                    if(this.isMouseOverCircle(petal)){
+                        this.selectCharacter(i);
+                    }
                 }
             }
-            
         }
     }
-    renderPetals(idx){
+    renderPetals(){
 		let ctx = Fes.R.varCtx;
-        const petals = [this.petal_random,this.petal_1,this.petal_2,this.petal_3,
-            this.petal_1a,this.petal_2a,this.petal_3a];
-        for(let petal of petals){
-            const img = MainMenuEntity.getImgData(petal.img);
+        for(let petal of this.petals){
+            let imgName = petal.img;
+            if(this.isMouseOverCircle(petal)){
+                imgName+="_inverted";
+            }
+            const img = MainMenuEntity.getImgData(imgName);
             if(img){
                 ctx.drawImage(img,  petal.x,petal.y);
 
             }
-
-
         }
+    }
+    renderCharacterChoices(){
+		let ctx = Fes.R.varCtx;
+        let imgName = "p1_select";
+        const petal = this.petals[this.player1Selected];
+        const img = MainMenuEntity.getImgData(imgName);
+        if(img){
+            ctx.drawImage(img, petal.x+10,petal.y+10);
+        }
+        let imgName2 = "p2_select";
+        const petal2 = this.petals[this.player2Selected];
+        const img2 = MainMenuEntity.getImgData(imgName2);
+        if(img2){
+            ctx.drawImage(img2, petal2.x+10,petal2.y+10);
+        }
+
     }
 	render(){
         if(this.mode === MainMenuEntity.MENU_MODE.RUNNING){
@@ -158,8 +180,7 @@ class MainMenuEntity {
             ctx.fillText(button.text, button.x-(button.text.length*8)/2, button.y-button.height/2 );    
         }
         this.renderPetals();
-
-
+        this.renderCharacterChoices();
 	}
     
     
