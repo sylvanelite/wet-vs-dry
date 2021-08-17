@@ -2,7 +2,7 @@ import { Networking } from "./Networking.mjs";
 import { Map } from "../map.mjs";
 import { Player } from "../player.mjs";
 import { ECS } from "../ecs.js";
-import { Systems } from "../ecs/systems.mjs";
+import { CBTStateMachine } from "./CBTStateMachine.mjs";
 
 class MainMenuEntity {
     static imageCache = {};
@@ -106,10 +106,28 @@ class MainMenuEntity {
         });
         console.log(aiInstance);
         Fes.data.ecs.addComponent(aiInstance,"controlSourceAI");
+        this.assignCharacterToEntity(Fes.data.player,this.petals[this.player1Selected].img);
+        this.assignCharacterToEntity(aiInstance,this.petals[this.player2Selected].img);
     }
-    selectCharacter(idx){
+    selectCharacter(idx,playerNo){//playerNo == 1 or 2
         //TODO: any animation logic, etc?
-        this.player1Selected = idx;
+        this["player"+playerNo+"Selected"] = idx;
+    }
+    assignCharacterToEntity(entity,chosenCh){
+        const ecs = Fes.data.ecs;
+        if(chosenCh == "ch1" || chosenCh == "ch1a"){
+            ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.REDHOOD;
+        }
+        if(chosenCh == "ch2" || chosenCh == "ch2a"){
+            ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.WARRIOR;
+        }
+        if(chosenCh == "random_ch"){
+            if(Fes.engine.frameCount%2==0){
+                ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.REDHOOD;
+            }else{
+                ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.WARRIOR;
+            }
+        }
     }
     //--game logic 
     update(){
@@ -129,7 +147,12 @@ class MainMenuEntity {
                 let petal = this.petals[i];
                 if(Fes.engine.controls.Mouse_Left_Pressed){
                     if(this.isMouseOverCircle(petal)){
-                        this.selectCharacter(i);
+                        this.selectCharacter(i,1);
+                    }
+                }
+                if(Fes.engine.controls.Mouse_Right_Pressed){
+                    if(this.isMouseOverCircle(petal)){
+                        this.selectCharacter(i,2);
                     }
                 }
             }

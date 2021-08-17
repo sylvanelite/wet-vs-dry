@@ -1,5 +1,5 @@
 import { defineSystem,types } from "../ecs.js";
-import { Platformer } from "./platformer.mjs";
+
 class AI{
     
     static defineComponents(){
