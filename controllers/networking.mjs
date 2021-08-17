@@ -21,21 +21,21 @@ class Networking {
         this.peer = null;
         this.hostButton = {
             text:"Host",
-            x:100,y:100,
+            x:270,y:473,
             width:100,
-            height:100
+            height:64
         };
         this.joinButton = {
             text:"Join",
-            x:this.hostButton.x+100,y:100,
+            x:this.hostButton.x+120,y:this.hostButton.y,
             width:100,
-            height:100
+            height:64
         };
         this.startButton = {
             text:"Start",
-            x:this.hostButton.x+150,y:300,
+            x:250,y:300,
             width:100,
-            height:100
+            height:64
         };
         this.setUp();
 	}

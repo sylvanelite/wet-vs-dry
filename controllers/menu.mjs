@@ -145,19 +145,18 @@ class MainMenuEntity {
         }
         if(this.mode === MainMenuEntity.MENU_MODE.MAIN_MENU){
             //Start
-            //TODO: create AI opponent
             if(Fes.engine.controls.Mouse_Left_Pressed){
                 if(this.isMouseOverRect(this.startButton)){
                     this.startLocalGame();
                 }
             }
             //siwtch to network mode
-            //TODO: create AI opponent
             if(Fes.engine.controls.Mouse_Left_Pressed){
                 if(this.isMouseOverRect(this.networkButton)){
                     this.mode = MainMenuEntity.MENU_MODE.NETWORK;
                     //create instance of nw object
                     FileMapGen.createObejct({name:"networking"});
+                    this.selectCharacter(0,2);//set the indicator to random to blind pick nw opponent
                 }
             }
             //Ch select
