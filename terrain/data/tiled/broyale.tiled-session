@@ -61,11 +61,11 @@
             "scaleInEditor": 1.5
         },
         "map.json": {
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 331.33333333333326,
-                "y": 136
+                "x": 556.5,
+                "y": 433
             }
         },
         "tile.json": {
@@ -82,13 +82,12 @@
     "map.tileWidth": 32,
     "map.width": 1500,
     "openFiles": [
-        "map.json",
-        "tile.json"
+        "map.json"
     ],
     "project": "broyale.tiled-project",
     "recentFiles": [
-        "tile.json",
         "map.json",
+        "tile.json",
         "caveA.json"
     ],
     "tileset.embedInMap": false,

@@ -25,6 +25,21 @@ class MapRenderer {
         s.push(system);
     }
     static setViewport(entity) {
+        const mapWidth = Map.getMapWidthInTiles();
+        const mapHeight = Map.getMapHeightInTiles();
+        /*
+        const bounds = {
+            left: 0,
+            right: mapWidth * Fes.R.TILE_SIZE,
+            top: 0,
+            bottom: mapHeight * Fes.R.TILE_SIZE
+        };*/
+        const bounds = {
+            left: 64,
+            right: 640+128,
+            top: 64,
+            bottom: 480+128
+        };
         Fes.R.screenX = Math.floor(Fes.data.ecs.components.position.x[entity] - Fes.R.SCREEN_WIDTH / 2);
         Fes.R.screenY = Math.floor(Fes.data.ecs.components.position.y[entity] - Fes.R.SCREEN_HEIGHT / 2);
         if( isNaN(Fes.R.screenX) ){
@@ -35,20 +50,18 @@ class MapRenderer {
             Fes.R.screenY = 0;
             console.log("y is nan: "+Fes.data.ecs.components.position.y[entity]);
         }
-        if (Fes.R.screenX < 0) {
-            Fes.R.screenX = 0;
+        if (Fes.R.screenX < bounds.left) {
+            Fes.R.screenX = bounds.left;
         }
-        if (Fes.R.screenY < 0) {
-            Fes.R.screenY = 0;
+        if (Fes.R.screenY < bounds.top) {
+            Fes.R.screenY = bounds.top;
         }
-        const mapWidth = Map.getMapWidthInTiles();
-        const mapHeight = Map.getMapHeightInTiles();
         if(mapWidth&&mapHeight){
-            if (Fes.R.screenX + Fes.R.SCREEN_WIDTH > mapWidth * Fes.R.TILE_SIZE) {
-                Fes.R.screenX = mapWidth * Fes.R.TILE_SIZE - Fes.R.SCREEN_WIDTH;
+            if (Fes.R.screenX + Fes.R.SCREEN_WIDTH > bounds.right) {
+                Fes.R.screenX = bounds.right - Fes.R.SCREEN_WIDTH;
             }
-            if (Fes.R.screenY + Fes.R.SCREEN_HEIGHT > mapHeight * Fes.R.TILE_SIZE) {
-                Fes.R.screenY = mapHeight * Fes.R.TILE_SIZE - Fes.R.SCREEN_HEIGHT;
+            if (Fes.R.screenY + Fes.R.SCREEN_HEIGHT > bounds.bottom) {
+                Fes.R.screenY = bounds.bottom - Fes.R.SCREEN_HEIGHT;
             }
         }
     }
