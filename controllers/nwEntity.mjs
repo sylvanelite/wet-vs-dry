@@ -1,7 +1,5 @@
 import { Networking } from "./Networking.mjs";
 import { Map } from "../map.mjs";
-import { MapGen } from "../terrain/mapgen.mjs";
-import { ProcMapGen } from "../terrain/mapgen_procedural.mjs";
 import { Player } from "../player.mjs";
 import { MouseAim } from "./mouseaim.mjs";
 import { ECS } from "../ecs.js";
@@ -127,38 +125,6 @@ class NetworkEntity extends Networking {
         };
         this.tickRate = 5;  //how many server ticks should fire to each client tick
         this.tickCount = 0;
-        //--main menu
-        this.MENU_MODES.MAIN_MENU  = "MAIN_MENU";
-        this.menuMode = this.MENU_MODES.MAIN_MENU;
-        this.menuData = {
-            chosenClass:"Scout",
-            //TODO: difficulty etc?
-            classA: {
-                text:"Scout",
-                x:100,y:100,
-                width:75,height:50
-            },
-            classB: {
-                text:"Driller",
-                x:200,y:100,
-                width:75,height:50
-            },
-            classC: {
-                text:"Engineer",
-                x:300,y:100,
-                width:75,height:50
-            },
-            classD: {
-                text:"Gunner",
-                x:400,y:100,
-                width:75,height:50
-            },
-            confirm: {
-                text:"Confirm",
-                x:400,y:300,
-                width:100,height:100
-            }
-        };
     }
     //called by host when clicking "start"
     onHostStartClick(){
@@ -201,12 +167,10 @@ class NetworkEntity extends Networking {
         }
     }
     msgGetData(msgObj){
-        console.log("message get!:",msgObj);
         //if you get a message requesting data for your peer, fill it and send it to the host
         if(msgObj.data.id==this.peer.id&&!msgObj.data.data){
             msgObj.data.data = {
-                //any other data needed goes here...
-                chosenClass:this.menuData.chosenClass
+                chosenClass:Fes.data.mainMenu.player1Selected//TODO:!!! what if the player changes thier character?
             }
             this.send(msgObj);//bounce the message back, but with your data
             return;
@@ -250,6 +214,9 @@ class NetworkEntity extends Networking {
             x :Fes.data.ecs.components.position.x[Fes.data.player],
             y :Fes.data.ecs.components.position.y[Fes.data.player]-64
         };
+        //assign the local player
+        Fes.data.mainMenu.assignCharacterToEntity(Fes.data.player, Fes.data.mainMenu.player1Selected);
+        //assign the remote players
         for(const c of this.connections){
             playerObj.x += 600;
             playerObj.x = playerObj.x%8000;
@@ -262,8 +229,9 @@ class NetworkEntity extends Networking {
                 x:playerObj.x,
                 y:playerObj.y
             });
-            Fes.data.ecs.addComponent(instance,"controlSourceNetwork");
-            this.setClassForEntity(instance,c.loadedData.chosenClass);
+            Fes.data.ecs.addComponent(instance,"controlSourceNetwork");        
+            Fes.data.mainMenu.assignCharacterToEntity(instance,c.loadedData.chosenClass);
+            console.log(c.loadedData);
         }
         this.isStarted = true;
         this.send(msgInit);
@@ -452,75 +420,6 @@ class NetworkEntity extends Networking {
         this.send(syncMessage);
     }
 
-    //--menu logic
-    setClassForEntity(entity,chClass){
-        if(chClass == this.menuData.classA.text){//scout
-            Fes.data.ecs.components.mouseaim.shootKind[entity] = MouseAim.SHOOT_KIND.SNIPER;
-            Fes.data.ecs.components.mouseaim.shootKindAlt[entity] = MouseAim.SHOOT_KIND.GRAPLE;
-        }
-        if(chClass == this.menuData.classB.text){//driller
-            Fes.data.ecs.components.mouseaim.shootKind[entity] = MouseAim.SHOOT_KIND.FLAME;
-            Fes.data.ecs.components.mouseaim.shootKindAlt[entity] = MouseAim.SHOOT_KIND.DRILL;
-        }
-        if(chClass == this.menuData.classC.text){//engineer
-            Fes.data.ecs.components.mouseaim.shootKind[entity] = MouseAim.SHOOT_KIND.SHOTGUN;
-            Fes.data.ecs.components.mouseaim.shootKindAlt[entity] = MouseAim.SHOOT_KIND.PLATFORM;
-        }
-        if(chClass == this.menuData.classD.text){//gunner
-            Fes.data.ecs.components.mouseaim.shootKind[entity] = MouseAim.SHOOT_KIND.MACHINE_GUN;
-            Fes.data.ecs.components.mouseaim.shootKindAlt[entity] = MouseAim.SHOOT_KIND.SHIELD;
-        }
-
-    }
-	updateMenu(){
-        if(this.menuMode == this.MENU_MODES.MAIN_MENU){
-            if(Fes.engine.controls.Mouse_Left_Pressed){
-                if(this.isMouseOverRect(this.menuData.confirm)){
-                    //TODO: lock in class selection
-                    this.menuMode = this.MENU_MODES.NETWORK;
-                    this.setClassForEntity(Fes.data.player,this.menuData.chosenClass);
-                }
-                if(this.isMouseOverRect(this.menuData.classA)){//scout
-                    this.menuData.chosenClass = this.menuData.classA.text;
-                }
-                if(this.isMouseOverRect(this.menuData.classB)){//driller
-                    this.menuData.chosenClass = this.menuData.classB.text;
-                }
-                if(this.isMouseOverRect(this.menuData.classC)){//engineer
-                    this.menuData.chosenClass = this.menuData.classC.text;
-                }
-                if(this.isMouseOverRect(this.menuData.classD)){//gunner
-                    this.menuData.chosenClass = this.menuData.classD.text;
-                }
-            }
-        }
-	}
-	renderMenu(){
-		let ctx = Fes.R.varCtx;
-        //not connected, show host/join info
-        let buttons = [this.menuData.classA,this.menuData.classB,
-            this.menuData.classC,this.menuData.classD,
-            this.menuData.confirm];
-        //rect
-        for(let i=0;i<buttons.length;i+=1){
-            let button = buttons[i];
-            ctx.fillStyle = '#c4c4c4';
-            if(this.isMouseOverRect(button)){
-                ctx.fillStyle = '#00FF00';
-            }
-            if(this.menuData.chosenClass == button.text){
-                ctx.fillStyle = '#FFFF00';
-            }
-            ctx.fillRect(button.x-button.width/2, button.y-button.height,  button.width, button.height);
-            ctx.strokeStyle = "#000000";
-            ctx.beginPath();
-            ctx.rect(button.x-button.width/2-0.5, button.y-button.height-0.5,  button.width, button.height);
-            ctx.stroke();
-            ctx.fillStyle = '#000000';
-            ctx.font = '16px serif';
-            ctx.fillText(button.text, button.x-(button.text.length*8)/2, button.y-button.height/2 );
-        }
-	}
     
     
 }

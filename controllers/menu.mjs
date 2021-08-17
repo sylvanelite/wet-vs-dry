@@ -1,5 +1,5 @@
 import { Networking } from "./Networking.mjs";
-import { Map } from "../map.mjs";
+import { FileMapGen } from "../terrain/mapgen_file.mjs";
 import { Player } from "../player.mjs";
 import { ECS } from "../ecs.js";
 import { CBTStateMachine } from "./CBTStateMachine.mjs";
@@ -113,14 +113,16 @@ class MainMenuEntity {
         });
         console.log(aiInstance);
         Fes.data.ecs.addComponent(aiInstance,"controlSourceAI");
-        this.assignCharacterToEntity(Fes.data.player,this.petals[this.player1Selected].img);
-        this.assignCharacterToEntity(aiInstance,this.petals[this.player2Selected].img);
+        this.assignCharacterToEntity(Fes.data.player,this.player1Selected);
+        this.assignCharacterToEntity(aiInstance,this.player2Selected);
     }
     selectCharacter(idx,playerNo){//playerNo == 1 or 2
         //TODO: any animation logic, etc?
         this["player"+playerNo+"Selected"] = idx;
     }
-    assignCharacterToEntity(entity,chosenCh){
+    assignCharacterToEntity(entity,chosenChIdx){
+        const chosenCh = this.petals[chosenChIdx].img;
+        console.log("assigning:"+chosenCh+" to "+entity);
         const ecs = Fes.data.ecs;
         if(chosenCh == "ch1" || chosenCh == "ch1a"){
             ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.REDHOOD;
@@ -154,6 +156,8 @@ class MainMenuEntity {
             if(Fes.engine.controls.Mouse_Left_Pressed){
                 if(this.isMouseOverRect(this.networkButton)){
                     this.mode = MainMenuEntity.MENU_MODE.NETWORK;
+                    //create instance of nw object
+                    FileMapGen.createObejct({name:"networking"});
                 }
             }
             //Ch select
@@ -235,6 +239,12 @@ class MainMenuEntity {
                 ctx.fillStyle = '#000000';
                 ctx.font = '16px serif';
                 ctx.fillText(button.text, button.x-(button.text.length*11)/2, button.y-button.height/2 );    
+            }
+        }
+        if(this.mode === MainMenuEntity.MENU_MODE.NETWORK){
+            //can no longer change character after reaching the hosting/joining section
+            if(Fes.data.networking.peer){
+                return;
             }
         }
         this.renderPetals();

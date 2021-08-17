@@ -37,10 +37,6 @@ class Networking {
             width:100,
             height:100
         };
-        this.MENU_MODES = {
-            NETWORK:"NETWORK"//more modes can be added here by subclass
-        };
-        this.menuMode = this.MENU_MODES.NETWORK;
         this.setUp();
 	}
     host(){
@@ -178,11 +174,6 @@ class Networking {
         }
     }
 	update(){
-        if(this.menuMode != this.MENU_MODES.NETWORK){
-            //offload menu handling to subclass until it's set to network mode.
-            this.updateMenu();
-            return;
-        }
         if(!this.peer){
             //we're not connected
             if(Fes.engine.controls.Mouse_Left_Pressed){
@@ -230,11 +221,6 @@ class Networking {
 	}
 	render(){
 		let ctx = Fes.R.varCtx;
-        if(this.menuMode != this.MENU_MODES.NETWORK){
-            //offload menu handling to subclass until it's set to network mode.
-            this.renderMenu();
-            return;
-        }
         //not connected, show host/join info
         if(!this.peer){
             let buttons = [this.hostButton,this.joinButton];
@@ -303,8 +289,6 @@ class Networking {
         }
 	}
     //-- below is code specific to the engine, overwirtten by the specific implementation
-    updateMenu(){ }//networking hasn't started, still in the main menu
-    renderMenu(){ }//render method for above
     setUp(){ }//called when the network object is created
     onHostStartClick(){ } //called by host when clicking "start"
     handleMessage(msgObj){  }//message obj is a generic object with at least the field isHost = true
