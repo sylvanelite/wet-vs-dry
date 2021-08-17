@@ -34,10 +34,17 @@ class MainMenuEntity {
         this.mode = MainMenuEntity.MENU_MODE.MAIN_MENU;
         this.startButton = {
             x:333,
-            y:409+64,
+            y:473,
             width:180,
             height:64,
             text:"START"
+        };
+        this.networkButton = {
+            x:529,
+            y:473,
+            width:100,
+            height:64,
+            text:"NETWORK"
         };
         this.petal_random = {
             img:"random_ch",
@@ -142,6 +149,13 @@ class MainMenuEntity {
                     this.startLocalGame();
                 }
             }
+            //siwtch to network mode
+            //TODO: create AI opponent
+            if(Fes.engine.controls.Mouse_Left_Pressed){
+                if(this.isMouseOverRect(this.networkButton)){
+                    this.mode = MainMenuEntity.MENU_MODE.NETWORK;
+                }
+            }
             //Ch select
             for(let i=0;i<this.petals.length;i+=1){
                 let petal = this.petals[i];
@@ -157,6 +171,19 @@ class MainMenuEntity {
                 }
             }
         }
+        if(this.mode === MainMenuEntity.MENU_MODE.NETWORK){
+            //Ch select
+            for(let i=0;i<this.petals.length;i+=1){
+                let petal = this.petals[i];
+                if(Fes.engine.controls.Mouse_Left_Pressed){
+                    if(this.isMouseOverCircle(petal)){
+                        this.selectCharacter(i,1);
+                    }
+                }
+            }
+
+        }
+
     }
     renderPetals(){
 		let ctx = Fes.R.varCtx;
@@ -193,21 +220,22 @@ class MainMenuEntity {
             return;
         }
 		let ctx = Fes.R.varCtx;
-        
-        let buttons = [this.startButton];
-        for(let button of buttons){
-            ctx.fillStyle = '#c4c4c4';
-            if(this.isMouseOverRect(button)){
-                ctx.fillStyle = '#00FF00';
+        if(this.mode === MainMenuEntity.MENU_MODE.MAIN_MENU){
+            let buttons = [this.startButton,this.networkButton];
+            for(let button of buttons){
+                ctx.fillStyle = '#c4c4c4';
+                if(this.isMouseOverRect(button)){
+                    ctx.fillStyle = '#00FF00';
+                }
+                ctx.fillRect(button.x-button.width/2, button.y-button.height,  button.width, button.height);
+                ctx.strokeStyle = "#000000";
+                ctx.beginPath();
+                ctx.rect(button.x-button.width/2-0.5, button.y-button.height-0.5,  button.width, button.height);
+                ctx.stroke();
+                ctx.fillStyle = '#000000';
+                ctx.font = '16px serif';
+                ctx.fillText(button.text, button.x-(button.text.length*11)/2, button.y-button.height/2 );    
             }
-            ctx.fillRect(button.x-button.width/2, button.y-button.height,  button.width, button.height);
-            ctx.strokeStyle = "#000000";
-            ctx.beginPath();
-            ctx.rect(button.x-button.width/2-0.5, button.y-button.height-0.5,  button.width, button.height);
-            ctx.stroke();
-            ctx.fillStyle = '#000000';
-            ctx.font = '16px serif';
-            ctx.fillText(button.text, button.x-(button.text.length*8)/2, button.y-button.height/2 );    
         }
         this.renderPetals();
         this.renderCharacterChoices();
