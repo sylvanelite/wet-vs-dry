@@ -91,14 +91,15 @@ class Stocks {
         };
         if(!Collision.rectRectCollision(obj,Stocks.ARENA_BOUNDS)){
             //outside bounds, KO
-            Fes.data.ecs.components.stocks.stockCount[entity]-=1;
+            ecs.components.stocks.stockCount[entity]-=1;
+            ecs.components.cbtState.percent[entity] = 0;//reset the player's percent
             //set x spawn points
             let xSpawn = 600;
             if(Fes.data.player === entity){
                 xSpawn = 288;
             }
-            Fes.data.ecs.components.position.x[entity] = xSpawn;
-            Fes.data.ecs.components.position.y[entity] = 320;
+            ecs.components.position.x[entity] = xSpawn;
+            ecs.components.position.y[entity] = 320;
         }
     }
     static render(entity){
@@ -117,7 +118,7 @@ class Stocks {
         if(Fes.data.player === entity){
             renderX = 64;
         }
-        for(var i=0;i<Fes.data.ecs.components.stocks.stockCount[entity];i+=1){
+        for(var i=0;i<ecs.components.stocks.stockCount[entity];i+=1){
             const img = Stocks.getImgData("stock");
             if(img){
                 ctx.drawImage(img,renderX+i*34,renderY);
