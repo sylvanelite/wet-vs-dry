@@ -1,9 +1,30 @@
 import { defineSystem,types } from "../ecs.js";
-import { Map } from "../map.mjs";
 import { Collision } from "./collision.mjs";
 import { MainMenuEntity } from "./menu.mjs";
 
 class Stocks {
+
+    static imageCache = {};
+
+    static getImgData(imgName){
+        const ecs = Fes.data.ecs;
+        if(Stocks.imageCache[imgName] == null){
+            //start loading
+            let img = new Image();
+            Stocks.imageCache[imgName] = {
+                image:img,
+                isLoaded:false
+            };
+            img.onload = function(){
+                Stocks.imageCache[imgName].isLoaded = true;
+            };
+            img.src = "./assets/stocks/"+imgName+".png";
+        }
+        if(Stocks.imageCache[imgName].isLoaded){
+            return Stocks.imageCache[imgName].image;
+        }
+    }
+
     static StockState = {
         numberAlive:0
     };
@@ -21,8 +42,6 @@ class Stocks {
         return self;
     }
     static defineComponents(){        
-        //TODO: defining components is relatively wateful
-        //      get sync for free, but there will only be 1 entity for e.g. 10000 allocated components  
         Fes.data.ecs.defineComponent("stocks",{
             stockCount:types.int32
         });
@@ -45,10 +64,11 @@ class Stocks {
     }
     static afterUpdate(){
         //don't check for game over if the main menu is open
-        if(Fes.data.mainMenu){
-            if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
-                return;
-            }
+        if(!Fes.data.mainMenu){
+            return;
+        }
+        if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
+            return;
         }
         if(Stocks.StockState.numberAlive<=1){
             //check for game over
@@ -72,13 +92,38 @@ class Stocks {
         if(!Collision.rectRectCollision(obj,Stocks.ARENA_BOUNDS)){
             //outside bounds, KO
             Fes.data.ecs.components.stocks.stockCount[entity]-=1;
-            Fes.data.ecs.components.position.x[entity] = 288;//TODO: set x spawn points
+            //set x spawn points
+            let xSpawn = 600;
+            if(Fes.data.player === entity){
+                xSpawn = 288;
+            }
+            Fes.data.ecs.components.position.x[entity] = xSpawn;
             Fes.data.ecs.components.position.y[entity] = 320;
         }
     }
     static render(entity){
+        const ctx = Fes.R.varCtx;
         const ecs = Fes.data.ecs;
-        //TODO: render stocks on screen
+        if(!Fes.data.mainMenu){
+            return;
+        }
+        if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
+            return;
+        }
+        //render on the right for everyone except the local player
+        //should only be 1-1 so this might be ok
+        let renderX = Fes.R.SCREEN_WIDTH-128;
+        const renderY =  Fes.R.SCREEN_HEIGHT-64;
+        if(Fes.data.player === entity){
+            renderX = 64;
+        }
+        for(var i=0;i<Fes.data.ecs.components.stocks.stockCount[entity];i+=1){
+            const img = Stocks.getImgData("stock");
+            if(img){
+                ctx.drawImage(img,renderX+i*34,renderY);
+            }
+        }
+
     }
 }
 
