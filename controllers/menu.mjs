@@ -184,7 +184,10 @@ class MainMenuEntity {
                     }
                 }
             }
-
+            //if the networking object has started the game's connections, set the menu to be running
+            if(Fes.data.networking.peer){
+                this.mode = MainMenuEntity.MENU_MODE.RUNNING;
+            }
         }
 
     }

@@ -1,6 +1,7 @@
 import { defineSystem,types } from "../ecs.js";
 import { Map } from "../map.mjs";
 import { Collision } from "./collision.mjs";
+import { MainMenuEntity } from "./menu.mjs";
 
 class Stocks {
     static StockState = {
@@ -43,9 +44,16 @@ class Stocks {
         Stocks.StockState.numberAlive = 0;
     }
     static afterUpdate(){
+        //don't check for game over if the main menu is open
+        if(Fes.data.mainMenu){
+            if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
+                return;
+            }
+        }
         if(Stocks.StockState.numberAlive<=1){
             //check for game over
             console.log("game over!");
+            //TODO: some way of resetting the main menu
         }
     }
     static update(entity){
