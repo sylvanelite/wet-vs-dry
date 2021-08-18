@@ -6,6 +6,7 @@ import { Orchestrator } from "../controllers/orchestrator.mjs";
 import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
 import { AI } from "../controllers/ai.mjs";
 import { Knockback } from "../controllers/knockback.mjs";
+import { Stocks } from "../controllers/stocks.mjs";
 import { Bullet } from "../interactable/bullets/bullet.mjs";
 import { Enemy } from "../interactable/enemy/enemy.mjs";
 import { Mineral } from "../interactable/mineral/mineral.mjs";
@@ -36,6 +37,7 @@ class Systems  {
         Mineral.defineSystems(ecs,systems);
         Judge.defineSystems(ecs,systems);
         AI.defineSystems(ecs,systems);
+        Stocks.defineSystems(ecs,systems);
     }
     static initRender(ecs,renderSystems){
         if(renderSystems.length){
@@ -50,6 +52,7 @@ class Systems  {
         Enemy.defineRenderSystems(ecs,renderSystems);
         Mineral.defineRenderSystems(ecs,renderSystems);
         Judge.defineRenderSystems(ecs,renderSystems);
+        Stocks.defineRenderSystems(ecs,renderSystems);
     }
     static update(systems){
         for(let i=0;i<systems.length;i+=1){

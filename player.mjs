@@ -2,6 +2,7 @@ import { Platformer } from "./controllers/platformer.mjs";
 import { MouseAim } from "./controllers/mouseaim.mjs";
 import { CBTStateMachine } from "./controllers/CBTStateMachine.mjs";
 import { Knockback } from "./controllers/knockback.mjs";
+import { Stocks } from "./controllers/stocks.mjs";
 import { defineSystem } from "../ecs.js";
 
 
@@ -19,6 +20,7 @@ class Player  {
         MouseAim.addToEntity(self);
         CBTStateMachine.addToEntity(self);
         Knockback.addToEntity(self);
+        Stocks.addToEntity(self);
         ecs.addComponent(self,"player");
         return self;
     }
