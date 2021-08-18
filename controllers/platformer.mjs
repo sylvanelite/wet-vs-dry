@@ -1,5 +1,6 @@
 import { Map } from "../map.mjs"; 
 import { types, defineSystem } from "../ecs.js";
+import { Knockback } from "./knockback.mjs";
 
 //https://github.com/DavidStrachan/GM-Perfect-Platforming-Paragon
 //maybe also: https://2dengine.com/?p=platformers
@@ -244,6 +245,15 @@ class Platformer {
 
     static updatePlatformMovement(entity){
         const ecs = Fes.data.ecs;
+        //--start: kockback
+        //brick controls for characters in hitstun
+        if(Knockback.isInHitstun(entity)){
+            ecs.components.platformer.LEFT[entity] = false;
+            ecs.components.platformer.RIGHT[entity] = false;
+            ecs.components.platformer.UP[entity] = false;
+            return;
+        }
+        //--end: knockback
         let jumpRequested = ecs.components.platformer.UP[entity];
         ecs.components.platformer.did_jump[entity] = false;
         if (ecs.components.platformer.LEFT[entity] > 0 || ecs.components.platformer.RIGHT[entity] > 0) { // they are moving left / right
