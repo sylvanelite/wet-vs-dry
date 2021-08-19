@@ -69,7 +69,7 @@ class MapRenderer {
     static render() {
         let ctx = Fes.R.varCtx;
         //background
-        ctx.fillStyle = "#222222";
+        ctx.fillStyle = "#312D45";
         ctx.fillRect(0, 0, Fes.R.SCREEN_WIDTH, Fes.R.SCREEN_HEIGHT);
         ParallaxRenderer.renderBG();
         //tiles
