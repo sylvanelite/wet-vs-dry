@@ -98,7 +98,7 @@ class AI{
         const deltaX = ecs.components.position.x[entity]-ecs.components.position.x[Fes.data.player];
         const deltaY = ecs.components.position.y[entity]-ecs.components.position.y[Fes.data.player];
         const dist = Math.hypot(deltaX,deltaY);
-        if(dist<48){
+        if(dist<40){
             //TODO: use PRNG? or Fes.engine.frameCount? to randomise
             ecs.components.cbtState.LEFT[entity] = true;
             ecs.components.cbtState.ATTACK[entity] = true;
