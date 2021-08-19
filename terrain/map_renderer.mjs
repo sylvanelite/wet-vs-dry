@@ -1,5 +1,6 @@
 import { Map } from "../map.mjs";
 import { defineSystem } from "../ecs.js";
+import { ParallaxRenderer } from "./parallax_renderer.mjs";
 
 class MapRenderer {
     static spriteSheet = null;
@@ -70,6 +71,7 @@ class MapRenderer {
         //background
         ctx.fillStyle = "#222222";
         ctx.fillRect(0, 0, Fes.R.SCREEN_WIDTH, Fes.R.SCREEN_HEIGHT);
+        ParallaxRenderer.renderBG();
         //tiles
         ctx.strokeStyle = "#000000";
         ctx.fillStyle = "#FFFFFF";
@@ -97,6 +99,7 @@ class MapRenderer {
                 }
             }
         }
+        ParallaxRenderer.renderFG();
     }
 
     static loadSprite(data){
