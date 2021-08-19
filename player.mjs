@@ -34,14 +34,19 @@ class Player  {
         let floorX = Math.floor(ecs.components.position.x[entity]);
         let floorY = Math.floor(ecs.components.position.y[entity]);
         let ctx = Fes.R.varCtx;
-        ctx.strokeStyle = "#000000";
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = "rgba(0,0,255,0.5)";
+        //ctx.strokeStyle = "1px solid black";
+        if(Fes.data.player == entity){
+            ctx.fillStyle = "rgba(255,0,0,0.5)";
+        }
         ctx.beginPath();
-        ctx.rect(floorX - Fes.R.screenX-0.5-ecs.components.size.width[entity]/2,
-                 floorY - Fes.R.screenY-0.5-ecs.components.size.height[entity],
-                 ecs.components.size.width[entity], 
-                 ecs.components.size.height[entity]);
-        ctx.stroke();
+        ctx.arc(floorX - Fes.R.screenX-0.5-ecs.components.size.width[entity]/2, 
+                 floorY - Fes.R.screenY-0.5-ecs.components.size.height[entity]/2, 
+                 ecs.components.size.width[entity]*2,0, 2 * Math.PI);
+        ctx.fill();
+        //ctx.stroke();
+
+
     }
 
 }
