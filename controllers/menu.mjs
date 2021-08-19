@@ -255,6 +255,12 @@ class MainMenuEntity {
     static isInMenu(){
         if(!Fes.data.mainMenu){
             return true;
+        }        
+        if(Fes.data.networking){
+            //check if the menu has started (host/join screen)
+            if(!Fes.data.networking.isStarted){
+                return true;
+            }
         }
         if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
             return true;

@@ -218,8 +218,8 @@ class NetworkEntity extends Networking {
         Fes.data.mainMenu.assignCharacterToEntity(Fes.data.player, Fes.data.mainMenu.player1Selected);
         //assign the remote players
         for(const c of this.connections){
-            playerObj.x += 600;
-            playerObj.x = playerObj.x%8000;
+            playerObj.x += 300;
+            playerObj.x = playerObj.x%600;
             //NOTE: c.peer == Fes.data.networking.peer.id
             //client can use this to tell which obj they have been assigned
             let instance = Player.init(playerObj);

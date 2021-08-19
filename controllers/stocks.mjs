@@ -73,6 +73,18 @@ class Stocks {
             //TODO: some way of resetting the main menu
         }
     }
+    static isPlayerEntity(entity){
+        //multiplayer mode, need to return true/false based on if you're the host or not
+        if(Fes.data.networking){
+            if(Fes.data.networking.isHost){
+                return (Fes.data.player === entity);
+            }else{
+                return (Fes.data.player !== entity);
+            }
+        }
+        //single player mode, just return true/false if it's the local player or not
+        return (Fes.data.player === entity);
+    }
     static update(entity){
         const ecs = Fes.data.ecs;
         //keep track of the number of alive players
@@ -92,7 +104,7 @@ class Stocks {
             ecs.components.cbtState.percent[entity] = 0;//reset the player's percent
             //set x spawn points
             let xSpawn = 600;
-            if(Fes.data.player === entity){
+            if(Stocks.isPlayerEntity(entity)){
                 xSpawn = 288;
             }
             ecs.components.position.x[entity] = xSpawn;
@@ -109,7 +121,7 @@ class Stocks {
         //should only be 1-1 so this might be ok
         let renderX = Fes.R.SCREEN_WIDTH-128;
         const renderY =  Fes.R.SCREEN_HEIGHT-64;
-        if(Fes.data.player === entity){
+        if(Stocks.isPlayerEntity(entity)){
             renderX = 64;
         }
         for(var i=0;i<ecs.components.stocks.stockCount[entity];i+=1){
