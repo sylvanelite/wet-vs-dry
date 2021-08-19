@@ -55,7 +55,8 @@ class AI{
         //TODO: prevent chasing if opponent is off-stage?
 
         //back off
-        if(ecs.components.cbtState.currentState[entity]==CBTStateMachine.STATES.ATTACK){
+        if(ecs.components.cbtState.currentState[entity]==CBTStateMachine.STATES.ATTACK &&
+            ecs.components.cbtState.animationProgress[entity]>2){//wait until the 3rd frame of the attack
             if(ecs.components.position.x[entity]>ecs.components.position.x[Fes.data.player]){
                 ecs.components.platformer.RIGHT[entity] = true;
             }else{
@@ -100,7 +101,35 @@ class AI{
         const dist = Math.hypot(deltaX,deltaY);
         if(dist<40){
             //TODO: use PRNG? or Fes.engine.frameCount? to randomise
-            ecs.components.cbtState.LEFT[entity] = true;
+            const attackButton = Fes.engine.frameCount%4;
+            if(attackButton == 0){
+                ecs.components.cbtState.LEFT[entity] = true;//this will trigger attack-side, based on facing (L or R doesn't matter)
+            }
+            if(attackButton == 1){
+                if(deltaY>5){//if they are above, use up attack
+                    ecs.components.cbtState.UP[entity] = true;
+                }else{//else L/R attack
+                    ecs.components.cbtState.LEFT[entity] = true;
+                }
+            }
+            let neutral = false;
+            if(attackButton == 2){
+                if(deltaY<-5){
+                    ecs.components.cbtState.DOWN[entity] = true;
+                }else{
+                    neutral=true;
+                }
+            }
+            if(attackButton == 3){
+                neutral=true;
+            }
+            if(neutral){
+                ecs.components.cbtState.UP[entity] = false;
+                ecs.components.cbtState.DOWN[entity] = false;
+                ecs.components.cbtState.LEFT[entity] = false;
+                ecs.components.cbtState.RIGHT[entity] = false;
+            }
+            //else: neutral (no button)
             ecs.components.cbtState.ATTACK[entity] = true;
         }
 

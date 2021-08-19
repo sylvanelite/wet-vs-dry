@@ -43,7 +43,7 @@ class CBTStateMachine{
         IN_AIR_UP:13,
         IN_AIR_DOWN:14
     }
-    static FRAME_RATE=0.3;
+    static FRAME_RATE=0.2;
     static defineComponents(){
         Fes.data.ecs.defineComponent("cbtState",{
             currentState:types.int8,
