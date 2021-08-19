@@ -31,7 +31,7 @@ class ParallaxRenderer {
             {name:"terrain",
                 amountX:1.5,
                 amountY:1.1,
-            offsetX:-905,offsetY:-550},//y is higher due to parallax
+            offsetX:-905,offsetY:-530},//y is higher due to parallax
             {name:"parallax1",
                 amountX:1.2,
                 amountY:1.2,
@@ -63,19 +63,37 @@ class ParallaxRenderer {
             return;
         }
         let ctx = Fes.R.varCtx;
-        const images = [
-            {name:"fg",
-                amountX:1,
-                amountY:2,
-            offsetX:-308,offsetY:546},
-        ];
-        for (const imgData of images){
-            const img = ParallaxRenderer.getImgData(imgData.name);
-            if(img){
-                ctx.drawImage(img, 
-                    imgData.offsetX-Fes.R.screenX*imgData.amountX,
-                    imgData.offsetY-Fes.R.screenY*imgData.amountY);
-            }
+        const imgData = {name:"fg",
+            amountX:1,
+            amountY:2,
+        offsetX:-308,offsetY:650};
+        let frame= Fes.engine.frameCount%120;
+        if(frame>30){
+            imgData.name="fg_1";
+        }
+        if(frame>60){
+            imgData.name="fg_2";
+        }
+        if(frame>90){
+            imgData.name="fg_1";
+        }
+        const img = ParallaxRenderer.getImgData(imgData.name);
+        //move the water across ever 2nd frame, up to 100 frames (50 forward, 50 back)
+        let slideAmountX =  Math.sin(Fes.engine.frameCount/50)*50;
+        let slideAmountY =  Math.sin(Fes.engine.frameCount/150)*25;
+        imgData.offsetY-=Math.floor(slideAmountY/16)*16;
+        imgData.offsetX+=Math.floor(slideAmountX/16)*16;
+        if(img){
+            ctx.drawImage(img, 
+                imgData.offsetX-Fes.R.screenX*imgData.amountX,
+                imgData.offsetY-Fes.R.screenY*imgData.amountY-12);
+        }
+        imgData.offsetY-=Math.floor(slideAmountY/32)*32;
+        imgData.offsetX+=Math.floor(slideAmountX/32)*32;
+        if(img){
+            ctx.drawImage(img, 
+                imgData.offsetX-Fes.R.screenX*imgData.amountX,
+                imgData.offsetY-Fes.R.screenY*imgData.amountY);
         }
     }
     

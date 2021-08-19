@@ -74,7 +74,6 @@ class MapRenderer {
         ParallaxRenderer.renderBG();
         //tiles
         ctx.strokeStyle = "#000000";
-        ctx.fillStyle = "#FFFFFF";
         const mapWidth = Map.getMapWidthInTiles();
         const mapHeight = Map.getMapHeightInTiles();
         let startX = Math.floor(Fes.R.screenX / Fes.R.TILE_SIZE - 1);
