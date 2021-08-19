@@ -64,10 +64,7 @@ class Stocks {
     }
     static afterUpdate(){
         //don't check for game over if the main menu is open
-        if(!Fes.data.mainMenu){
-            return;
-        }
-        if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
+        if(MainMenuEntity.isInMenu()){
             return;
         }
         if(Stocks.StockState.numberAlive<=1){
@@ -105,10 +102,7 @@ class Stocks {
     static render(entity){
         const ctx = Fes.R.varCtx;
         const ecs = Fes.data.ecs;
-        if(!Fes.data.mainMenu){
-            return;
-        }
-        if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
+        if(MainMenuEntity.isInMenu()){
             return;
         }
         //render on the right for everyone except the local player

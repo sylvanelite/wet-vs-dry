@@ -1,3 +1,5 @@
+import { MainMenuEntity } from "../controllers/menu.mjs";
+
 class ParallaxRenderer {
     static imageCache = {};
     static getImgData(imgName){
@@ -19,6 +21,9 @@ class ParallaxRenderer {
         }
     }
     static renderBG() {
+        if(MainMenuEntity.isInMenu()){
+            return;
+        }
         let ctx = Fes.R.varCtx;
         //offset is from the layer's position in GIMP
         //based on the top-left of the world (not the screen)
@@ -54,6 +59,9 @@ class ParallaxRenderer {
         }
     }
     static renderFG() {
+        if(MainMenuEntity.isInMenu()){
+            return;
+        }
         let ctx = Fes.R.varCtx;
         const images = [
             {name:"fg",

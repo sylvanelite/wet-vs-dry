@@ -252,7 +252,15 @@ class MainMenuEntity {
         this.renderPetals();
         this.renderCharacterChoices();
 	}
-    
+    static isInMenu(){
+        if(!Fes.data.mainMenu){
+            return true;
+        }
+        if(Fes.data.mainMenu.mode != MainMenuEntity.MENU_MODE.RUNNING){
+            return true;
+        }
+        return false;
+    }
     
 }
 export { MainMenuEntity };
