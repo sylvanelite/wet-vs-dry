@@ -13,6 +13,7 @@ import { Mineral } from "../interactable/mineral/mineral.mjs";
 import { Judge } from "../interactable/judge/judge.mjs";
 import { Player } from "../player.mjs";
 import { MapRenderer } from "../terrain/map_renderer.mjs";
+import { ScreenRenderer } from "../terrain/screen_renderer.mjs";
 
 
 
@@ -52,6 +53,9 @@ class Systems  {
         Enemy.defineRenderSystems(ecs,renderSystems);
         Mineral.defineRenderSystems(ecs,renderSystems);
         Judge.defineRenderSystems(ecs,renderSystems);
+        //NOTE: after this point, UI elemts are drawn
+        ScreenRenderer.defineRenderSystems(ecs,renderSystems);
+        //stocks are drawn on top of the screen
         Stocks.defineRenderSystems(ecs,renderSystems);
     }
     static update(systems){

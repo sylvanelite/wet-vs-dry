@@ -130,7 +130,6 @@ class Stocks {
                 ctx.drawImage(img,renderX+i*34,renderY);
             }
         }
-
     }
 }
 
