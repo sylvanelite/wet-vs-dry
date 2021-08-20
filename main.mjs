@@ -1,6 +1,7 @@
 import { Map } from "./map.mjs";
 import { Components } from "./ecs/components.mjs";
 import { Systems } from "./ecs/systems.mjs";
+import { Font } from "./assets/fonts/font.mjs";
 
 let Fes = {
 	definitions:{},
@@ -220,7 +221,10 @@ Fes.init = function (){
 	Fes.start();
 };
 Fes.R.drawText = function(text,x,y){
-	Fes.R.varCtx.fillText(text,x,y);
+	for(let i=0;i<text.length;i+=1){
+		let ch = text.charAt(i);
+		Font.drawCharacter(ch,x+Font.kerning(i),y);
+	}
 }
 Fes.R.render = function (){
 	Fes.R.clear();
