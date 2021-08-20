@@ -43,7 +43,6 @@ class Knockback {
         if(knockback>Knockback.maxKnockback){
             knockback = Knockback.maxKnockback;
         }
-        console.log(knockback);
         let stun = Math.floor(knockback*0.5);
         let angleRad = angle*0.0174533;
         ecs.components.knockback.kbMagnitude[entity] = knockback*0.1;
