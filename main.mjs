@@ -230,11 +230,11 @@ Fes.R.render = function (){
 	Fes.R.varCtx.imageSmoothingEnabled = false;
 	//TODO: sort by depth
 	Systems.render();
-	if(Fes.data.networking){
-		Fes.data.networking.render();
-	}
 	if(Fes.data.mainMenu){
 		Fes.data.mainMenu.render();
+	}
+	if(Fes.data.networking){
+		Fes.data.networking.render();
 	}
     Fes.engine.renderTimer = requestAnimationFrame(Fes.R.render);
 };

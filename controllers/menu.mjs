@@ -33,14 +33,14 @@ class MainMenuEntity {
 	constructor(){
         this.mode = MainMenuEntity.MENU_MODE.MAIN_MENU;
         this.startButton = {
-            x:270,
+            x:280,
             y:403,
             width:160,
             height:64,
             text:"START"
         };
         this.networkButton = {
-            x:440,
+            x:490,
             y:403,
             width:160,
             height:64,
@@ -48,34 +48,43 @@ class MainMenuEntity {
         };
         this.petal_random = {
             img:"random_ch",
-            x:285,y:30
+            x:340,y:30
         };
         this.petal_1 = {
             img:"ch1",
-            x:202,y:69
+            x:257,y:69
         };
         this.petal_2 = {
             img:"ch2",
-            x:180,y:160
+            x:235,y:160
         };
         this.petal_3 = {
             img:"ch3",
-            x:239,y:233
+            x:294,y:233
         };
         this.petal_1a = {
             img:"ch1a",
-            x:369,y:69
+            x:424,y:69
         };
         this.petal_2a = {
             img:"ch2a",
-            x:389,y:160
+            x:444,y:160
         };
         this.petal_3a = {
             img:"ch3a",
-            x:332,y:233
+            x:387,y:233
         };
         this.petals = [this.petal_random,this.petal_1,this.petal_2,this.petal_3,
             this.petal_1a,this.petal_2a,this.petal_3a];
+            
+        this.ch1_select_bg={
+            img:"ch_1_select_bg",
+            x:0,y:0
+        }; 
+        this.ch2_select_bg={
+            img:"ch_2_select_bg",
+            x:Fes.R.SCREEN_WIDTH/2,y:0
+        };
         this.player1Selected = 0;
         this.player2Selected = 0;
         Fes.data.ecs.removeComponent(Fes.data.player, "controlSourceLocal");
@@ -204,31 +213,44 @@ class MainMenuEntity {
             const img = MainMenuEntity.getImgData(imgName);
             if(img){
                 ctx.drawImage(img,  petal.x,petal.y);
-
             }
         }
     }
     renderCharacterChoices(){
 		let ctx = Fes.R.varCtx;
-        let imgName = "p1_select";
-        const petal = this.petals[this.player1Selected];
-        const img = MainMenuEntity.getImgData(imgName);
-        if(img){
-            ctx.drawImage(img, petal.x+10,petal.y+10);
-        }
         let imgName2 = "p2_select";
         const petal2 = this.petals[this.player2Selected];
         const img2 = MainMenuEntity.getImgData(imgName2);
         if(img2){
             ctx.drawImage(img2, petal2.x+10,petal2.y+10);
         }
+        let imgName = "p1_select";
+        const petal = this.petals[this.player1Selected];
+        const img = MainMenuEntity.getImgData(imgName);
+        if(img){
+            ctx.drawImage(img, petal.x+10,petal.y+10);
+        }
 
+    }
+    renderBG(){
+		let ctx = Fes.R.varCtx;
+        let imgName1 = this.ch1_select_bg.img;
+        const img1 = MainMenuEntity.getImgData(imgName1);
+        if(img1){
+            ctx.drawImage(img1,  this.ch1_select_bg.x,this.ch1_select_bg.y);
+        }
+        let imgName2 = this.ch2_select_bg.img;
+        const img2 = MainMenuEntity.getImgData(imgName2);
+        if(img2){
+            ctx.drawImage(img2,  this.ch2_select_bg.x,this.ch2_select_bg.y);
+        }
     }
 	render(){
         if(this.mode === MainMenuEntity.MENU_MODE.RUNNING){
             return;
         }
 		let ctx = Fes.R.varCtx;
+        this.renderBG();
         if(this.mode === MainMenuEntity.MENU_MODE.MAIN_MENU){
             let buttons = [this.startButton,this.networkButton];
             for(let button of buttons){

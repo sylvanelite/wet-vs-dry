@@ -21,19 +21,19 @@ class Networking {
         this.peer = null;
         this.hostButton = {
             text:"Host",
-            x:270,y:403,
+            x:320,y:403,
             width:100,
             height:64
         };
         this.joinButton = {
             text:"Join",
-            x:this.hostButton.x+120,y:this.hostButton.y,
+            x:this.hostButton.x+130,y:this.hostButton.y,
             width:100,
             height:64
         };
         this.startButton = {
             text:"Start",
-            x:250,y:300,
+            x:380,y:300,
             width:100,
             height:64
         };
@@ -241,7 +241,7 @@ class Networking {
             return;
         }
         if(!this.isStarted){
-            let menuX = 120;
+            let menuX = 250;
             let menuY = 32;
             ctx.fillStyle = '#c4c4c4';
             ctx.fillRect(menuX-25, menuY-25, 330, 330);
@@ -261,7 +261,6 @@ class Networking {
                 if(textIdx == 0){
                     Fes.R.drawText("<waiting for join>", menuX,menuY+48 );
                 }
-                this.startButton
                 ctx.fillStyle = '#c4c4c4';
                 if(this.isMouseOverRect(this.startButton)){
                     ctx.fillStyle = '#00FF00';
