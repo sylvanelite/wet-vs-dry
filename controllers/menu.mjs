@@ -33,14 +33,14 @@ class MainMenuEntity {
 	constructor(){
         this.mode = MainMenuEntity.MENU_MODE.MAIN_MENU;
         this.startButton = {
-            x:333,
+            x:270,
             y:403,
             width:160,
             height:64,
             text:"START"
         };
         this.networkButton = {
-            x:529,
+            x:440,
             y:403,
             width:160,
             height:64,

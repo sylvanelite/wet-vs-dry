@@ -26,7 +26,7 @@ class Font {
 		if(image){
 			let xIdx = index % width;
 			let yIdx = Math.floor(index / width);
-			let sourceX = xIdx*Font.ch_width;
+			let sourceX = xIdx*Font.ch_width+1;
 			let sourceY = yIdx*Font.ch_height;
 			ctx.drawImage(
 				image,

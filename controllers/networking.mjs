@@ -253,7 +253,6 @@ class Networking {
             if(this.isHost){
                 //host sees all entrants
                 Fes.R.drawText("Host ID:"+Fes.engine.instanceName, menuX,menuY );
-                Fes.R.drawText("Players in game:", menuX,menuY+16)
                 let textIdx = 0;
                 for(const conn of this.connections){
                     Fes.R.drawText("player - "/*+conn.connectionId+" "*/+conn.peerConnection.connectionState, menuX,menuY+32+textIdx );
