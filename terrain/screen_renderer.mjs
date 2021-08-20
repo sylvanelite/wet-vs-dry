@@ -18,7 +18,7 @@ class ScreenRenderer {
         //https://stackoverflow.com/questions/7615009/disable-interpolation-when-scaling-a-canvas
         //testing zoom. NOTE: this needs to be done before the UI is drawn (stocks) but after all objects are rendered
         //var imgData = ctx.getImageData(0, 0, Fes.R.SCREEN_WIDTH, Fes.R.SCREEN_HEIGHT);
-        
+        /*
         ctx.save();
         let zoom = 2;
         //compute zoom amount
@@ -49,6 +49,7 @@ class ScreenRenderer {
 
 
         ctx.restore();
+        */
         
         //-----
     }
