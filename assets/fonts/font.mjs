@@ -10,7 +10,7 @@ class Font {
 
 	//spacing between letters, given i as an index to a word, return the new position of the character at that index
 	static kerning(i){
-		return i*(Font.ch_width-2)*0.8;
+		return i*(Font.ch_width-2)*0.85;
 	}
 	static drawCharacter(chStr,x,y){
 		const ch = chStr.charCodeAt(0);

@@ -236,15 +236,15 @@ class Networking {
                 ctx.beginPath();
                 ctx.rect(button.x-button.width/2-0.5, button.y-button.height-0.5,  button.width, button.height);
                 ctx.stroke();
-                Fes.R.drawText(button.text, button.x-(button.text.length*8)/2, button.y-button.height/2 );
+                Fes.R.drawText(button.text, button.x-(button.text.length*16)/2, button.y-button.height/2 );
             }
             return;
         }
         if(!this.isStarted){
-            let menuX = 100;
+            let menuX = 120;
             let menuY = 32;
             ctx.fillStyle = '#c4c4c4';
-            ctx.fillRect(menuX-25, menuY-25, 300, 300);
+            ctx.fillRect(menuX-25, menuY-25, 330, 330);
             if(!this.peer.open){
                 Fes.R.drawText("Initilising...", menuX,menuY );
                 return;
@@ -253,11 +253,14 @@ class Networking {
             if(this.isHost){
                 //host sees all entrants
                 Fes.R.drawText("Host ID:"+Fes.engine.instanceName, menuX,menuY );
-                Fes.R.drawText("You are the host. players in game:", menuX,menuY+16 );
+                Fes.R.drawText("Players in game:", menuX,menuY+16)
                 let textIdx = 0;
                 for(const conn of this.connections){
-                    Fes.R.drawText("player - "+conn.connectionId+" "+conn.peerConnection.connectionState, menuX,menuY+32+textIdx );
-                    textIdx+=12;
+                    Fes.R.drawText("player - "/*+conn.connectionId+" "*/+conn.peerConnection.connectionState, menuX,menuY+32+textIdx );
+                    textIdx+=16;
+                }
+                if(textIdx == 0){
+                    Fes.R.drawText("<waiting for join>", menuX,menuY+48 );
                 }
                 this.startButton
                 ctx.fillStyle = '#c4c4c4';
@@ -269,11 +272,11 @@ class Networking {
                 ctx.beginPath();
                 ctx.rect(this.startButton.x-this.startButton.width/2-0.5, this.startButton.y-this.startButton.height-0.5,  this.startButton.width, this.startButton.height);
                 ctx.stroke();
-                Fes.R.drawText(this.startButton.text, this.startButton.x, this.startButton.y-this.startButton.height/2 );
+                Fes.R.drawText(this.startButton.text, this.startButton.x-(this.startButton.text.length*16)/2, this.startButton.y-this.startButton.height/2 );
                 return;
             }
             //join players see waiting screen
-            Fes.R.drawText("Waiting for host to start.", menuX,menuY );
+            Fes.R.drawText("Waiting for host", menuX,menuY );
             return;
         }
 	}

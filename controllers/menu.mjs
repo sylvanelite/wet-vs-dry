@@ -35,14 +35,14 @@ class MainMenuEntity {
         this.startButton = {
             x:333,
             y:403,
-            width:180,
+            width:160,
             height:64,
             text:"START"
         };
         this.networkButton = {
             x:529,
             y:403,
-            width:100,
+            width:160,
             height:64,
             text:"NETWORK"
         };
@@ -243,7 +243,7 @@ class MainMenuEntity {
                 ctx.stroke();
                 ctx.fillStyle = '#000000';
                 Fes.R.drawText(button.text, 
-                    Math.floor(button.x-(button.text.length*11)/2)+0.5, 
+                    Math.floor(button.x-(button.text.length*16)/2)+0.5, 
                     Math.floor(button.y-button.height/2)+0.5 );    
             }
         }
