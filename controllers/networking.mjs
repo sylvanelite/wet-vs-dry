@@ -236,7 +236,7 @@ class Networking {
                 ctx.beginPath();
                 ctx.rect(button.x-button.width/2-0.5, button.y-button.height-0.5,  button.width, button.height);
                 ctx.stroke();
-                Fes.R.drawText(button.text, button.x-(button.text.length*16)/2, button.y-button.height/2 );
+                Fes.R.drawText(button.text, button.x-(button.text.length*16)/2, button.y-button.height/2-8 );
             }
             return;
         }
@@ -271,7 +271,7 @@ class Networking {
                 ctx.beginPath();
                 ctx.rect(this.startButton.x-this.startButton.width/2-0.5, this.startButton.y-this.startButton.height-0.5,  this.startButton.width, this.startButton.height);
                 ctx.stroke();
-                Fes.R.drawText(this.startButton.text, this.startButton.x-(this.startButton.text.length*16)/2, this.startButton.y-this.startButton.height/2 );
+                Fes.R.drawText(this.startButton.text, this.startButton.x-(this.startButton.text.length*16)/2, this.startButton.y-this.startButton.height/2-8 );
                 return;
             }
             //join players see waiting screen

@@ -243,8 +243,8 @@ class MainMenuEntity {
                 ctx.stroke();
                 ctx.fillStyle = '#000000';
                 Fes.R.drawText(button.text, 
-                    Math.floor(button.x-(button.text.length*16)/2)+0.5, 
-                    Math.floor(button.y-button.height/2)+0.5 );    
+                    Math.floor(button.x-(button.text.length*16)/2), 
+                    Math.floor(button.y-button.height/2)-8 );    
             }
         }
         if(this.mode === MainMenuEntity.MENU_MODE.NETWORK){
