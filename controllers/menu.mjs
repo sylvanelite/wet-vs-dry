@@ -85,6 +85,10 @@ class MainMenuEntity {
             img:"ch_2_select_bg",
             x:Fes.R.SCREEN_WIDTH/2,y:0
         };
+        this.chosen_ch_duck={
+            img:"chosen_ch_duck",
+            x:0,y:0
+        }; 
         this.player1Selected = 0;
         this.player2Selected = 0;
         Fes.data.ecs.removeComponent(Fes.data.player, "controlSourceLocal");
@@ -244,6 +248,29 @@ class MainMenuEntity {
         if(img2){
             ctx.drawImage(img2,  this.ch2_select_bg.x,this.ch2_select_bg.y);
         }
+        //their choices...TODO: lerp?
+        const chosenCh1 = this.petals[this.player1Selected].img;
+        if(chosenCh1 == "ch3" || chosenCh1 == "ch3a"){
+            let imgName3 = this.chosen_ch_duck.img;
+            const img3 = MainMenuEntity.getImgData(imgName3);
+            if(img3){
+                ctx.drawImage(img3,  this.chosen_ch_duck.x,this.chosen_ch_duck.y);
+            }
+        }
+        
+        ctx.save();
+        ctx.translate(Fes.R.SCREEN_WIDTH, 0);
+        ctx.scale(-1, 1);
+        const chosenCh2 = this.petals[this.player2Selected].img;
+        if(chosenCh2 == "ch3" || chosenCh2 == "ch3a"){
+            let imgName4 = this.chosen_ch_duck.img;
+            const img4 = MainMenuEntity.getImgData(imgName4);
+            if(img4){
+                ctx.drawImage(img4,  this.chosen_ch_duck.x,this.chosen_ch_duck.y);
+            }
+        }
+        ctx.restore();
+        
     }
 	render(){
         if(this.mode === MainMenuEntity.MENU_MODE.RUNNING){
