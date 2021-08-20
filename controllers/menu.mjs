@@ -34,45 +34,45 @@ class MainMenuEntity {
         this.mode = MainMenuEntity.MENU_MODE.MAIN_MENU;
         this.startButton = {
             x:333,
-            y:473,
+            y:403,
             width:180,
             height:64,
             text:"START"
         };
         this.networkButton = {
             x:529,
-            y:473,
+            y:403,
             width:100,
             height:64,
             text:"NETWORK"
         };
         this.petal_random = {
             img:"random_ch",
-            x:285,y:100
+            x:285,y:30
         };
         this.petal_1 = {
             img:"ch1",
-            x:202,y:139
+            x:202,y:69
         };
         this.petal_2 = {
             img:"ch2",
-            x:180,y:230
+            x:180,y:160
         };
         this.petal_3 = {
             img:"ch3",
-            x:239,y:303
+            x:239,y:233
         };
         this.petal_1a = {
             img:"ch1a",
-            x:369,y:139
+            x:369,y:69
         };
         this.petal_2a = {
             img:"ch2a",
-            x:389,y:230
+            x:389,y:160
         };
         this.petal_3a = {
             img:"ch3a",
-            x:332,y:303
+            x:332,y:233
         };
         this.petals = [this.petal_random,this.petal_1,this.petal_2,this.petal_3,
             this.petal_1a,this.petal_2a,this.petal_3a];
@@ -242,8 +242,9 @@ class MainMenuEntity {
                 ctx.rect(button.x-button.width/2-0.5, button.y-button.height-0.5,  button.width, button.height);
                 ctx.stroke();
                 ctx.fillStyle = '#000000';
-                ctx.font = '16px serif';
-                ctx.fillText(button.text, button.x-(button.text.length*11)/2, button.y-button.height/2 );    
+                Fes.R.drawText(button.text, 
+                    Math.floor(button.x-(button.text.length*11)/2)+0.5, 
+                    Math.floor(button.y-button.height/2)+0.5 );    
             }
         }
         if(this.mode === MainMenuEntity.MENU_MODE.NETWORK){

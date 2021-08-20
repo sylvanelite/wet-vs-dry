@@ -86,14 +86,14 @@ class ParallaxRenderer {
         if(img){
             ctx.drawImage(img, 
                 Math.floor(imgData.offsetX-Fes.R.screenX*imgData.amountX),
-                    Math.floor(imgData.offsetY-Fes.R.screenY*imgData.amountY-12));
+                Math.floor(imgData.offsetY-Fes.R.screenY*imgData.amountY-12));
         }
         imgData.offsetY-=Math.floor(slideAmountY/32)*32;
         imgData.offsetX+=Math.floor(slideAmountX/32)*32;
         if(img){
             ctx.drawImage(img, 
                 Math.floor(imgData.offsetX-Fes.R.screenX*imgData.amountX),
-                    Math.floor(imgData.offsetY-Fes.R.screenY*imgData.amountY));
+                Math.floor(imgData.offsetY-Fes.R.screenY*imgData.amountY));
         }
     }
     

@@ -21,7 +21,7 @@ class Networking {
         this.peer = null;
         this.hostButton = {
             text:"Host",
-            x:270,y:473,
+            x:270,y:403,
             width:100,
             height:64
         };
@@ -236,9 +236,7 @@ class Networking {
                 ctx.beginPath();
                 ctx.rect(button.x-button.width/2-0.5, button.y-button.height-0.5,  button.width, button.height);
                 ctx.stroke();
-                ctx.fillStyle = '#000000';
-                ctx.font = '16px serif';
-                ctx.fillText(button.text, button.x-(button.text.length*8)/2, button.y-button.height/2 );
+                Fes.R.drawText(button.text, button.x-(button.text.length*8)/2, button.y-button.height/2 );
             }
             return;
         }
@@ -248,22 +246,17 @@ class Networking {
             ctx.fillStyle = '#c4c4c4';
             ctx.fillRect(menuX-25, menuY-25, 300, 300);
             if(!this.peer.open){
-                ctx.fillStyle = '#000000';
-                ctx.font = '16px serif';
-                ctx.fillText("Initilising...", menuX,menuY );
+                Fes.R.drawText("Initilising...", menuX,menuY );
                 return;
             }
             //game is not started, wait for other players
             if(this.isHost){
                 //host sees all entrants
-                ctx.fillStyle = '#000000';
-                ctx.font = '16px serif';
-                ctx.fillText("Host ID:"+Fes.engine.instanceName, menuX,menuY );
-                ctx.fillText("You are the host. players in game:", menuX,menuY+16 );
-                ctx.font = '12px serif';
+                Fes.R.drawText("Host ID:"+Fes.engine.instanceName, menuX,menuY );
+                Fes.R.drawText("You are the host. players in game:", menuX,menuY+16 );
                 let textIdx = 0;
                 for(const conn of this.connections){
-                    ctx.fillText("player - "+conn.connectionId+" "+conn.peerConnection.connectionState, menuX,menuY+32+textIdx );
+                    Fes.R.drawText("player - "+conn.connectionId+" "+conn.peerConnection.connectionState, menuX,menuY+32+textIdx );
                     textIdx+=12;
                 }
                 this.startButton
@@ -276,15 +269,11 @@ class Networking {
                 ctx.beginPath();
                 ctx.rect(this.startButton.x-this.startButton.width/2-0.5, this.startButton.y-this.startButton.height-0.5,  this.startButton.width, this.startButton.height);
                 ctx.stroke();
-                ctx.fillStyle = '#000000';
-                ctx.font = '16px serif';
-                ctx.fillText(this.startButton.text, this.startButton.x, this.startButton.y-this.startButton.height/2 );
+                Fes.R.drawText(this.startButton.text, this.startButton.x, this.startButton.y-this.startButton.height/2 );
                 return;
             }
             //join players see waiting screen
-            ctx.fillStyle = '#000000';
-            ctx.font = '16px serif';
-            ctx.fillText("Waiting for host to start.", menuX,menuY );
+            Fes.R.drawText("Waiting for host to start.", menuX,menuY );
             return;
         }
 	}

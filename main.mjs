@@ -41,10 +41,9 @@ let Fes = {
 		screenX:0,
 		screenY:0,
 		TILE_SIZE:32,
-		SCREEN_WIDTH:640,//NOTE: if changing, also update the HTML canvas size
-		SCREEN_HEIGHT:480,
-		SCALE_X:1,
-		SCALE_Y:1
+		SCREEN_WIDTH:768,//NOTE: if changing, also update the HTML canvas size, and scle below
+		SCREEN_HEIGHT:432,
+		SCALE:0.6
 	}
 };
 Fes.engine.getControls = function (entityId){
@@ -97,7 +96,7 @@ Fes.update =function (){
 	Fes.engine.controls.Mouse_Left_Released = false;
 	Fes.engine.controls.Mouse_Right_Released = false;
 	//keep the mouse x/y in sync with screen updates
-	Fes.engine.controls.Mouse_X = Fes.R.screenX+Fes.engine.controls.Mouse_Screen_X;//TODO: apply canvas scale to offset
+	Fes.engine.controls.Mouse_X = Fes.R.screenX+Fes.engine.controls.Mouse_Screen_X;
 	Fes.engine.controls.Mouse_Y = Fes.R.screenY+Fes.engine.controls.Mouse_Screen_Y;
 };
 Fes.stop = function (){
@@ -181,10 +180,10 @@ Fes.init = function (){
 		}
     };
 	Fes.R.varCanvas.addEventListener("mousedown", function(e){
-		Fes.engine.controls.Mouse_X = Fes.R.screenX+e.offsetX;//TODO: apply canvas scale to offset
-		Fes.engine.controls.Mouse_Y = Fes.R.screenY+e.offsetY;//TODO: apply canvas scale to offset
-		Fes.engine.controls.Mouse_Screen_X = e.offsetX;
-		Fes.engine.controls.Mouse_Screen_Y = e.offsetY;
+		Fes.engine.controls.Mouse_X = Fes.R.screenX+e.offsetX*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_Y = Fes.R.screenY+e.offsetY*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_Screen_X = e.offsetX*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_Screen_Y = e.offsetY*Fes.R.SCALE;
 		if(e.button == 0){
 			Fes.engine.controls.Mouse_Left = true;
 			Fes.engine.controls.Mouse_Left_Pressed = true;
@@ -195,10 +194,10 @@ Fes.init = function (){
 		}
 	});
 	Fes.R.varCanvas.addEventListener("mouseup", function(e){
-		Fes.engine.controls.Mouse_X = Fes.R.screenX+e.offsetX;//TODO: apply canvas scale to offset
-		Fes.engine.controls.Mouse_Y = Fes.R.screenY+e.offsetY;//TODO: apply canvas scale to offset
-		Fes.engine.controls.Mouse_Screen_X = e.offsetX;
-		Fes.engine.controls.Mouse_Screen_Y = e.offsetY;
+		Fes.engine.controls.Mouse_X = Fes.R.screenX+e.offsetX*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_Y = Fes.R.screenY+e.offsetY*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_Screen_X = e.offsetX*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_Screen_Y = e.offsetY*Fes.R.SCALE;
 		if(e.button == 0){
 			Fes.engine.controls.Mouse_Left = false;
 			Fes.engine.controls.Mouse_Left_Released = true;
@@ -209,10 +208,10 @@ Fes.init = function (){
 		}
 	});
 	Fes.R.varCanvas.addEventListener("mousemove", function(e){
-		Fes.engine.controls.Mouse_Screen_X = e.offsetX;
-		Fes.engine.controls.Mouse_Screen_Y = e.offsetY;
-		Fes.engine.controls.Mouse_X = Fes.R.screenX+Fes.engine.controls.Mouse_Screen_X;//TODO: apply canvas scale to offset
-		Fes.engine.controls.Mouse_Y = Fes.R.screenY+Fes.engine.controls.Mouse_Screen_Y;//TODO: apply canvas scale to offset
+		Fes.engine.controls.Mouse_Screen_X = e.offsetX*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_Screen_Y = e.offsetY*Fes.R.SCALE;
+		Fes.engine.controls.Mouse_X = Fes.R.screenX+Fes.engine.controls.Mouse_Screen_X;
+		Fes.engine.controls.Mouse_Y = Fes.R.screenY+Fes.engine.controls.Mouse_Screen_Y;
 		
 	});
 	Fes.R.varCanvas.addEventListener('contextmenu', function(e){
@@ -220,7 +219,9 @@ Fes.init = function (){
 	});
 	Fes.start();
 };
-
+Fes.R.drawText = function(text,x,y){
+	Fes.R.varCtx.fillText(text,x,y);
+}
 Fes.R.render = function (){
 	Fes.R.clear();
 	Fes.R.varCtx.imageSmoothingEnabled = false;
