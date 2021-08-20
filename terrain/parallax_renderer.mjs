@@ -53,8 +53,8 @@ class ParallaxRenderer {
             const img = ParallaxRenderer.getImgData(imgData.name);
             if(img){
                 ctx.drawImage(img, 
-                    imgData.offsetX-Fes.R.screenX*imgData.amountX,
-                    imgData.offsetY-Fes.R.screenY*imgData.amountY);
+                    Math.floor(imgData.offsetX-Fes.R.screenX*imgData.amountX),
+                    Math.floor(imgData.offsetY-Fes.R.screenY*imgData.amountY));
             }
         }
     }
@@ -85,15 +85,15 @@ class ParallaxRenderer {
         imgData.offsetX+=Math.floor(slideAmountX/16)*16;
         if(img){
             ctx.drawImage(img, 
-                imgData.offsetX-Fes.R.screenX*imgData.amountX,
-                imgData.offsetY-Fes.R.screenY*imgData.amountY-12);
+                Math.floor(imgData.offsetX-Fes.R.screenX*imgData.amountX),
+                    Math.floor(imgData.offsetY-Fes.R.screenY*imgData.amountY-12));
         }
         imgData.offsetY-=Math.floor(slideAmountY/32)*32;
         imgData.offsetX+=Math.floor(slideAmountX/32)*32;
         if(img){
             ctx.drawImage(img, 
-                imgData.offsetX-Fes.R.screenX*imgData.amountX,
-                imgData.offsetY-Fes.R.screenY*imgData.amountY);
+                Math.floor(imgData.offsetX-Fes.R.screenX*imgData.amountX),
+                    Math.floor(imgData.offsetY-Fes.R.screenY*imgData.amountY));
         }
     }
     

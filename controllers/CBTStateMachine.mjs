@@ -543,17 +543,21 @@ class CBTStateMachine{
             const img = CBTStateMachine.getImgData(entity);
             if(img){
                 const px = floorX- Fes.R.screenX;
-                const py = floorY- Fes.R.screenY-0.5;
+                const py = floorY- Fes.R.screenY;
                 ctx.save();
-                ctx.translate(px, py);
+                ctx.translate(Math.floor(px), Math.floor(py));
                 if(ecs.components.cbtState.facing[entity] == CBTStateMachine.FACING.RIGHT){
                     ctx.scale(-1, 1);
                 }
                 ctx.drawImage(img,
-                    frame.x,frame.y,
-                    frame.width,frame.height,
-                    -frame.anchorX,-frame.anchorY,
-                    frame.width,frame.height);
+                    Math.floor(frame.x),
+                    Math.floor(frame.y),
+                    Math.floor(frame.width),
+                    Math.floor(frame.height),
+                    Math.floor(-frame.anchorX),
+                    Math.floor(-frame.anchorY),
+                    Math.floor(frame.width),
+                    Math.floor(frame.height));
                 //only render this while debugging:
                 CBTStateMachine.drawHitboxes(ctx,frame,-frame.anchorX,-frame.anchorY);
                 ctx.restore();

@@ -223,6 +223,7 @@ Fes.init = function (){
 
 Fes.R.render = function (){
 	Fes.R.clear();
+	Fes.R.varCtx.imageSmoothingEnabled = false;
 	//TODO: sort by depth
 	Systems.render();
 	if(Fes.data.networking){

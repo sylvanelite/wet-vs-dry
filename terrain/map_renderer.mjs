@@ -116,9 +116,12 @@ class MapRenderer {
         let tileInfo = MapRenderer.spriteSheet[MapRenderer.getTileName(x,y)];
         const img = MapRenderer.imgCache.image;
         ctx.drawImage(img,
-            tileInfo.frame.x,tileInfo.frame.y,
-            tileInfo.frame.width,tileInfo.frame.height,
-            screenX,screenY,
+            Math.floor(tileInfo.frame.x),
+            Math.floor(tileInfo.frame.y),
+            Math.floor(tileInfo.frame.width),
+            Math.floor(tileInfo.frame.height),
+            Math.floor(screenX),
+            Math.floor(screenY),
             Fes.R.TILE_SIZE,Fes.R.TILE_SIZE);
         //tile info is in the form:
         /*
