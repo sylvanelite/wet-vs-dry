@@ -32,13 +32,13 @@ class ScreenRenderer {
         const deltaY = Fes.data.ecs.components.position.y[Fes.data.player]-screenMidpointY;
         const dist = Math.hypot(deltaX,deltaY);
         const screenHypot = Math.hypot(Fes.R.SCREEN_WIDTH / 2,Fes.R.SCREEN_HEIGHT / 2);
-        const zoomPercent = 2-dist/screenHypot*maxZoom;
+        const zoomPercent = maxZoom-dist/screenHypot*maxZoom;
         zoom = zoomPercent;
         if(zoom<minZoom){//zoom out, not in
-            zoom = 1;
+            zoom = minZoom;
         }
         if(zoom>maxZoom){
-            zoom = 2;
+            zoom = maxZoom;
         }
         //compute centre, translate the canvas to 0 before zooming 
         ctx.translate(Math.floor(Fes.R.SCREEN_WIDTH/zoom),Math.floor(Fes.R.SCREEN_HEIGHT/zoom));
