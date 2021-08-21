@@ -41,8 +41,8 @@ class Player  {
         }
         ctx.beginPath();
         ctx.arc(floorX - Fes.R.screenX-0.5-ecs.components.size.width[entity]/2, 
-                 floorY - Fes.R.screenY-0.5-ecs.components.size.height[entity]/2, 
-                 ecs.components.size.width[entity]*2,0, 2 * Math.PI);
+                 floorY - Fes.R.screenY-0.5-ecs.components.size.height[entity], 
+                 ecs.components.size.width[entity]*1.44,0, 2 * Math.PI);
         ctx.fill();
         //ctx.stroke();
 
