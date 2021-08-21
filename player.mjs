@@ -14,8 +14,8 @@ class Player  {
         ecs.components.position.x[self] = data.x;
         ecs.components.position.y[self] = data.y;
         ecs.addComponent(self,"size");
-        ecs.components.size.width[self] = 8;
-        ecs.components.size.height[self] = 8;
+        ecs.components.size.width[self] = 24;
+        ecs.components.size.height[self] = 24;
         Platformer.addToEntity(self);
         MouseAim.addToEntity(self);
         CBTStateMachine.addToEntity(self);

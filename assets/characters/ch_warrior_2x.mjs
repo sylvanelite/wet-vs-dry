@@ -1,5 +1,5 @@
 export default {
-    "sprite_sheet": "./assets/characters/warrior_1x.png",
+    "sprite_sheet": "./assets/characters/warrior_2x.png",
     "ch_name": "character",
     "animation_frame": 0,
     "animations": {

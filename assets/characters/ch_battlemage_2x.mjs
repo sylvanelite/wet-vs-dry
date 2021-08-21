@@ -1,4 +1,4 @@
-export default {"sprite_sheet":"./assets/characters/battlemage_1x.png",
+export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
     "ch_name": "character",
     "animation_frame": 0,
     "animations": {
