@@ -3,15 +3,15 @@ import { defineSystem,types } from "../ecs.js";
 import { Knockback } from "./knockback.mjs";
 import { Collision } from "./collision.mjs";
 import { Judge } from "../interactable/judge/judge.mjs";
-import DataRedhood  from "../assets/characters/data-redhood.mjs";
-import DataWarrior from "../assets/characters/data-warrior.mjs";
-import DataDuck from "../assets/characters/data-duck.mjs";
+import DataRedhood  from "../assets/characters/ch_greenhood.mjs";
+import DataWarrior from "../assets/characters/ch_warrior.mjs";
+import DataBattlemage from "../assets/characters/ch_battlemage.mjs";
 
 class CBTStateMachine{
     static ANIMATION_DATA = {
         REDHOOD:0,
         WARRIOR:1,
-        DUCK:2
+        BATTLEMAGE:2
     };
     static imageCache = {};
     static STATES ={
@@ -319,8 +319,8 @@ class CBTStateMachine{
                 return DataRedhood;
             case CBTStateMachine.ANIMATION_DATA.WARRIOR:
                 return DataWarrior;
-            case CBTStateMachine.ANIMATION_DATA.DUCK:
-                return DataDuck;
+            case CBTStateMachine.ANIMATION_DATA.BATTLEMAGE:
+                return DataBattlemage;
         } 
         return DataRedhood;
     }

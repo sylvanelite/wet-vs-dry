@@ -144,7 +144,7 @@ class MainMenuEntity {
             ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.WARRIOR;
         }
         if(chosenCh == "ch3" || chosenCh == "ch3a"){
-            ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.DUCK;
+            ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.BATTLEMAGE;
         }
         if(chosenCh == "random_ch"){
             if(Fes.engine.frameCount%2==0){
