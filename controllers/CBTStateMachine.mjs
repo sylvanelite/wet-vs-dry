@@ -8,7 +8,7 @@ import DataWarrior from "../assets/characters/ch_warrior.mjs";
 import DataBattlemage from "../assets/characters/ch_battlemage.mjs";
 
 class CBTStateMachine{
-    static ANIMATION_SCALE = 0.75;
+    static ANIMATION_SCALE = 0.7;
     static ANIMATION_DATA = {
         REDHOOD:0,
         WARRIOR:1,
