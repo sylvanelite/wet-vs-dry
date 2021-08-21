@@ -1,6 +1,6 @@
 export default {
     "sprite_sheet": "./assets/characters/warrior_2x.png",
-    "ch_name": "character",
+     "ch_name": "character",
     "animation_frame": 0,
     "animations": {
         "idle": [{
@@ -188,7 +188,39 @@ export default {
             "anchorX": 69,
             "anchorY": 58
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 24,
+                "y": 48,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 30,
+                "y": 20,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 56,
+                "y": 18,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 86,
+                "y": 18,
+                "size": 12,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 136,
             "height": 87,
             "x": 544,
@@ -196,7 +228,31 @@ export default {
             "anchorX": 69,
             "anchorY": 58
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 18,
+                "y": 56,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 24,
+                "y": 24,
+                "size": 14,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 56,
+                "y": 18,
+                "size": 14,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 136,
             "height": 87,
             "x": 408,
@@ -229,7 +285,15 @@ export default {
             "anchorX": 56,
             "anchorY": 52
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 50,
+                "y": 40,
+                "size": 32,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 142,
             "height": 96,
             "x": 525,
@@ -237,7 +301,15 @@ export default {
             "anchorX": 56,
             "anchorY": 52
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 50,
+                "y": 40,
+                "size": 32,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 136,
             "height": 86,
             "x": 389,
@@ -273,32 +345,40 @@ export default {
             "hitboxes": [],
             "width": 136,
             "height": 72,
-            "x": 411,
-            "y": 361,
+            "x": 415,
+            "y": 1242,
             "anchorX": 69,
             "anchorY": 48
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 32,
+                "y": 56,
+                "size": 16,
+                "damage": 10,
+                "angle": 260,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 136,
             "height": 72,
-            "x": 139,
-            "y": 185,
+            "x": 279,
+            "y": 1242,
             "anchorX": 69,
             "anchorY": 48
         }, {
             "hitboxes": [],
             "width": 128,
-            "height": 84,
-            "x": 274,
-            "y": 265,
+            "height": 72,
+            "x": 149,
+            "y": 1242,
             "anchorX": 69,
             "anchorY": 48
         }, {
             "hitboxes": [],
             "width": 136,
             "height": 72,
-            "x": 400,
-            "y": 265,
+            "x": 12,
+            "y": 1242,
             "anchorX": 69,
             "anchorY": 48
         }],
@@ -311,7 +391,31 @@ export default {
             "anchorX": 69,
             "anchorY": 56
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 32,
+                "y": 48,
+                "size": 24,
+                "damage": 10,
+                "angle": 260,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 72,
+                "y": 24,
+                "size": 18,
+                "damage": 10,
+                "angle": 260,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 100,
+                "y": 16,
+                "size": 16,
+                "damage": 10,
+                "angle": 260,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 136,
             "height": 86,
             "x": 0,

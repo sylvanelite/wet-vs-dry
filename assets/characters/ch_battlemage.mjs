@@ -1,5 +1,5 @@
 export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
-    "ch_name": "character",
+       "ch_name": "character",
     "animation_frame": 0,
     "animations": {
         "idle": [{
@@ -243,7 +243,31 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 32,
+                "y": 32,
+                "size": 16,
+                "damage": 10,
+                "angle": 160,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 20,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 160,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 56,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 460,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 112,
             "height": 96,
             "x": 1692,
@@ -251,7 +275,23 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 20,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 160,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 54,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 160,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 112,
             "height": 96,
             "x": 1692,
@@ -300,7 +340,23 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 20,
+                "y": 48,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 52,
+                "y": 48,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 112,
             "height": 96,
             "x": 1580,
@@ -308,7 +364,31 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 20,
+                "y": 52,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 54,
+                "y": 54,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 86,
+                "y": 60,
+                "size": 12,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 112,
             "height": 96,
             "x": 1580,
@@ -316,7 +396,23 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 18,
+                "y": 50,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 48,
+                "y": 50,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 112,
             "height": 96,
             "x": 1580,
@@ -357,7 +453,15 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 20,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 260,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 100,
             "height": 96,
             "x": 1244,
@@ -365,7 +469,15 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 20,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 260,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 100,
             "height": 96,
             "x": 1244,
@@ -430,7 +542,15 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 32,
+                "y": 38,
+                "size": 36,
+                "damage": 10,
+                "angle": 225,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 110,
             "height": 96,
             "x": 1468,
@@ -438,7 +558,15 @@ export default {"sprite_sheet":"./assets/characters/battlemage_2x.png",
             "anchorX": 56,
             "anchorY": 54
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 32,
+                "y": 32,
+                "size": 32,
+                "damage": 10,
+                "angle": 225,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 110,
             "height": 96,
             "x": 1468,
