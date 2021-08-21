@@ -98,11 +98,11 @@ class MainMenuEntity {
             x:8,y:48
         }; 
         this.frame_bg_water={
-            img:"ch_select_bg_wet",
+            img:"ch_select_bg_dry",//NOTE these names are backwards. 
             x:6,y:24
         }; 
         this.frame_bg_dry={
-            img:"ch_select_bg_dry",
+            img:"ch_select_bg_wet",
             x:6,y:24
         }; 
         this.frame_window={
@@ -269,21 +269,6 @@ class MainMenuEntity {
             ctx.drawImage(img2,  this.ch2_select_bg.x,this.ch2_select_bg.y);
         }
         //their choices...TODO: lerp?
-        /*
-        
-        this.frame_bg_water={
-            img:"ch_select_bg_wet",
-            x:64,y:128
-        }; 
-        this.frame_bg_dry={
-            img:"ch_select_bg_dry",
-            x:64,y:128
-        }; 
-        this.frame_window={
-            img:"ch_select_window",
-            x:64,y:128
-        }; 
-        */
         ctx.save();
         ctx.scale(2, 2);
         const chosenCh1 = this.petals[this.player1Selected].img;
