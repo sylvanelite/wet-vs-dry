@@ -87,27 +87,27 @@ class MainMenuEntity {
         };
         this.chosen_ch_greenhood={
             img:"ch_portrait_greenhood",
-            x:64,y:154
+            x:8,y:48
         }; 
         this.chosen_ch_battlemage={
             img:"ch_portrait_battlemage",
-            x:64,y:154
+            x:8,y:48
         }; 
         this.chosen_ch_warrior={
             img:"ch_portrait_warrior",
-            x:64,y:154
+            x:8,y:48
         }; 
         this.frame_bg_water={
             img:"ch_select_bg_wet",
-            x:64,y:128
+            x:6,y:24
         }; 
         this.frame_bg_dry={
             img:"ch_select_bg_dry",
-            x:64,y:128
+            x:6,y:24
         }; 
         this.frame_window={
             img:"ch_select_window",
-            x:64,y:128
+            x:6,y:24
         }; 
         this.player1Selected = 0;
         this.player2Selected = 0;
@@ -284,6 +284,8 @@ class MainMenuEntity {
             x:64,y:128
         }; 
         */
+        ctx.save();
+        ctx.scale(2, 2);
         const chosenCh1 = this.petals[this.player1Selected].img;
         if(chosenCh1 != "random_ch"){
             let imgNameBgWet = this.frame_bg_water.img;
@@ -320,9 +322,11 @@ class MainMenuEntity {
                 ctx.drawImage(imgFgWet,  this.frame_window.x,this.frame_window.y);
             }
         }
+        ctx.restore();
         ctx.save();
         ctx.translate(Fes.R.SCREEN_WIDTH, 0);
         ctx.scale(-1, 1);
+        ctx.scale(2, 2);
         const chosenCh2 = this.petals[this.player2Selected].img;
         if(chosenCh2 != "random_ch"){
             let imgNameBgDry = this.frame_bg_dry.img;
