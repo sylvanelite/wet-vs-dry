@@ -85,9 +85,29 @@ class MainMenuEntity {
             img:"ch_2_select_bg",
             x:Fes.R.SCREEN_WIDTH/2,y:0
         };
-        this.chosen_ch_duck={
-            img:"chosen_ch_duck",
-            x:0,y:0
+        this.chosen_ch_greenhood={
+            img:"ch_portrait_greenhood",
+            x:64,y:154
+        }; 
+        this.chosen_ch_battlemage={
+            img:"ch_portrait_battlemage",
+            x:64,y:154
+        }; 
+        this.chosen_ch_warrior={
+            img:"ch_portrait_warrior",
+            x:64,y:154
+        }; 
+        this.frame_bg_water={
+            img:"ch_select_bg_wet",
+            x:64,y:128
+        }; 
+        this.frame_bg_dry={
+            img:"ch_select_bg_dry",
+            x:64,y:128
+        }; 
+        this.frame_window={
+            img:"ch_select_window",
+            x:64,y:128
         }; 
         this.player1Selected = 0;
         this.player2Selected = 0;
@@ -249,24 +269,94 @@ class MainMenuEntity {
             ctx.drawImage(img2,  this.ch2_select_bg.x,this.ch2_select_bg.y);
         }
         //their choices...TODO: lerp?
+        /*
+        
+        this.frame_bg_water={
+            img:"ch_select_bg_wet",
+            x:64,y:128
+        }; 
+        this.frame_bg_dry={
+            img:"ch_select_bg_dry",
+            x:64,y:128
+        }; 
+        this.frame_window={
+            img:"ch_select_window",
+            x:64,y:128
+        }; 
+        */
         const chosenCh1 = this.petals[this.player1Selected].img;
-        if(chosenCh1 == "ch3" || chosenCh1 == "ch3a"){
-            let imgName3 = this.chosen_ch_duck.img;
-            const img3 = MainMenuEntity.getImgData(imgName3);
-            if(img3){
-                ctx.drawImage(img3,  this.chosen_ch_duck.x,this.chosen_ch_duck.y);
+        if(chosenCh1 != "random_ch"){
+            let imgNameBgWet = this.frame_bg_water.img;
+            const imgBgWet = MainMenuEntity.getImgData(imgNameBgWet);
+            if(imgBgWet){
+                ctx.drawImage(imgBgWet,  this.frame_bg_water.x,this.frame_bg_water.y);
             }
         }
-        
+        if(chosenCh1 == "ch1" || chosenCh1 == "ch1a"){
+            let imgName3 = this.chosen_ch_greenhood.img;
+            const img3 = MainMenuEntity.getImgData(imgName3);
+            if(img3){
+                ctx.drawImage(img3,  this.chosen_ch_greenhood.x,this.chosen_ch_greenhood.y);
+            }
+        }
+        if(chosenCh1 == "ch2" || chosenCh1 == "ch2a"){
+            let imgName3b = this.chosen_ch_warrior.img;
+            const img3b = MainMenuEntity.getImgData(imgName3b);
+            if(img3b){
+                ctx.drawImage(img3b,  this.chosen_ch_warrior.x,this.chosen_ch_warrior.y);
+            }
+        }
+        if(chosenCh1 == "ch3" || chosenCh1 == "ch3a"){
+            let imgName3c = this.chosen_ch_battlemage.img;
+            const img3c = MainMenuEntity.getImgData(imgName3c);
+            if(img3c){
+                ctx.drawImage(img3c,  this.chosen_ch_battlemage.x,this.chosen_ch_battlemage.y);
+            }
+        }
+        if(chosenCh1 != "random_ch"){
+            let imgNameFgWet = this.frame_window.img;
+            const imgFgWet = MainMenuEntity.getImgData(imgNameFgWet);
+            if(imgFgWet){
+                ctx.drawImage(imgFgWet,  this.frame_window.x,this.frame_window.y);
+            }
+        }
         ctx.save();
         ctx.translate(Fes.R.SCREEN_WIDTH, 0);
         ctx.scale(-1, 1);
         const chosenCh2 = this.petals[this.player2Selected].img;
-        if(chosenCh2 == "ch3" || chosenCh2 == "ch3a"){
-            let imgName4 = this.chosen_ch_duck.img;
+        if(chosenCh2 != "random_ch"){
+            let imgNameBgDry = this.frame_bg_dry.img;
+            const imgBDry = MainMenuEntity.getImgData(imgNameBgDry);
+            if(imgBDry){
+                ctx.drawImage(imgBDry,  this.frame_bg_dry.x,this.frame_bg_dry.y);
+            }
+        }
+        if(chosenCh2 == "ch1" || chosenCh2 == "ch1a"){
+            let imgName4 = this.chosen_ch_greenhood.img;
             const img4 = MainMenuEntity.getImgData(imgName4);
             if(img4){
-                ctx.drawImage(img4,  this.chosen_ch_duck.x,this.chosen_ch_duck.y);
+                ctx.drawImage(img4,  this.chosen_ch_greenhood.x,this.chosen_ch_greenhood.y);
+            }
+        }
+        if(chosenCh2 == "ch2" || chosenCh2 == "ch2a"){
+            let imgName4b = this.chosen_ch_warrior.img;
+            const img4b = MainMenuEntity.getImgData(imgName4b);
+            if(img4b){
+                ctx.drawImage(img4b,  this.chosen_ch_warrior.x,this.chosen_ch_warrior.y);
+            }
+        }
+        if(chosenCh2 == "ch3" || chosenCh2 == "ch3a"){
+            let imgName4c = this.chosen_ch_battlemage.img;
+            const img4c = MainMenuEntity.getImgData(imgName4c);
+            if(img4c){
+                ctx.drawImage(img4c,  this.chosen_ch_battlemage.x,this.chosen_ch_battlemage.y);
+            }
+        }
+        if(chosenCh2 != "random_ch"){
+            let imgNameFgDry = this.frame_window.img;
+            const imgFgDry = MainMenuEntity.getImgData(imgNameFgDry);
+            if(imgFgDry){
+                ctx.drawImage(imgFgDry,  this.frame_window.x,this.frame_window.y);
             }
         }
         ctx.restore();

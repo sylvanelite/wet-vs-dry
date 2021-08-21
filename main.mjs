@@ -108,7 +108,7 @@ Fes.init = function (){
 	let getRandomId = function() {
 		let str = "";
 		//stripped down to remove characters that look similar
-		var characters = "A245679YJLPSWMGFC";
+		var characters = "A245679YJLPSWMFC";
 		for(let i = 0; i < 5; i+=1) {
 		   str += characters.charAt(Math.floor(Math.random() * characters.length));
 		}
