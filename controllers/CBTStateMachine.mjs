@@ -542,6 +542,8 @@ class CBTStateMachine{
         if(frame){
             const img = CBTStateMachine.getImgData(entity);
             if(img){
+                Fes.R.varCtx.imageSmoothingEnabled = true;
+                const sprite_scale = .75;
                 const px = floorX- Fes.R.screenX;
                 const py = floorY- Fes.R.screenY;
                 ctx.save();
@@ -554,13 +556,14 @@ class CBTStateMachine{
                     Math.floor(frame.y),
                     Math.floor(frame.width),
                     Math.floor(frame.height),
-                    Math.floor(-frame.anchorX),
-                    Math.floor(-frame.anchorY),
-                    Math.floor(frame.width),
-                    Math.floor(frame.height));
+                    Math.floor(-frame.anchorX*sprite_scale),
+                    Math.floor(-frame.anchorY*sprite_scale),
+                    Math.floor(frame.width*sprite_scale),
+                    Math.floor(frame.height*sprite_scale));
                 //only render this while debugging:
                 CBTStateMachine.drawHitboxes(ctx,frame,-frame.anchorX,-frame.anchorY);
                 ctx.restore();
+                Fes.R.varCtx.imageSmoothingEnabled = false;
             }
         }
     }
