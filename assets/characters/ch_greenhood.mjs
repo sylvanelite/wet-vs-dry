@@ -332,7 +332,39 @@ export default {
             "anchorX": 64,
             "anchorY": 64
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 16,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 180,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 32,
+                "y": 40,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 64,
+                "y": 36,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 64,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 128,
             "height": 128,
             "x": 2518,
@@ -373,7 +405,39 @@ export default {
             "anchorX": 64,
             "anchorY": 64
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 24,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 110,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 32,
+                "y": 32,
+                "size": 16,
+                "damage": 10,
+                "angle": 110,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 64,
+                "y": 64,
+                "size": 16,
+                "damage": 10,
+                "angle": 110,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 44,
+                "y": 80,
+                "size": 10,
+                "damage": 10,
+                "angle": 110,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 128,
             "height": 128,
             "x": 48,
@@ -381,7 +445,47 @@ export default {
             "anchorX": 64,
             "anchorY": 64
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 32,
+                "y": 32,
+                "size": 12,
+                "damage": 10,
+                "angle": 110,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 24,
+                "y": 48,
+                "size": 12,
+                "damage": 10,
+                "angle": 110,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 22,
+                "y": 72,
+                "size": 12,
+                "damage": 10,
+                "angle": 110,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 48,
+                "y": 86,
+                "size": 12,
+                "damage": 10,
+                "angle": 120,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 72,
+                "y": 72,
+                "size": 18,
+                "damage": 10,
+                "angle": 120,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 128,
             "height": 128,
             "x": 272,
@@ -389,7 +493,15 @@ export default {
             "anchorX": 64,
             "anchorY": 64
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 86,
+                "y": 72,
+                "size": 16,
+                "damage": 10,
+                "angle": 45,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 128,
             "height": 128,
             "x": 496,
@@ -430,7 +542,15 @@ export default {
             "anchorX": 64,
             "anchorY": 64
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 56,
+                "y": 72,
+                "size": 16,
+                "damage": 10,
+                "angle": 260,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 128,
             "height": 128,
             "x": 1392,
@@ -463,7 +583,15 @@ export default {
             "anchorX": 64,
             "anchorY": 72
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 120,
+                "y": 42,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 192,
             "height": 128,
             "x": 1168,
@@ -471,7 +599,39 @@ export default {
             "anchorX": 64,
             "anchorY": 72
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 120,
+                "y": 32,
+                "size": 16,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 80,
+                "y": 24,
+                "size": 24,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 40,
+                "y": 48,
+                "size": 20,
+                "damage": 10,
+                "angle": 220,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 32,
+                "y": 84,
+                "size": 16,
+                "damage": 10,
+                "angle": 200,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 192,
             "height": 128,
             "x": 1392,
@@ -479,7 +639,39 @@ export default {
             "anchorX": 64,
             "anchorY": 72
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 48,
+                "y": 32,
+                "size": 20,
+                "damage": 10,
+                "angle": 200,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 86,
+                "y": 20,
+                "size": 16,
+                "damage": 10,
+                "angle": 200,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 36,
+                "y": 72,
+                "size": 20,
+                "damage": 10,
+                "angle": 200,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 120,
+                "y": 28,
+                "size": 12,
+                "damage": 10,
+                "angle": 240,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 192,
             "height": 128,
             "x": 1616,
@@ -487,7 +679,23 @@ export default {
             "anchorX": 64,
             "anchorY": 72
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 32,
+                "y": 82,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }, {
+                "x": 40,
+                "y": 50,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 192,
             "height": 128,
             "x": 1840,
@@ -495,7 +703,15 @@ export default {
             "anchorX": 64,
             "anchorY": 72
         }, {
-            "hitboxes": [],
+            "hitboxes": [{
+                "x": 40,
+                "y": 86,
+                "size": 16,
+                "damage": 10,
+                "angle": 190,
+                "baseKnockback": 10,
+                "scaling": 1
+            }],
             "width": 192,
             "height": 128,
             "x": 2064,

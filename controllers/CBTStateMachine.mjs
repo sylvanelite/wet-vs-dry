@@ -8,6 +8,7 @@ import DataWarrior from "../assets/characters/ch_warrior.mjs";
 import DataBattlemage from "../assets/characters/ch_battlemage.mjs";
 
 class CBTStateMachine{
+    static ANIMATION_SCALE = 0.75;
     static ANIMATION_DATA = {
         REDHOOD:0,
         WARRIOR:1,
@@ -427,15 +428,15 @@ class CBTStateMachine{
         const query = ecs.createQuery("player");
         const queryJudge = ecs.createQuery("judge");
         for(const [idx,hitbox] of frame.hitboxes.entries()){
-            let hbx = bounds.x+(facing*(hitbox.x-frame.anchorX));
-            let hby = bounds.y+hitbox.y-frame.anchorY;
+            let hbx = bounds.x+(facing*(hitbox.x*CBTStateMachine.ANIMATION_SCALE-frame.anchorX*CBTStateMachine.ANIMATION_SCALE));
+            let hby = bounds.y+hitbox.y*CBTStateMachine.ANIMATION_SCALE-frame.anchorY*CBTStateMachine.ANIMATION_SCALE;
             for(let archetype of query.archetypes) {
                 for(let playerEntity of archetype.entities) {
                     if(playerEntity != entity){
                         const c = {
                             x:hbx,
                             y:hby,
-                            r:hitbox.size
+                            r:hitbox.size*CBTStateMachine.ANIMATION_SCALE
                         };
                         const r = CBTStateMachine.getBounds(playerEntity);
                         const collision = Collision.rectCircleCollision(c,r);
@@ -451,7 +452,7 @@ class CBTStateMachine{
                     const c = {
                         x:hbx,
                         y:hby,
-                        r:hitbox.size
+                        r:hitbox.size*CBTStateMachine.ANIMATION_SCALE
                     };
                     const r = CBTStateMachine.getBounds(judgeEntity);
                     const collision = Collision.rectCircleCollision(c,r);
@@ -519,16 +520,16 @@ class CBTStateMachine{
         for (const [idx, hitbox] of frame.hitboxes.entries()) {
             ctx.strokeStyle = "1px solid white";
             ctx.beginPath();
-            ctx.arc(startX+hitbox.x+0.5, 
-                    startY+hitbox.y+0.5, 
-                    hitbox.size,0, 2 * Math.PI);
+            ctx.arc(startX+hitbox.x*CBTStateMachine.ANIMATION_SCALE+0.5, 
+                    startY+hitbox.y*CBTStateMachine.ANIMATION_SCALE+0.5, 
+                    hitbox.size*CBTStateMachine.ANIMATION_SCALE,0, 2 * Math.PI);
             ctx.stroke();
             let angleRad = hitbox.angle *0.0174533;
             ctx.beginPath();
-            ctx.moveTo(startX+hitbox.x+0.5, 
-                       startY+hitbox.y+0.5);
-            ctx.lineTo(startX+hitbox.x+0.5 + hitbox.size*Math.cos(angleRad), 
-                       startY+hitbox.y+0.5 + hitbox.size*Math.sin(angleRad));   
+            ctx.moveTo(startX+hitbox.x*CBTStateMachine.ANIMATION_SCALE+0.5, 
+                       startY+hitbox.y*CBTStateMachine.ANIMATION_SCALE+0.5);
+            ctx.lineTo(startX+hitbox.x*CBTStateMachine.ANIMATION_SCALE+0.5 + hitbox.size*CBTStateMachine.ANIMATION_SCALE*Math.cos(angleRad), 
+                       startY+hitbox.y*CBTStateMachine.ANIMATION_SCALE+0.5 + hitbox.size*CBTStateMachine.ANIMATION_SCALE*Math.sin(angleRad));   
             ctx.stroke();
         }
     }
@@ -543,7 +544,6 @@ class CBTStateMachine{
             const img = CBTStateMachine.getImgData(entity);
             if(img){
                 Fes.R.varCtx.imageSmoothingEnabled = true;
-                const sprite_scale = .75;
                 const px = floorX- Fes.R.screenX;
                 const py = floorY- Fes.R.screenY;
                 ctx.save();
@@ -556,12 +556,12 @@ class CBTStateMachine{
                     Math.floor(frame.y),
                     Math.floor(frame.width),
                     Math.floor(frame.height),
-                    Math.floor(-frame.anchorX*sprite_scale),
-                    Math.floor(-frame.anchorY*sprite_scale),
-                    Math.floor(frame.width*sprite_scale),
-                    Math.floor(frame.height*sprite_scale));
+                    Math.floor(-frame.anchorX*CBTStateMachine.ANIMATION_SCALE),
+                    Math.floor(-frame.anchorY*CBTStateMachine.ANIMATION_SCALE),
+                    Math.floor(frame.width*CBTStateMachine.ANIMATION_SCALE),
+                    Math.floor(frame.height*CBTStateMachine.ANIMATION_SCALE));
                 //only render this while debugging:
-                CBTStateMachine.drawHitboxes(ctx,frame,-frame.anchorX,-frame.anchorY);
+                CBTStateMachine.drawHitboxes(ctx,frame,-frame.anchorX*CBTStateMachine.ANIMATION_SCALE,-frame.anchorY*CBTStateMachine.ANIMATION_SCALE);
                 ctx.restore();
                 Fes.R.varCtx.imageSmoothingEnabled = false;
             }
