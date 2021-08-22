@@ -33,10 +33,10 @@ class MapRenderer {
         //this box is the bounds of the rendered screen, slightly smaller than the arena size 
         //this is so that the player has a small off-screen area before dying
         const bounds = {
-            left: Stocks.ARENA_BOUNDS.x-Stocks.ARENA_BOUNDS.width/2-64,
-            right: Stocks.ARENA_BOUNDS.x+Stocks.ARENA_BOUNDS.width/2+64,
-            top: Stocks.ARENA_BOUNDS.y-Stocks.ARENA_BOUNDS.height-64,
-            bottom: Stocks.ARENA_BOUNDS.y+64
+            left: Stocks.ARENA_BOUNDS.x-Stocks.ARENA_BOUNDS.width/2+32,
+            right: Stocks.ARENA_BOUNDS.x+Stocks.ARENA_BOUNDS.width/2-32,
+            top: Stocks.ARENA_BOUNDS.y-Stocks.ARENA_BOUNDS.height,
+            bottom: Stocks.ARENA_BOUNDS.y
         };
         Fes.R.screenX = Math.floor(Fes.data.ecs.components.position.x[entity] - Fes.R.SCREEN_WIDTH / 2);
         Fes.R.screenY = Math.floor(Fes.data.ecs.components.position.y[entity] - Fes.R.SCREEN_HEIGHT / 2);

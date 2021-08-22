@@ -104,6 +104,20 @@ class Stocks {
         //render death explosions
         const hitFrameRate = 0.1;
         for(const hit of Stocks.hitData.hits){
+            
+            //direction (default is bottom)
+            if(hit.modifier=="_left"){
+                hit.x = Fes.R.screenX+hit.size/2;
+            }
+            if(hit.modifier=="_right"){
+                hit.x = Fes.R.screenX+Fes.R.SCREEN_WIDTH-hit.size/2;
+            }
+            if(hit.modifier=="_top"){
+                hit.y = Fes.R.screenY+hit.size;
+            }
+            if(hit.modifier==""){
+                hit.y = Fes.R.screenY+Fes.R.SCREEN_HEIGHT;
+            }
             hit.duration-=hitFrameRate;
             const img = Stocks.getImgData("fx/explode"+hit.modifier);
             if(img){
@@ -133,26 +147,21 @@ class Stocks {
         hits:[]
     };
     static renderExplosion(hit){
-        hit.duration=300;
+        hit.duration=3;
         hit.frame = Math.floor(Math.random()*4);
         hit.size = 128;
         hit.modifier = "";
         //direction (default is bottom)
         if(hit.x<=Stocks.ARENA_BOUNDS.x-Stocks.ARENA_BOUNDS.width/2){
             hit.modifier="_left";
-            hit.x = Stocks.ARENA_BOUNDS.x-Stocks.ARENA_BOUNDS.width/2;
         }
         if(hit.x>=Stocks.ARENA_BOUNDS.x+Stocks.ARENA_BOUNDS.width/2){
             hit.modifier="_right";
-            hit.x = Stocks.ARENA_BOUNDS.x+Stocks.ARENA_BOUNDS.width/2-hit.size/2;
         }
         if(hit.y<=Stocks.ARENA_BOUNDS.y-Stocks.ARENA_BOUNDS.height){
             hit.modifier="_top";
-            hit.y = Stocks.ARENA_BOUNDS.y-Stocks.ARENA_BOUNDS.height+hit.size/2;
         }
-        if(hit.modifier==""){
-            hit.y = Stocks.ARENA_BOUNDS.y-hit.size/2;
-        }
+        console.log(hit);
         Stocks.hitData.hits.push(hit);
     }
     static isGameOver(){
