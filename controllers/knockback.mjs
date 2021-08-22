@@ -32,20 +32,13 @@ class Knockback {
 
     static setKnockback(entity,percent,damage,angle,baseKnockback,scaling){
         const ecs = Fes.data.ecs;
-        let weight = 100;//TODO: pass in weight?
-        let gravity = 1;
-        //TODO: tweak formlua, esp magic numbers
-        let knockback =  ((percent/10 + (percent * damage)/20) * 
-                         (200/(weight+100)) +  
-                         scaling + 
-                         baseKnockback ) / 
-                         (gravity - 0.075 * 5);
+        let knockback = percent*damage*0.005;           
         if(knockback>Knockback.maxKnockback){
             knockback = Knockback.maxKnockback;
         }
         let stun = Math.floor(knockback*0.5);
         let angleRad = angle*0.0174533;
-        ecs.components.knockback.kbMagnitude[entity] = knockback*0.1;
+        ecs.components.knockback.kbMagnitude[entity] = knockback;
         ecs.components.knockback.kbAngle[entity] = angleRad;
         ecs.components.knockback.kbStunFrames[entity] = stun;
         ecs.components.knockback.bonusGravity[entity] = 0;
