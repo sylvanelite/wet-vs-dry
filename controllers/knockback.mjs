@@ -29,6 +29,11 @@ class Knockback {
         ecs.components.knockback.kbStunFrames[entity] = 0;
         ecs.components.knockback.bonusGravity[entity] = 0;
     }
+    static defineRenderSystems(ecs,s){
+        const query = ecs.createQuery("mapRenderer");//entity is not used
+        const system = defineSystem(query, Knockback.render, Knockback.beforeRender);
+        s.push(system);
+    }
 
     static setKnockback(entity,percent,damage,angle,baseKnockback,scaling){
         const ecs = Fes.data.ecs;
@@ -42,6 +47,10 @@ class Knockback {
         ecs.components.knockback.kbAngle[entity] = angleRad;
         ecs.components.knockback.kbStunFrames[entity] = stun;
         ecs.components.knockback.bonusGravity[entity] = 0;
+        Knockback.renderHit({
+            x:ecs.components.position.x[entity],
+            y:ecs.components.position.y[entity]-ecs.components.size.height[entity]/2
+        });
     }
     static isInHitstun(entity){
         const ecs = Fes.data.ecs;
@@ -109,6 +118,68 @@ class Knockback {
                 //should not get here, but stop moving
                 ecs.components.knockback.kbMagnitude[entity] = 0;
             }
+        }
+    }
+
+    static hitData = {
+        imageCache:{
+
+        },
+        hits:[]
+    };
+    static renderHit(hit){
+        hit.duration=3;
+        hit.frameX = Math.floor(Math.random()*4);
+        hit.frameY = Math.floor(Math.random()*3);
+        Knockback.hitData.hits.push(hit);
+    }
+    static render(entity){
+
+    }
+    static beforeRender(){
+        const ctx = Fes.R.varCtx;
+        const hitFrameRate = 0.25;
+        for(const hit of Knockback.hitData.hits){
+            hit.duration-=hitFrameRate;
+            const img = Knockback.getImgData("hitcrop");
+            if(img){
+                const framweWidth = 128;
+                const framweHeight = 128;
+                const imgFrameX = hit.frameX * framweWidth;
+                const imgFrameY = hit.frameY * framweHeight;
+                ctx.drawImage(img,
+                    Math.floor(imgFrameX),
+                    Math.floor(imgFrameY),
+                    Math.floor(framweWidth),
+                    Math.floor(framweHeight),
+                    Math.floor(hit.x- Fes.R.screenX-framweHeight/2),
+                    Math.floor(hit.y- Fes.R.screenY-framweHeight/2),
+                    Math.floor(framweWidth),
+                    Math.floor(framweHeight));
+            }
+        }
+        //remove hitboxes that are done
+        for(let i=Knockback.hitData.hits.length-1;i>=0;i-=1){
+            if(Knockback.hitData.hits[i].duration<=0){
+                Knockback.hitData.hits.splice(i,1);
+            }
+        }
+    }
+    static getImgData(imgName){
+        if(Knockback.hitData.imageCache[imgName] == null){
+            //start loading
+            let img = new Image();
+            Knockback.hitData.imageCache[imgName] = {
+                image:img,
+                isLoaded:false
+            };
+            img.onload = function(){
+                Knockback.hitData.imageCache[imgName].isLoaded = true;
+            };
+            img.src = "./assets/fx/"+imgName+".png";
+        }
+        if(Knockback.hitData.imageCache[imgName].isLoaded){
+            return Knockback.hitData.imageCache[imgName].image;
         }
     }
 

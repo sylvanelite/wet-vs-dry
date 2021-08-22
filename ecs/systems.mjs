@@ -48,6 +48,7 @@ class Systems  {
         MapRenderer.defineRenderSystems(ecs,renderSystems);
         Player.defineRenderSystems(ecs,renderSystems);
         CBTStateMachine.defineRenderSystems(ecs,renderSystems);
+        Knockback.defineRenderSystems(ecs,renderSystems);
         MouseAim.defineRenderSystems(ecs,renderSystems);
         Bullet.defineRenderSystems(ecs,renderSystems);
         Enemy.defineRenderSystems(ecs,renderSystems);
