@@ -27,7 +27,9 @@ class Stocks {
 
     static StockState = {
         numberAlive:0,
-        renderPosition:0
+        renderPosition:0,
+        isRunning:true,//flag when hitting the victory screen to preven it from changing
+        isPlayerVicotry:false
     };
     static OK_BUTTON = {
         text:"Ok",
@@ -71,6 +73,10 @@ class Stocks {
         Stocks.StockState.numberAlive = 0;
     }
     static afterUpdate(){
+        const ecs = Fes.data.ecs;
+        if(!Stocks.StockState.isRunning){
+            return;
+        }
         if(Stocks.isGameOver()){
             //"ok" button to restart the game, check mouse handling
             if(Stocks.isMouseOverRect(Stocks.OK_BUTTON)){
@@ -78,8 +84,10 @@ class Stocks {
                     window.location.reload();
                 }
             }
+            //prevent stocks from changing after the victory screen is displayed
+            Stocks.StockState.isRunning = false;
+            Stocks.StockState.isPlayerVicotry = (ecs.components.stocks.stockCount[Fes.data.player]>0);
         }
-        
     }
     static beforeRenderUpdate(){
         Stocks.StockState.renderPosition = 0;
@@ -92,7 +100,6 @@ class Stocks {
         if(Stocks.StockState.numberAlive<=1){
             //check for game over
             return true;
-            //TODO: some way of resetting the main menu
         }
         return false;
     }
@@ -109,6 +116,9 @@ class Stocks {
         return (Fes.data.player === entity);
     }
     static update(entity){
+        if(!Stocks.StockState.isRunning){
+            return;
+        }
         const ecs = Fes.data.ecs;
         //keep track of the number of alive players
         if(ecs.components.stocks.stockCount[entity]>0){
@@ -168,8 +178,7 @@ class Stocks {
             ctx.fillRect(menuX-25, menuY-25, 330, 330);
             //host sees all entrants
             Fes.R.drawText("Game Over:", menuX,menuY );
-            let victory = (ecs.components.stocks.stockCount[Fes.data.player]>0);
-            //TODO: can still lose after game over, prevent stocks from changing?
+            let victory = Stocks.StockState.isPlayerVicotry;
             if(victory){
                 Fes.R.drawText("Victory!", menuX,menuY+32 );
             }else{
