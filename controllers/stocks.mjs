@@ -1,7 +1,8 @@
 import { defineSystem,types } from "../ecs.js";
 import { Collision } from "./collision.mjs";
 import { MainMenuEntity } from "./menu.mjs";
-import {MapRenderer } from "../terrain/map_renderer.mjs";
+import { MapRenderer } from "../terrain/map_renderer.mjs";
+import { ParallaxRenderer } from  "../terrain/parallax_renderer.mjs";
 
 class Stocks {
 
@@ -91,6 +92,14 @@ class Stocks {
     }
     static beforeRenderUpdate(){
         Stocks.StockState.renderPosition = 0;
+        
+        //re-render the parallax FG layer so it appears above the players, but with transparancy
+        const ctx = Fes.R.varCtx;
+        if(!MainMenuEntity.isInMenu()){
+            ctx.globalAlpha = 0.5;
+            ParallaxRenderer.renderFG();
+            ctx.globalAlpha = 1;
+        }
     }
     static isGameOver(){
         //don't check for game over if the main menu is open

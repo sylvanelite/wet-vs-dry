@@ -284,12 +284,8 @@ class MapRenderer {
             MapRenderer.RenderData.screenShake.x=0;
             MapRenderer.RenderData.screenShake.y=0;
         }
-
-
-        
         Fes.R.screenX += MapRenderer.RenderData.screenShake.x
         Fes.R.screenY += MapRenderer.RenderData.screenShake.y;
-        
     }
     static screenShake(){
         MapRenderer.RenderData.screenShake.duration = MapRenderer.RenderData.screenShake.defaultDuration;
