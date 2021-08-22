@@ -3,6 +3,16 @@ import { CBTStateMachine } from "./CBTStateMachine.mjs";
 
 class AI{
     
+    static BOUNDS={
+        //32 == Fes.R.TILE_SIZE
+        //offset by half a tile, so that they'll recover to the edge, rather than fall past it
+        LEFT:   8* 32+32/2,
+        //add 1 to the RHS index account for edge tile width
+        RIGHT:  27* 32-32/2,
+        TOP:    8*32,
+        BOTTOM: 15* 32
+    }
+
     static defineComponents(){
         Fes.data.ecs.defineComponent("controlSourceAI");
     }
@@ -33,7 +43,7 @@ class AI{
         ecs.components.cbtState.SPECIAL[entity] = false;
     }
     static tryAIJump(entity){
-        const topEdge = 4*Fes.R.TILE_SIZE;
+        const topEdge = AI.BOUNDS.top;
         const ecs = Fes.data.ecs;
         //don't jump if too close to the top (can KO self)
         if(ecs.components.position.y[entity]>topEdge){
@@ -66,8 +76,8 @@ class AI{
         }
 
         
-        const leftEdge = 7* Fes.R.TILE_SIZE+Fes.R.TILE_SIZE/2;//offset by half a tile, so that they'll recover to the edge, rather than fall past it
-        const rightEdge = 21* Fes.R.TILE_SIZE-Fes.R.TILE_SIZE/2;//21 to account for edge tile width
+        const leftEdge = AI.BOUNDS.LEFT;
+        const rightEdge = AI.BOUNDS.RIGHT;
         if(ecs.components.position.x[Fes.data.player]<leftEdge || ecs.components.position.x[Fes.data.player]>rightEdge){
             //if the player is off the edge, don't chase
             return;
@@ -141,11 +151,9 @@ class AI{
         //if you're off the side, try jump to max height, then double jump 
         //hold in unless you're below the stage and within (player width) pixels of the edge
 
-        //7,13 = left edge tile 
-        //20,13 = right edge tile
-        const leftEdge = 7* Fes.R.TILE_SIZE+Fes.R.TILE_SIZE/2;//offset by half a tile, so that they'll recover to the edge, rather than fall past it
-        const rightEdge = 21* Fes.R.TILE_SIZE-Fes.R.TILE_SIZE/2;//21 to account for edge tile width
-        const bottomEdge = 13* Fes.R.TILE_SIZE;
+        const leftEdge = AI.BOUNDS.LEFT;
+        const rightEdge = AI.BOUNDS.RIGHT;
+        const bottomEdge = AI.BOUNDS.BOTTOM;
         if(ecs.components.position.x[entity]<leftEdge){
             //recover from the left
             ecs.components.platformer.RIGHT[entity] = true;

@@ -144,18 +144,18 @@ class Knockback {
             const img = Knockback.getImgData("hitcrop");
             if(img){
                 const framweWidth = 128;
-                const framweHeight = 128;
+                const frameHeight = 128;
                 const imgFrameX = hit.frameX * framweWidth;
-                const imgFrameY = hit.frameY * framweHeight;
+                const imgFrameY = hit.frameY * frameHeight;
                 ctx.drawImage(img,
                     Math.floor(imgFrameX),
                     Math.floor(imgFrameY),
                     Math.floor(framweWidth),
-                    Math.floor(framweHeight),
-                    Math.floor(hit.x- Fes.R.screenX-framweHeight/2),
-                    Math.floor(hit.y- Fes.R.screenY-framweHeight/2),
+                    Math.floor(frameHeight),
+                    Math.floor(hit.x- Fes.R.screenX-framweWidth/2),
+                    Math.floor(hit.y- Fes.R.screenY-frameHeight/2),
                     Math.floor(framweWidth),
-                    Math.floor(framweHeight));
+                    Math.floor(frameHeight));
             }
         }
         //remove hitboxes that are done

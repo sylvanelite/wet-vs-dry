@@ -31,7 +31,7 @@ class ParallaxRenderer {
             {name:"terrain",
                 amountX:1.5,
                 amountY:1.1,
-            offsetX:-905,offsetY:-530},//y is higher due to parallax
+            offsetX:-450,offsetY:-530},//y is higher due to parallax
             {name:"parallax1",
                 amountX:1.2,
                 amountY:1.2,
@@ -47,7 +47,7 @@ class ParallaxRenderer {
             {name:"island",
                 amountX:1.1,
                 amountY:1.1,
-            offsetX:134,offsetY:179}
+            offsetX:250,offsetY:179}
         ];
         for (const imgData of images){
             const img = ParallaxRenderer.getImgData(imgData.name);

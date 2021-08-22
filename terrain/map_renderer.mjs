@@ -1,6 +1,7 @@
 import { Map } from "../map.mjs";
 import { defineSystem } from "../ecs.js";
 import { ParallaxRenderer } from "./parallax_renderer.mjs";
+import { Stocks } from "../controllers/stocks.mjs";
 
 class MapRenderer {
     static spriteSheet = null;
@@ -29,18 +30,13 @@ class MapRenderer {
     static setViewport(entity) {
         const mapWidth = Map.getMapWidthInTiles();
         const mapHeight = Map.getMapHeightInTiles();
-        /*
+        //this box is the bounds of the rendered screen, slightly smaller than the arena size 
+        //this is so that the player has a small off-screen area before dying
         const bounds = {
-            left: 0,
-            right: mapWidth * Fes.R.TILE_SIZE,
-            top: 0,
-            bottom: mapHeight * Fes.R.TILE_SIZE
-        };*/
-        const bounds = {
-            left: 64,
-            right: 640+128,
-            top: 64,
-            bottom: 480+128
+            left: Stocks.ARENA_BOUNDS.x-Stocks.ARENA_BOUNDS.width/2-64,
+            right: Stocks.ARENA_BOUNDS.x+Stocks.ARENA_BOUNDS.width/2+64,
+            top: Stocks.ARENA_BOUNDS.y-Stocks.ARENA_BOUNDS.height-64,
+            bottom: Stocks.ARENA_BOUNDS.y+64
         };
         Fes.R.screenX = Math.floor(Fes.data.ecs.components.position.x[entity] - Fes.R.SCREEN_WIDTH / 2);
         Fes.R.screenY = Math.floor(Fes.data.ecs.components.position.y[entity] - Fes.R.SCREEN_HEIGHT / 2);

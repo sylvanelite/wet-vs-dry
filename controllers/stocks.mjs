@@ -39,11 +39,12 @@ class Stocks {
         width:100,
         height:64
     };
+    //outside of this box is the death zone
     static ARENA_BOUNDS = {
         //rect collision (x is centered, y is the objects floor)
-        x:(128+640)/2,
-        y:128+480,
-        width:6400,
+        x:(896)/2+128,//w and h are "bounds" from map.json
+        y:(480)+128,
+        width:896,
         height:480
     };
     static addToEntity(entity) {
@@ -100,6 +101,59 @@ class Stocks {
             ParallaxRenderer.renderFG();
             ctx.globalAlpha = 1;
         }
+        //render death explosions
+        const hitFrameRate = 0.1;
+        for(const hit of Stocks.hitData.hits){
+            hit.duration-=hitFrameRate;
+            const img = Stocks.getImgData("fx/explode"+hit.modifier);
+            if(img){
+                const frameWidth = hit.size;
+                const frameHeight = hit.size;
+                const imgFrameX = hit.frame * frameWidth;
+                const imgFrameY = 0;
+                ctx.drawImage(img,
+                    Math.floor(imgFrameX),
+                    Math.floor(imgFrameY),
+                    Math.floor(frameWidth),
+                    Math.floor(frameHeight),
+                    Math.floor(hit.x- Fes.R.screenX-frameWidth/2),
+                    Math.floor(hit.y- Fes.R.screenY-frameHeight),
+                    Math.floor(frameWidth),
+                    Math.floor(frameHeight));
+            }
+        }
+        //remove hitboxes that are done
+        for(let i=Stocks.hitData.hits.length-1;i>=0;i-=1){
+            if(Stocks.hitData.hits[i].duration<=0){
+                Stocks.hitData.hits.splice(i,1);
+            }
+        }
+    }
+    static hitData = {
+        hits:[]
+    };
+    static renderExplosion(hit){
+        hit.duration=300;
+        hit.frame = Math.floor(Math.random()*4);
+        hit.size = 128;
+        hit.modifier = "";
+        //direction (default is bottom)
+        if(hit.x<=Stocks.ARENA_BOUNDS.x-Stocks.ARENA_BOUNDS.width/2){
+            hit.modifier="_left";
+            hit.x = Stocks.ARENA_BOUNDS.x-Stocks.ARENA_BOUNDS.width/2;
+        }
+        if(hit.x>=Stocks.ARENA_BOUNDS.x+Stocks.ARENA_BOUNDS.width/2){
+            hit.modifier="_right";
+            hit.x = Stocks.ARENA_BOUNDS.x+Stocks.ARENA_BOUNDS.width/2-hit.size/2;
+        }
+        if(hit.y<=Stocks.ARENA_BOUNDS.y-Stocks.ARENA_BOUNDS.height){
+            hit.modifier="_top";
+            hit.y = Stocks.ARENA_BOUNDS.y-Stocks.ARENA_BOUNDS.height+hit.size/2;
+        }
+        if(hit.modifier==""){
+            hit.y = Stocks.ARENA_BOUNDS.y-hit.size/2;
+        }
+        Stocks.hitData.hits.push(hit);
     }
     static isGameOver(){
         //don't check for game over if the main menu is open
@@ -144,14 +198,20 @@ class Stocks {
             //outside bounds, KO
             ecs.components.stocks.stockCount[entity]-=1;
             ecs.components.cbtState.percent[entity] = 0;//reset the player's percent
+            ecs.components.knockback.kbMagnitude[entity] = 0;//reset the player's knockback & stun
+            ecs.components.knockback.kbStunFrames[entity] = 0;
             //set x spawn points
             let xSpawn = 600;
             if(Stocks.isPlayerEntity(entity)){
                 xSpawn = 288;
             }
+            Stocks.renderExplosion({
+                x:ecs.components.position.x[entity],
+                y:ecs.components.position.y[entity]
+            });
+            MapRenderer.screenShake();
             ecs.components.position.x[entity] = xSpawn;
             ecs.components.position.y[entity] = 320;
-            MapRenderer.screenShake();
         }
     }
     static render(entity){
