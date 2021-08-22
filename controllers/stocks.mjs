@@ -168,7 +168,6 @@ class Stocks {
         }
         if(!Stocks.isPlayerEntity(entity)){
             Stocks.StockState.renderPosition-=36;
-            console.log(entity+" "+Stocks.StockState.renderPosition)
         }
         
         if(Stocks.isGameOver()){
