@@ -1,6 +1,7 @@
 import { defineSystem,types } from "../ecs.js";
 import { Collision } from "./collision.mjs";
 import { MainMenuEntity } from "./menu.mjs";
+import {MapRenderer } from "../terrain/map_renderer.mjs";
 
 class Stocks {
 
@@ -74,9 +75,6 @@ class Stocks {
     }
     static afterUpdate(){
         const ecs = Fes.data.ecs;
-        if(!Stocks.StockState.isRunning){
-            return;
-        }
         if(Stocks.isGameOver()){
             //"ok" button to restart the game, check mouse handling
             if(Stocks.isMouseOverRect(Stocks.OK_BUTTON)){
@@ -84,9 +82,11 @@ class Stocks {
                     window.location.reload();
                 }
             }
-            //prevent stocks from changing after the victory screen is displayed
-            Stocks.StockState.isRunning = false;
-            Stocks.StockState.isPlayerVicotry = (ecs.components.stocks.stockCount[Fes.data.player]>0);
+            if(Stocks.StockState.isRunning){
+                //prevent stocks from changing after the victory screen is displayed
+                Stocks.StockState.isRunning = false;
+                Stocks.StockState.isPlayerVicotry = (ecs.components.stocks.stockCount[Fes.data.player]>0);
+            }
         }
     }
     static beforeRenderUpdate(){
@@ -142,6 +142,7 @@ class Stocks {
             }
             ecs.components.position.x[entity] = xSpawn;
             ecs.components.position.y[entity] = 320;
+            MapRenderer.screenShake();
         }
     }
     static render(entity){

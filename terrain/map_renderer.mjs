@@ -22,7 +22,8 @@ class MapRenderer {
         const systemViewport = defineSystem(queryViewport, MapRenderer.setViewport);
         s.push(systemViewport);
         const query = ecs.createQuery("mapRenderer");
-        const system = defineSystem(query, MapRenderer.render);
+        const system = defineSystem(query, MapRenderer.render,
+            MapRenderer.beforeRender);
         s.push(system);
     }
     static setViewport(entity) {
@@ -264,6 +265,35 @@ class MapRenderer {
         */
     }
 
+    static RenderData = {
+        screenShake:{
+            x:0,
+            y:0,
+            duration:0,
+            defaultDuration:60
+        }
+    };
+    static beforeRender(){
+        if(MapRenderer.RenderData.screenShake.duration>0){
+            MapRenderer.RenderData.screenShake.duration-=1;
+            //since this is a rendering effect, no need to sync over network, can use random()
+            MapRenderer.RenderData.screenShake.x=Math.random()*5-Math.random()*5;
+            MapRenderer.RenderData.screenShake.x=Math.random()*5-Math.random()*5;
+            MapRenderer.RenderData.screenShake.y=0;
+        }else{
+            MapRenderer.RenderData.screenShake.x=0;
+            MapRenderer.RenderData.screenShake.y=0;
+        }
+
+
+        
+        Fes.R.screenX += MapRenderer.RenderData.screenShake.x
+        Fes.R.screenY += MapRenderer.RenderData.screenShake.y;
+        
+    }
+    static screenShake(){
+        MapRenderer.RenderData.screenShake.duration = MapRenderer.RenderData.screenShake.defaultDuration;
+    }
 }
 
 
