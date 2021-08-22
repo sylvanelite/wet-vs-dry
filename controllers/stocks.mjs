@@ -26,7 +26,8 @@ class Stocks {
     }
 
     static StockState = {
-        numberAlive:0
+        numberAlive:0,
+        renderPosition:0
     };
     static ARENA_BOUNDS = {
         //rect collision (x is centered, y is the objects floor)
@@ -55,7 +56,8 @@ class Stocks {
     }
     static defineRenderSystems(ecs, s) {
         const query = ecs.createQuery("stocks");
-        const system = defineSystem(query, Stocks.render);
+        const system = defineSystem(query, Stocks.render,
+            Stocks.beforeRenderUpdate);
         s.push(system);
     }
     static beforeUpdate(){
@@ -63,15 +65,24 @@ class Stocks {
         Stocks.StockState.numberAlive = 0;
     }
     static afterUpdate(){
+        if(Stocks.isGameOver()){
+            //TODO: "ok" button to restart the game, check mouse handling
+        }
+    }
+    static beforeRenderUpdate(){
+        Stocks.StockState.renderPosition = 0;
+    }
+    static isGameOver(){
         //don't check for game over if the main menu is open
         if(MainMenuEntity.isInMenu()){
-            return;
+            return false;
         }
         if(Stocks.StockState.numberAlive<=1){
             //check for game over
-            console.log("game over!");
+            return true;
             //TODO: some way of resetting the main menu
         }
+        return false;
     }
     static isPlayerEntity(entity){
         //multiplayer mode, need to return true/false based on if you're the host or not
@@ -121,14 +132,23 @@ class Stocks {
         //should only be 1-1 so this might be ok
         let renderX = Fes.R.SCREEN_WIDTH-128;
         const renderY =  Fes.R.SCREEN_HEIGHT-64;
+        let renderYOffset = Stocks.StockState.renderPosition;
         if(Stocks.isPlayerEntity(entity)){
             renderX = 64;
+            renderYOffset = 0;
         }
         for(var i=0;i<ecs.components.stocks.stockCount[entity];i+=1){
             const img = Stocks.getImgData("stock");
             if(img){
-                ctx.drawImage(img,renderX+i*34,renderY);
+                ctx.drawImage(img,renderX+i*34,renderY+renderYOffset);
             }
+        }
+        if(!Stocks.isPlayerEntity(entity)){
+            Stocks.StockState.renderPosition-=36;
+            console.log(entity+" "+Stocks.StockState.renderPosition)
+        }
+        
+        if(Stocks.isGameOver()){
         }
     }
 }
