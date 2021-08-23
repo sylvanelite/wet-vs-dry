@@ -2,15 +2,10 @@ import { Platformer } from "../controllers/platformer.mjs";
 import { MouseAim } from "../controllers/mouseaim.mjs";
 import { Collision } from "../controllers/collision.mjs";
 import { Pathfind } from "../controllers/pathfind.mjs";
-import { Orchestrator } from "../controllers/orchestrator.mjs";
 import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
 import { AI } from "../controllers/ai.mjs";
 import { Knockback } from "../controllers/knockback.mjs";
 import { Stocks } from "../controllers/stocks.mjs";
-import { Bullet } from "../interactable/bullets/bullet.mjs";
-import { Enemy } from "../interactable/enemy/enemy.mjs";
-import { Mineral } from "../interactable/mineral/mineral.mjs";
-import { Judge } from "../interactable/judge/judge.mjs";
 import { Player } from "../player.mjs";
 import { MapRenderer } from "../terrain/map_renderer.mjs";
 import { ScreenRenderer } from "../terrain/screen_renderer.mjs";
@@ -30,13 +25,8 @@ class Systems  {
         MouseAim.defineSystems(ecs,systems);
         Collision.defineSystems(ecs,systems);
         Pathfind.defineSystems(ecs,systems);
-        Orchestrator.defineSystems(ecs,systems);
         CBTStateMachine.defineSystems(ecs,systems);
         Knockback.defineSystems(ecs,systems);
-        Bullet.defineSystems(ecs,systems);
-        Enemy.defineSystems(ecs,systems);
-        Mineral.defineSystems(ecs,systems);
-        Judge.defineSystems(ecs,systems);
         AI.defineSystems(ecs,systems);
         Stocks.defineSystems(ecs,systems);
     }
@@ -50,10 +40,6 @@ class Systems  {
         CBTStateMachine.defineRenderSystems(ecs,renderSystems);
         Knockback.defineRenderSystems(ecs,renderSystems);
         MouseAim.defineRenderSystems(ecs,renderSystems);
-        Bullet.defineRenderSystems(ecs,renderSystems);
-        Enemy.defineRenderSystems(ecs,renderSystems);
-        Mineral.defineRenderSystems(ecs,renderSystems);
-        Judge.defineRenderSystems(ecs,renderSystems);
         //NOTE: after this point, UI elemts are drawn
         ScreenRenderer.defineRenderSystems(ecs,renderSystems);
         //stocks are drawn on top of the screen

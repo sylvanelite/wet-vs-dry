@@ -3,16 +3,10 @@ import { Platformer } from "../controllers/platformer.mjs";
 import { Collision } from "../controllers/collision.mjs";
 import { Pathfind } from "../controllers/pathfind.mjs";
 import { MouseAim } from "../controllers/mouseaim.mjs";
-import { Orchestrator } from "../controllers/orchestrator.mjs";
 import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
 import { AI } from "../controllers/ai.mjs";
 import { Knockback } from "../controllers/knockback.mjs";
 import { Stocks } from "../controllers/stocks.mjs";
-import { Bullet } from "../interactable/bullets/bullet.mjs";
-import { Enemy } from "../interactable/enemy/enemy.mjs";
-import { Mineral } from "../interactable/mineral/mineral.mjs";
-import { Judge } from "../interactable/judge/judge.mjs";
-
 
 
 
@@ -50,13 +44,8 @@ class Components  {
         Collision.defineComponents();
         Pathfind.defineComponents();
         MouseAim.defineComponents();
-        Orchestrator.defineComponents();
         CBTStateMachine.defineComponents();
         Knockback.defineComponents();
-        Bullet.defineComponents();
-        Enemy.defineComponents();
-        Mineral.defineComponents();
-        Judge.defineComponents();
         AI.defineComponents();
         Stocks.defineComponents();
         

@@ -1,12 +1,8 @@
 import {MapRenderer} from "./map_renderer.mjs";
 import {Player} from "../player.mjs";
 import {Map} from "../map.mjs";
-import {Mineral} from "../interactable/mineral/mineral.mjs";
-import {Judge} from "../interactable/judge/judge.mjs";
-import {Enemy} from "../interactable/enemy/enemy.mjs";
 import {NetworkEntity} from "../controllers/nwEntity.mjs";
 import {MainMenuEntity} from "../controllers/menu.mjs";
-import {Orchestrator} from "../controllers/orchestrator.mjs";
 
 class FileMapGen {
 	static createObejct(object){
@@ -26,22 +22,6 @@ class FileMapGen {
 			}
 			console.log("network controller already added");
             return;
-		}
-		if(object.name == "mineral"){
-			Mineral.init(object);
-			return;
-		}
-		if(object.name == "enemy"){
-			Enemy.init(object);
-			return;
-		}
-		if(object.name == "orchestrator"){
-			Orchestrator.init(object);
-			return;
-		}
-		if(object.name == "judge"){
-			Judge.init(object);
-			return;
 		}
 		if(object.name == "menu"){
 			if(!Fes.data.mainMenu){

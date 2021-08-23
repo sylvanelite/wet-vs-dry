@@ -167,10 +167,20 @@ class MainMenuEntity {
             ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.BATTLEMAGE;
         }
         if(chosenCh == "random_ch"){
-            if(Fes.engine.frameCount%2==0){
+            //can use random, since the network is not synced until after the menu is hidden
+            const randomCh = Math.floor(Math.random()*3);
+            switch(randomCh){
+                case 0:
+                    ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.REDHOOD;
+                    break
+                case 1:
+                    ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.WARRIOR;
+                    break
+                case 2:
+                    ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.BATTLEMAGE;
+                    break
+                default:
                 ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.REDHOOD;
-            }else{
-                ecs.components.cbtState.animationData[entity] = CBTStateMachine.ANIMATION_DATA.WARRIOR;
             }
         }
     }

@@ -2,7 +2,6 @@
 import { defineSystem,types } from "../ecs.js";
 import { Knockback } from "./knockback.mjs";
 import { Collision } from "./collision.mjs";
-import { Judge } from "../interactable/judge/judge.mjs";
 import DataRedhood  from "../assets/characters/ch_greenhood.mjs";
 import DataWarrior from "../assets/characters/ch_warrior.mjs";
 import DataBattlemage from "../assets/characters/ch_battlemage.mjs";
@@ -426,7 +425,6 @@ class CBTStateMachine{
         }
         const bounds = CBTStateMachine.getBounds(entity);
         const query = ecs.createQuery("player");
-        const queryJudge = ecs.createQuery("judge");
         for(const [idx,hitbox] of frame.hitboxes.entries()){
             let hbx = bounds.x+(facing*(hitbox.x*CBTStateMachine.ANIMATION_SCALE-frame.anchorX*CBTStateMachine.ANIMATION_SCALE));
             let hby = bounds.y+hitbox.y*CBTStateMachine.ANIMATION_SCALE-frame.anchorY*CBTStateMachine.ANIMATION_SCALE;
@@ -443,21 +441,6 @@ class CBTStateMachine{
                         if(collision){
                             CBTStateMachine.takeHit(playerEntity,hitbox,ecs.components.cbtState.facing[entity]);
                         }
-                    }
-                }
-            }
-            //TODO: is there a more modular way to interact with hitboxes?
-            for(let archetype of queryJudge.archetypes) {
-                for(let judgeEntity of archetype.entities) {
-                    const c = {
-                        x:hbx,
-                        y:hby,
-                        r:hitbox.size*CBTStateMachine.ANIMATION_SCALE
-                    };
-                    const r = CBTStateMachine.getBounds(judgeEntity);
-                    const collision = Collision.rectCircleCollision(c,r);
-                    if(collision){
-                        Judge.takeHit(judgeEntity,entity,hitbox);
                     }
                 }
             }
