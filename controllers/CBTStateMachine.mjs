@@ -103,7 +103,7 @@ class CBTStateMachine{
         ecs.components.cbtState.LEFT[entity] = controls.Left;
         ecs.components.cbtState.RIGHT[entity] = controls.Right;
         ecs.components.cbtState.ATTACK[entity] = controls.Mouse_Left;
-        ecs.components.cbtState.SPECIAL[entity] = controls.Mouse_Right;
+        //ecs.components.cbtState.SPECIAL[entity] = controls.Mouse_Right;
     }
 
     static updateCBT(entity){
