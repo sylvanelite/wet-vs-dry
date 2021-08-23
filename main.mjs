@@ -67,6 +67,7 @@ Fes.start = function (){
 		cancelAnimationFrame(Fes.R.render);
 		Fes.engine.renderTimer = requestAnimationFrame(Fes.R.render);
 	});
+	Audio.playBGM(Audio.BGM_KINDS.TITLE);
 };
 Fes.update =function (){
     //keep track of time delta

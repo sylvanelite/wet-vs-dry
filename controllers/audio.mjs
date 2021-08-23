@@ -20,7 +20,6 @@ class Audio {
         DEATH:"death",
         ATTACK:"attack",
         JUMP:"jump"
-        //TODO: more
     };
     static sfxBuffer = {
 
@@ -135,6 +134,51 @@ class Audio {
 
     }
 
+    static currentBGM = null;
+    static BGM_ENABLED = true;
+    static BGM_KINDS = {
+        TITLE:"title",
+        LEVEL:"level"
+    };
+    static BGM = {
+     LEVEL:[ new window.Howl({src:"./assets/audio/bgm/level1.ogg",loop:true,volume:0.3}),
+         new window.Howl({src:"./assets/audio/bgm/level2.ogg",loop:true,volume:0.3}),
+         new window.Howl({src:"./assets/audio/bgm/level3.ogg",loop:true,volume:0.3}),
+         new window.Howl({src:"./assets/audio/bgm/level4.ogg",loop:true,volume:0.3}),
+         new window.Howl({src:"./assets/audio/bgm/level5.ogg",loop:true,volume:0.3}),
+         new window.Howl({src:"./assets/audio/bgm/level6.ogg",loop:true,volume:0.3})
+        ],
+     TITLE:[
+          new window.Howl({src:"./assets/audio/bgm/stage_select.ogg",loop:true}),
+         new window.Howl({src:"./assets/audio/bgm/title_screen.ogg",loop:true})
+     ]
+    }
+    static playBGM(bgmKind){
+        if(!Audio.isSoundEnabled){
+            return;//don't change the current BGM track
+        }
+        if(Audio.currentBGM && Audio.currentBGM.playing()){
+            Audio.currentBGM.stop();
+        }
+        let bgm = null;
+        switch(bgmKind){
+            case Audio.BGM_KINDS.TITLE:
+                bgm = Audio.BGM.TITLE[Math.floor(Math.random()*Audio.BGM.TITLE.length)];
+                break;
+                case Audio.BGM_KINDS.LEVEL:
+                bgm = Audio.BGM.LEVEL[Math.floor(Math.random()*Audio.BGM.LEVEL.length)];
+                break;
+            default:
+                console.log("TODO: music "+bgmKind);
+        }
+        
+        if(bgm){
+            Audio.currentBGM = bgm;
+            if(Audio.BGM_ENABLED){
+                Audio.currentBGM.play();
+            }
+        }
+    }
 }
 
 
