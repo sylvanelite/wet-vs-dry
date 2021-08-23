@@ -141,7 +141,8 @@ class Audio {
         LEVEL:"level"
     };
     static BGM = {
-     LEVEL:[ new window.Howl({src:"./assets/audio/bgm/level1.ogg",loop:true,volume:0.3}),
+     LEVEL:[ 
+         new window.Howl({src:"./assets/audio/bgm/level1.ogg",loop:true,volume:0.3}),
          new window.Howl({src:"./assets/audio/bgm/level2.ogg",loop:true,volume:0.3}),
          new window.Howl({src:"./assets/audio/bgm/level3.ogg",loop:true,volume:0.3}),
          new window.Howl({src:"./assets/audio/bgm/level4.ogg",loop:true,volume:0.3}),
@@ -149,8 +150,8 @@ class Audio {
          new window.Howl({src:"./assets/audio/bgm/level6.ogg",loop:true,volume:0.3})
         ],
      TITLE:[
-          new window.Howl({src:"./assets/audio/bgm/stage_select.ogg",loop:true}),
-         new window.Howl({src:"./assets/audio/bgm/title_screen.ogg",loop:true})
+         new window.Howl({src:"./assets/audio/bgm/stage_select.ogg",loop:true,volume:0.3}),
+         new window.Howl({src:"./assets/audio/bgm/title_screen.ogg",loop:true,volume:0.3})
      ]
     }
     static playBGM(bgmKind){

@@ -4,6 +4,7 @@ import { Player } from "../player.mjs";
 import { MouseAim } from "./mouseaim.mjs";
 import { ECS } from "../ecs.js";
 import { Systems } from "../ecs/systems.mjs";
+import { Audio } from "./audio.mjs";
 
 class InputBuffer {
     constructor(msgObj){
@@ -231,7 +232,6 @@ class NetworkEntity extends Networking {
             });
             Fes.data.ecs.addComponent(instance,"controlSourceNetwork");        
             Fes.data.mainMenu.assignCharacterToEntity(instance,c.loadedData.chosenClass);
-            console.log(c.loadedData);
         }
         this.isStarted = true;
         this.send(msgInit);
@@ -267,6 +267,11 @@ class NetworkEntity extends Networking {
         //overwrite the default control getter
         Fes.engine.getControls = this.inputBuffer.getControls;
         this.lastGoodState = new ECS(Fes.data.ecs.serialise());
+        
+        //start audio, note it needs to be enabled first to make the change.
+        Audio.enableSound();
+        Audio.playBGM(Audio.BGM_KINDS.LEVEL);
+        Audio.disableSound();
     }
     msgInput(msgObj){
         if(msgObj.playerId!==Fes.data.player){
