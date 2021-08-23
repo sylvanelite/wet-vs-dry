@@ -3,6 +3,7 @@ import { Collision } from "./collision.mjs";
 import { MainMenuEntity } from "./menu.mjs";
 import { MapRenderer } from "../terrain/map_renderer.mjs";
 import { ParallaxRenderer } from  "../terrain/parallax_renderer.mjs";
+import { Audio } from "./audio.mjs";
 
 class Stocks {
 
@@ -221,6 +222,7 @@ class Stocks {
             MapRenderer.screenShake();
             ecs.components.position.x[entity] = xSpawn;
             ecs.components.position.y[entity] = 320;
+            Audio.playSFX(Audio.SFX_KINDS.DEATH,"death_"+entity);
         }
     }
     static render(entity){

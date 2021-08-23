@@ -53,6 +53,7 @@ class Knockback {
             y:ecs.components.position.y[entity]-ecs.components.size.height[entity]/2
         });
         Audio.playSFX(Audio.SFX_KINDS.HIT,"knockback_hit"+entity);
+        Audio.playSFX(Audio.SFX_KINDS.DAMAGED,"knockback_damaged"+entity);
     }
     static isInHitstun(entity){
         const ecs = Fes.data.ecs;

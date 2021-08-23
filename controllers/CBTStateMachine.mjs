@@ -5,6 +5,7 @@ import { Collision } from "./collision.mjs";
 import DataRedhood  from "../assets/characters/ch_greenhood.mjs";
 import DataWarrior from "../assets/characters/ch_warrior.mjs";
 import DataBattlemage from "../assets/characters/ch_battlemage.mjs";
+import { Audio } from "./audio.mjs";
 
 class CBTStateMachine{
     static ANIMATION_SCALE = 0.7;
@@ -460,6 +461,8 @@ class CBTStateMachine{
         }
         ecs.components.cbtState.animationProgress[entity] = 0;
         ecs.components.cbtState.animation[entity] = CBTStateMachine.ANIMATIONS[atkStr];
+        
+        Audio.playSFX(Audio.SFX_KINDS.ATTACK,"attack_"+entity);
     }
     static transitionDodge(entity){
         const ecs = Fes.data.ecs;

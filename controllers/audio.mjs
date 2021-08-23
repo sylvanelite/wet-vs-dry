@@ -16,7 +16,10 @@ class Audio {
 
     static SFX_KINDS={
         HIT:"hit",
-        DEATH:"death"
+        DAMAGED:"damaged",
+        DEATH:"death",
+        ATTACK:"attack",
+        JUMP:"jump"
         //TODO: more
     };
     static sfxBuffer = {
@@ -35,20 +38,60 @@ class Audio {
                 return;//wait for an existing sound to finish
             }
         }
+        let fxHit = null;
         switch(sfx){
             case Audio.SFX_KINDS.HIT:
-                let fxHit = Audio.SFX.HIT_EFFECTS[Math.floor(Math.random()*Audio.SFX.HIT_EFFECTS.length)];
-                console.log(fxHit);
-                fxHit.play();
-                Audio.sfxBuffer[id] = fxHit;
+                fxHit = Audio.SFX.HIT_EFFECTS[Math.floor(Math.random()*Audio.SFX.HIT_EFFECTS.length)];
+                break;
+            case Audio.SFX_KINDS.JUMP:
+                fxHit = Audio.SFX.JUMP_EFFECTS[Math.floor(Math.random()*Audio.SFX.JUMP_EFFECTS.length)];
+                break;
+            case Audio.SFX_KINDS.ATTACK:
+                fxHit = Audio.SFX.ATTACK_EFFECTS[Math.floor(Math.random()*Audio.SFX.ATTACK_EFFECTS.length)];
+                break;
+            case Audio.SFX_KINDS.DAMAGED:
+                fxHit = Audio.SFX.DAMAGED_EFFECTS[Math.floor(Math.random()*Audio.SFX.DAMAGED_EFFECTS.length)];
+                break;
+            case Audio.SFX_KINDS.DEATH:
+                fxHit = Audio.SFX.DEATH_EFFECTS[Math.floor(Math.random()*Audio.SFX.DEATH_EFFECTS.length)];
                 break;
             default:
                 console.log("TODO: sound "+sfx);
+        }
+        if(fxHit){
+            fxHit.play();
+            Audio.sfxBuffer[id] = fxHit;
         }
     }
     static SFX_ENABLED = true;
 
     static SFX = {
+        DEATH_EFFECTS:[
+        new window.Howl({src:"./assets/audio/16-bit/explosion__004.wav"}),
+        new window.Howl({src:"./assets/audio/16-bit/explosion__006.wav"}),
+        new window.Howl({src:"./assets/audio/16-bit/explosion__007.wav"}),
+        new window.Howl({src:"./assets/audio/16-bit/explosion__010.wav"}),
+        ],
+        JUMP_EFFECTS:[
+        new window.Howl({src:"./assets/audio/voice/jump1.wav"}),
+        new window.Howl({src:"./assets/audio/voice/jump2.wav"}),
+        new window.Howl({src:"./assets/audio/voice/jump3.wav"})
+        ],
+        ATTACK_EFFECTS:[
+        new window.Howl({src:"./assets/audio/voice/attack1.wav"}),
+        new window.Howl({src:"./assets/audio/voice/attack2.wav"}),
+        new window.Howl({src:"./assets/audio/voice/attack3.wav"})
+        ],
+        DAMAGED_EFFECTS:[
+        new window.Howl({src:"./assets/audio/voice/damaged1.wav"}),
+        new window.Howl({src:"./assets/audio/voice/damaged2.wav"}),
+        new window.Howl({src:"./assets/audio/voice/damaged3.wav"})
+        ],
+        JUMP_EFFECTS:[
+        new window.Howl({src:"./assets/audio/voice/jump1.wav"}),
+        new window.Howl({src:"./assets/audio/voice/jump2.wav"}),
+        new window.Howl({src:"./assets/audio/voice/jump3.wav"})
+        ],
         HIT_EFFECTS:[
         //commented out effects are ~1 sec in length (too long)
         //new window.Howl({src:"./assets/audio/hits/hit01.mp3.flac"}),

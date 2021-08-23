@@ -1,6 +1,7 @@
 import { Map } from "../map.mjs"; 
 import { types, defineSystem } from "../ecs.js";
 import { Knockback } from "./knockback.mjs";
+import { Audio } from "./audio.mjs";
 
 //https://github.com/DavidStrachan/GM-Perfect-Platforming-Paragon
 //maybe also: https://2dengine.com/?p=platformers
@@ -98,6 +99,8 @@ class Platformer {
         }
         ecs.components.platformer.current_v_speed[entity] = -(ecs.components.platformer.jump_speed[entity]);
         ecs.components.platformer.did_jump[entity] = true;
+        
+        Audio.playSFX(Audio.SFX_KINDS.JUMP,"jump_"+entity);
     }
 
     static canJump(entity){
