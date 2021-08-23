@@ -3,6 +3,7 @@ import { FileMapGen } from "../terrain/mapgen_file.mjs";
 import { Player } from "../player.mjs";
 import { ECS } from "../ecs.js";
 import { CBTStateMachine } from "./CBTStateMachine.mjs";
+import { Audio } from "./audio.mjs";
 
 class MainMenuEntity {
     static imageCache = {};
@@ -148,6 +149,7 @@ class MainMenuEntity {
         Fes.data.ecs.addComponent(aiInstance,"controlSourceAI");
         this.assignCharacterToEntity(Fes.data.player,this.player1Selected);
         this.assignCharacterToEntity(aiInstance,this.player2Selected);
+        Audio.playBGM(Audio.BGM_KINDS.LEVEL);
     }
     selectCharacter(idx,playerNo){//playerNo == 1 or 2
         //TODO: any animation logic, etc?

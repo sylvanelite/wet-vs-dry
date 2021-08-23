@@ -157,7 +157,7 @@ class Audio {
         if(!Audio.isSoundEnabled){
             return;//don't change the current BGM track
         }
-        if(Audio.currentBGM && Audio.currentBGM.playing()){
+        if(Audio.currentBGM){
             Audio.currentBGM.stop();
         }
         let bgm = null;
