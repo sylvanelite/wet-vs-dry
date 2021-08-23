@@ -196,6 +196,7 @@ class MainMenuEntity {
             if(Fes.engine.controls.Mouse_Left_Pressed){
                 if(this.isMouseOverRect(this.startButton)){
                     this.startLocalGame();
+                    Audio.playSFX(Audio.SFX_KINDS.UI,"click");
                 }
             }
             //siwtch to network mode
@@ -205,6 +206,7 @@ class MainMenuEntity {
                     //create instance of nw object
                     FileMapGen.createObejct({name:"networking"});
                     this.selectCharacter(0,2);//set the indicator to random to blind pick nw opponent
+                    Audio.playSFX(Audio.SFX_KINDS.UI,"click");
                 }
             }
             //Ch select
@@ -213,11 +215,13 @@ class MainMenuEntity {
                 if(Fes.engine.controls.Mouse_Left_Pressed){
                     if(this.isMouseOverCircle(petal)){
                         this.selectCharacter(i,1);
+                        Audio.playSFX(Audio.SFX_KINDS.UI,"click");
                     }
                 }
                 if(Fes.engine.controls.Mouse_Right_Pressed){
                     if(this.isMouseOverCircle(petal)){
                         this.selectCharacter(i,2);
+                        Audio.playSFX(Audio.SFX_KINDS.UI,"click");
                     }
                 }
             }
@@ -229,6 +233,7 @@ class MainMenuEntity {
                 if(Fes.engine.controls.Mouse_Left_Pressed){
                     if(this.isMouseOverCircle(petal)){
                         this.selectCharacter(i,1);
+                        Audio.playSFX(Audio.SFX_KINDS.UI,"click");
                     }
                 }
             }

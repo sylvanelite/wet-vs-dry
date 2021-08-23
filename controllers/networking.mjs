@@ -1,4 +1,11 @@
+import { Audio } from "./audio.mjs";
+
 class Networking {
+    playUISound(){
+        Audio.enableSound();
+        Audio.playSFX(Audio.SFX_KINDS.UI,"click");
+        Audio.disableSound();
+    }
 	constructor(){
         let url = window.location.host;
         if(url.indexOf(":")>0){//try remove port number
@@ -179,9 +186,11 @@ class Networking {
             if(Fes.engine.controls.Mouse_Left_Pressed){
                 if(this.isMouseOverRect(this.hostButton)){
                     this.host();
+                    this.playUISound();
                 }
                 if(this.isMouseOverRect(this.joinButton)){
                     this.join();
+                    this.playUISound();
                 }
             }
             return;
@@ -196,6 +205,7 @@ class Networking {
                 if(Fes.engine.controls.Mouse_Left_Pressed){
                     if(this.isMouseOverRect(this.startButton)){
                         this.onHostStartClick();
+                        this.playUISound();
                     }
                 }
             }

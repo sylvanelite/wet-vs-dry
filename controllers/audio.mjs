@@ -19,7 +19,8 @@ class Audio {
         DAMAGED:"damaged",
         DEATH:"death",
         ATTACK:"attack",
-        JUMP:"jump"
+        JUMP:"jump",
+        UI:"ui"
     };
     static sfxBuffer = {
 
@@ -31,7 +32,8 @@ class Audio {
         if(!Audio.SFX_ENABLED){
             return;
         }
-        if(Audio.sfxBuffer.hasOwnProperty(id)){
+        let forcePlay = sfx == Audio.SFX_KINDS.UI;//UI FX can overlap
+        if(Audio.sfxBuffer.hasOwnProperty(id)&&!forcePlay){
             let existingEffect = Audio.sfxBuffer[id];
             if(existingEffect.playing()){
                 return;//wait for an existing sound to finish
@@ -54,6 +56,9 @@ class Audio {
             case Audio.SFX_KINDS.DEATH:
                 fxHit = Audio.SFX.DEATH_EFFECTS[Math.floor(Math.random()*Audio.SFX.DEATH_EFFECTS.length)];
                 break;
+            case Audio.SFX_KINDS.UI:
+                fxHit = Audio.SFX.UI_EFFECTS[Math.floor(Math.random()*Audio.SFX.UI_EFFECTS.length)];
+                break;
             default:
                 console.log("TODO: sound "+sfx);
         }
@@ -65,6 +70,9 @@ class Audio {
     static SFX_ENABLED = true;
 
     static SFX = {
+        UI_EFFECTS:[
+            new window.Howl({src:"./assets/audio/ui/bling_trim.ogg"}),
+        ],
         DEATH_EFFECTS:[
         new window.Howl({src:"./assets/audio/16-bit/explosion__004.wav"}),
         new window.Howl({src:"./assets/audio/16-bit/explosion__006.wav"}),
