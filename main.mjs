@@ -55,7 +55,6 @@ Fes.engine.getControls = function (entityId){
 	return Fes.engine.blankControls;
 }
 Fes.start = function (){
-	Audio.init();
 	Components.init();
 	Systems.initUpdate(Fes.data.ecs,Fes.data.systems);
 	Systems.initRender(Fes.data.ecs,Fes.data.renderSystems);
