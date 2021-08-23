@@ -43,7 +43,7 @@ class AI{
         ecs.components.cbtState.SPECIAL[entity] = false;
     }
     static tryAIJump(entity){
-        const topEdge = AI.BOUNDS.top;
+        const topEdge = AI.BOUNDS.TOP+64;
         const ecs = Fes.data.ecs;
         //don't jump if too close to the top (can KO self)
         if(ecs.components.position.y[entity]>topEdge){
