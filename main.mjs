@@ -125,7 +125,6 @@ Fes.init = function (){
 			}
 			Fes.engine.controls[key]=true;
 		}
-		//TODO: custom bindings
 		if (e.code == 'ArrowUp'||e.code=="KeyW") {
 			handleKey("Up");
 		}
@@ -137,16 +136,6 @@ Fes.init = function (){
 		}
 		if (e.code == 'ArrowRight'||e.code=="KeyD") {
 			handleKey("Right");
-		}
-		//console.log(e.code);
-		if (e.code == 'Digit1'||e.code=="KeyI") {
-			handleKey("Attack");
-		}
-		if (e.code == 'Digit2'||e.code=="KeyO") {
-			handleKey("Special");
-		}
-		if (e.code == 'Digit3'||e.code=="KeyP") {
-			handleKey("Dodge");
 		}
     };
     document.onkeyup = function checkKeyUp(e) {
@@ -168,15 +157,6 @@ Fes.init = function (){
 		}
 		if (e.code == 'ArrowRight'||e.code=="KeyD") {
 			handleKey("Right");
-		}
-		if (e.code == 'Digit1'||e.code=="KeyI") {
-			handleKey("Attack");
-		}
-		if (e.code == 'Digit2'||e.code=="KeyO") {
-			handleKey("Special");
-		}
-		if (e.code == 'Digit3'||e.code=="KeyP") {
-			handleKey("Dodge");
 		}
     };
 	Fes.R.varCanvas.addEventListener("mousedown", function(e){
