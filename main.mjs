@@ -55,6 +55,7 @@ Fes.engine.getControls = function (entityId){
 	return Fes.engine.blankControls;
 }
 Fes.start = function (){
+	Audio.init();
 	Components.init();
 	Systems.initUpdate(Fes.data.ecs,Fes.data.systems);
 	Systems.initRender(Fes.data.ecs,Fes.data.renderSystems);
@@ -67,24 +68,26 @@ Fes.start = function (){
 		cancelAnimationFrame(Fes.R.render);
 		Fes.engine.renderTimer = requestAnimationFrame(Fes.R.render);
 	});
-	Audio.init();
-
 };
 Fes.update =function (){
     //keep track of time delta
     let delta = Date.now()-Fes.engine.lastTick;
 	var frames = Math.floor(delta/Fes.engine.FRAME_DURATION)+1;
 	var remainder = delta%Fes.engine.FRAME_DURATION;
+	Audio.enableSound();
 	for(let f=0;f<frames;f+=1){
 		Systems.update(Fes.data.systems);
 		Fes.engine.frameCount+=1;
 	}
+	Audio.disableSound();
 	if(Fes.data.networking){
 		Fes.data.networking.update();
 	}
+	Audio.enableSound();
 	if(Fes.data.mainMenu){
 		Fes.data.mainMenu.update();
 	}
+	Audio.disableSound();
     Fes.engine.lastTick = Date.now();
 	Fes.engine.timer=setTimeout(Fes.update,Fes.engine.FRAME_DURATION - remainder);
 	//clear press/release triggers

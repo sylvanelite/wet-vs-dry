@@ -1,5 +1,6 @@
 import { defineSystem,types } from "../ecs.js";
 import { Map } from "../map.mjs";
+import { Audio } from "./audio.mjs";
 
 class Knockback {
     static friction = 0.95;
@@ -51,6 +52,7 @@ class Knockback {
             x:ecs.components.position.x[entity],
             y:ecs.components.position.y[entity]-ecs.components.size.height[entity]/2
         });
+        Audio.playSFX(Audio.SFX_KINDS.HIT,"knockback_hit"+entity);
     }
     static isInHitstun(entity){
         const ecs = Fes.data.ecs;
