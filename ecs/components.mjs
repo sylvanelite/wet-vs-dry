@@ -1,7 +1,6 @@
 import { ECS, types } from "../ecs.js";
 import { Platformer } from "../controllers/platformer.mjs";
 import { Collision } from "../controllers/collision.mjs";
-import { Pathfind } from "../controllers/pathfind.mjs";
 import { MouseAim } from "../controllers/mouseaim.mjs";
 import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
 import { AI } from "../controllers/ai.mjs";
@@ -42,7 +41,6 @@ class Components  {
         ecs.defineComponent("mapRenderer");
         Platformer.defineComponents();
         Collision.defineComponents();
-        Pathfind.defineComponents();
         MouseAim.defineComponents();
         CBTStateMachine.defineComponents();
         Knockback.defineComponents();

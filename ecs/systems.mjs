@@ -1,7 +1,6 @@
 import { Platformer } from "../controllers/platformer.mjs";
 import { MouseAim } from "../controllers/mouseaim.mjs";
 import { Collision } from "../controllers/collision.mjs";
-import { Pathfind } from "../controllers/pathfind.mjs";
 import { CBTStateMachine } from "../controllers/CBTStateMachine.mjs";
 import { AI } from "../controllers/ai.mjs";
 import { Knockback } from "../controllers/knockback.mjs";
@@ -24,7 +23,6 @@ class Systems  {
         Platformer.defineSystems(ecs,systems);
         MouseAim.defineSystems(ecs,systems);
         Collision.defineSystems(ecs,systems);
-        Pathfind.defineSystems(ecs,systems);
         CBTStateMachine.defineSystems(ecs,systems);
         Knockback.defineSystems(ecs,systems);
         AI.defineSystems(ecs,systems);

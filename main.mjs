@@ -2,7 +2,7 @@ import { Map } from "./map.mjs";
 import { Components } from "./ecs/components.mjs";
 import { Systems } from "./ecs/systems.mjs";
 import { Font } from "./assets/fonts/font.mjs";
-
+import {Audio } from "./controllers/audio.mjs";
 let Fes = {
 	definitions:{},
 	data:{
@@ -67,7 +67,8 @@ Fes.start = function (){
 		cancelAnimationFrame(Fes.R.render);
 		Fes.engine.renderTimer = requestAnimationFrame(Fes.R.render);
 	});
-	
+	Audio.init();
+
 };
 Fes.update =function (){
     //keep track of time delta
