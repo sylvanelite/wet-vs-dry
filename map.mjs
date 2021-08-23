@@ -1,4 +1,3 @@
-//import { ProcMapGen } from "./terrain/mapgen_procedural.mjs";
 import { FileMapGen } from "./terrain/mapgen_file.mjs";
 
 class Map {
