@@ -337,7 +337,7 @@ export default {
                 "y": 64,
                 "size": 16,
                 "damage": 10,
-                "angle": 180,
+                "angle": 220,
                 "baseKnockback": 10,
                 "scaling": 1
             }, {
@@ -410,7 +410,7 @@ export default {
                 "y": 64,
                 "size": 16,
                 "damage": 10,
-                "angle": 110,
+                "angle": 260,
                 "baseKnockback": 10,
                 "scaling": 1
             }, {
@@ -418,7 +418,7 @@ export default {
                 "y": 32,
                 "size": 16,
                 "damage": 10,
-                "angle": 110,
+                "angle": 260,
                 "baseKnockback": 10,
                 "scaling": 1
             }, {
@@ -426,7 +426,7 @@ export default {
                 "y": 64,
                 "size": 16,
                 "damage": 10,
-                "angle": 110,
+                "angle": 260,
                 "baseKnockback": 10,
                 "scaling": 1
             }, {
@@ -434,7 +434,7 @@ export default {
                 "y": 80,
                 "size": 10,
                 "damage": 10,
-                "angle": 110,
+                "angle": 260,
                 "baseKnockback": 10,
                 "scaling": 1
             }],
@@ -450,7 +450,7 @@ export default {
                 "y": 32,
                 "size": 12,
                 "damage": 10,
-                "angle": 110,
+                "angle": 220,
                 "baseKnockback": 10,
                 "scaling": 1
             }, {
@@ -458,7 +458,7 @@ export default {
                 "y": 48,
                 "size": 12,
                 "damage": 10,
-                "angle": 110,
+                "angle": 220,
                 "baseKnockback": 10,
                 "scaling": 1
             }, {
@@ -466,7 +466,7 @@ export default {
                 "y": 72,
                 "size": 12,
                 "damage": 10,
-                "angle": 110,
+                "angle": 220,
                 "baseKnockback": 10,
                 "scaling": 1
             }, {

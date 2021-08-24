@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "map.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -64,12 +64,13 @@
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 693.5,
-                "y": 485.5
+                "x": 584.5,
+                "y": 500
             }
         },
         "map.json#tile": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1
         },
         "tile.json": {
             "dynamicWrapping": true,
@@ -86,6 +87,7 @@
     "map.tileWidth": 32,
     "map.width": 1500,
     "openFiles": [
+        "map.json"
     ],
     "project": "broyale.tiled-project",
     "recentFiles": [
