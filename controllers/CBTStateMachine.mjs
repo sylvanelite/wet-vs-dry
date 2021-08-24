@@ -547,7 +547,7 @@ class CBTStateMachine{
                     Math.floor(frame.width*CBTStateMachine.ANIMATION_SCALE),
                     Math.floor(frame.height*CBTStateMachine.ANIMATION_SCALE));
                 //only render this while debugging:
-                CBTStateMachine.drawHitboxes(ctx,frame,-frame.anchorX*CBTStateMachine.ANIMATION_SCALE,-frame.anchorY*CBTStateMachine.ANIMATION_SCALE);
+                //CBTStateMachine.drawHitboxes(ctx,frame,-frame.anchorX*CBTStateMachine.ANIMATION_SCALE,-frame.anchorY*CBTStateMachine.ANIMATION_SCALE);
                 ctx.restore();
                 Fes.R.varCtx.imageSmoothingEnabled = false;
             }
