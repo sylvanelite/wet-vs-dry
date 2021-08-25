@@ -13,8 +13,8 @@ class Networking {
             url = parts[0];
         }
 		const regex = /[A-Z]/gi;
-		const foundAlpha = paragraph.match(url);
-		const isLocal = false;
+		const foundAlpha = url.match(regex);
+		let isLocal = false;
 		//check to see if the site is hosted (not on localhost, not on IP address)
 		if(!foundAlpha||url.indexOf("localhost")>=-1){//To test, use upper case localhost?
 			isLocal=true;
