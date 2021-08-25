@@ -1,8 +1,10 @@
 import { Map } from "./map.mjs";
 import { Components } from "./ecs/components.mjs";
 import { Systems } from "./ecs/systems.mjs";
+import { Joystick } from "./controllers/joystick.mjs";
 import { Font } from "./assets/fonts/font.mjs";
 import { Audio } from "./controllers/audio.mjs";
+
 let Fes = {
 	definitions:{},
 	data:{
@@ -68,6 +70,7 @@ Fes.start = function (){
 		Fes.engine.renderTimer = requestAnimationFrame(Fes.R.render);
 	});
 	Audio.playBGM(Audio.BGM_KINDS.TITLE);
+	Joystick.init();
 };
 Fes.update =function (){
     //keep track of time delta
@@ -103,6 +106,7 @@ Fes.update =function (){
 	//keep the mouse x/y in sync with screen updates
 	Fes.engine.controls.Mouse_X = Fes.R.screenX+Fes.engine.controls.Mouse_Screen_X;
 	Fes.engine.controls.Mouse_Y = Fes.R.screenY+Fes.engine.controls.Mouse_Screen_Y;
+	Joystick.update();
 };
 Fes.stop = function (){
     cancelAnimationFrame(Fes.engine.renderTimer);
