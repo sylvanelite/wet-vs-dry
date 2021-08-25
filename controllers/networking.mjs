@@ -12,12 +12,25 @@ class Networking {
             let parts =url.split(":");
             url = parts[0];
         }
-        this.peerSettings = {
-            host: url,
-            port: 9000,
-            path: '/',
-            debug: 2
-        };
+		const regex = /[A-Z]/gi;
+		const foundAlpha = paragraph.match(url);
+		const isLocal = false;
+		//check to see if the site is hosted (not on localhost, not on IP address)
+		if(!foundAlpha||url.indexOf("localhost")>=-1){//To test, use upper case localhost?
+			isLocal=true;
+		}
+		if(isLocal){
+			this.peerSettings = {
+				host: url,
+				port: 9000,
+				path: '/',
+				debug: 2
+			};
+		}else{
+			this.peerSettings = {
+				debug: 2
+			};
+		}
         this.baseId = "sylvan_4H6B8VJYTD_";//random string to prevent collisions with anyone else using peer js
 		this.name="networking";
         this.isStarted = false;//set to true when all players have joined
