@@ -1,4 +1,4 @@
-import { Networking } from "./Networking.mjs";
+import { Networking } from "./networking.mjs";
 import { Map } from "../map.mjs";
 import { Player } from "../player.mjs";
 import { MouseAim } from "./mouseaim.mjs";

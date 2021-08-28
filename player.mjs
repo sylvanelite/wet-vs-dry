@@ -3,7 +3,7 @@ import { MouseAim } from "./controllers/mouseaim.mjs";
 import { CBTStateMachine } from "./controllers/CBTStateMachine.mjs";
 import { Knockback } from "./controllers/knockback.mjs";
 import { Stocks } from "./controllers/stocks.mjs";
-import { defineSystem } from "../ecs.js";
+import { defineSystem } from "./ecs.js";
 
 
 class Player  {

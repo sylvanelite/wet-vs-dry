@@ -1,4 +1,4 @@
-import { Networking } from "./Networking.mjs";
+import { Networking } from "./networking.mjs";
 import { FileMapGen } from "../terrain/mapgen_file.mjs";
 import { Player } from "../player.mjs";
 import { ECS } from "../ecs.js";
