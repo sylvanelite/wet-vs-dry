@@ -30,7 +30,7 @@ const n = {
         float: new t(Float32Array),
         float64: new t(Float64Array),
         f64: new t(Float64Array),
-        double: new t(Float64Array),
+        double: new t(Float64Array)/*,
         int64: new t(BigInt64Array),
         bigint64: new t(BigInt64Array),
         i64: new t(BigInt64Array),
@@ -38,7 +38,7 @@ const n = {
         uint64: new t(BigUint64Array),
         biguint64: new t(BigUint64Array),
         u64: new t(BigUint64Array),
-        ulong: new t(BigUint64Array)
+        ulong: new t(BigUint64Array)*/
     },
     e = new Map;
 for (let t in n) {
